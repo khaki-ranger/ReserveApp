@@ -1,0 +1,431 @@
+/* reset */
+img {
+  vertical-align:bottom;
+}
+p {
+  margin: 0;
+}
+ul,dl,dd {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+a {
+  text-decoration: none;
+  color: inherit;
+}
+table {
+  border-spacing: 0;
+  width: 100%;
+}
+/* colors */
+body {
+  background-color: #FFF6E5;
+  color: #333;
+}
+header {
+  background: #2186C4;
+  border-bottom: solid 1px #FFF6E5;
+  color: white;
+}
+#nav-content .head {
+  background: #2186C4;
+}
+a.comp-ui {
+  background-color: #2186C4;
+  color: white;
+}
+.radio-block input[type="radio"]:checked + label {
+  border-color: #2186C4;
+  background-color: #2186C4;
+  color: white;
+}
+.action .label-text {
+  background-color: #FFF6E5;
+}
+/* common */
+body {
+  font-family:-apple-system, BlinkMacSystemFont, "Helvetica Neue", "Segoe UI","Noto Sans Japanese","ヒラギノ角ゴ ProN W3", Meiryo, sans-serif;
+  font-size: 14px;
+  padding: 60px 0 0 0;
+  margin: 0;
+}
+.container {
+  padding: 0 1rem;
+}
+.clearfix::after{
+  content: "";
+  display: block;
+  clear: both;
+}
+.fl-left {
+  float: left;
+}
+.fl-right {
+  float: right;
+}
+.responsive-img {
+  width: 100%;
+  height: auto;
+}
+@media (max-width: 768px) {
+.sp-none {
+  display: none !important;
+}
+}
+@media (min-width: 768px) {
+.pc-none {
+  display: none !important;
+}
+.main-content {
+  padding-left: 300px;
+}
+}
+/* overlay */
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transition: background-color .5s ease;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+.overlay.visible {
+  background-color: rgba(0, 0, 0, .6);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.overlay .modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: white;
+}
+.overlay .modal.visible {
+  display: block;
+}
+.overlay .modal .panel {
+  padding: 1em;
+}
+.overlay .modal .close {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  border: none;
+}
+.overlay .modal .close:before {
+  font-family: "Font Awesome 5 Free";
+  content: '\f057';
+  padding-right: .5rem;
+}
+@media (max-width: 768px) {
+.overlay .modal {
+  width: 75%;
+  height: 75%;
+}
+}
+@media (min-width: 768px) {
+.overlay .modal {
+  width: 50%;
+  height: 50%;
+}
+}
+/* header */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 59px;
+  z-index: 3;
+  display: table;
+}
+header .menu,
+header .logo,
+header .login {
+  display: table-cell;
+  vertical-align: middle;
+}
+header .login {
+  text-align: right;
+  position: relative;
+}
+header .logo img {
+  height: 40px;
+  width: auto;
+}
+header .menu i,
+header .login i {
+  font-size: 1.75rem;
+}
+header .logo i {
+  font-size: 2rem;
+}
+header .login span {
+  margin-right: 1rem;
+}
+header .login .pulldown-menu {
+  position: absolute;
+  top: 59px;
+  right: 13px;
+  background-color: white;
+  color: #333;
+  border-left: solid 1px #BF360C;
+  border-right: solid 1px #BF360C;
+  border-bottom: solid 1px #BF360C;
+  text-align: center;
+  display: none;
+}
+header .login .pulldown-menu p,
+header .login .pulldown-menu a {
+  padding: .75rem 1rem;
+  display: block;
+}
+header .login .pulldown-menu p {
+  border-bottom: solid 1px #FFCCBC;
+}
+header .login .pulldown-menu .logout {
+  border-top: solid 1px #FFCCBC;
+}
+header .profile-img {
+  vertical-align: middle;
+} 
+header .nav-login {
+  cursor: pointer;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+header .menu {
+  text-align: left;
+  width: 30%;
+}
+header .logo {
+  text-align: center;
+  width: 40%;
+}
+header .login {
+  width: 30%;
+}
+header .login .pulldown-menu {
+  width: 115%;
+  right: 1rem;
+}
+}
+@media (min-width: 768px) {
+header .logo {
+  text-align: left;
+  width: 50%;
+  padding-left: 1rem;
+}
+header .login {
+  width: 50%;
+}
+}
+/* nav-drawer */
+#nav-drawer {
+  position: relative;
+}
+/*チェックボックス等は非表示に*/
+.nav-unshown {
+  display: none;
+}
+/*中身*/
+#nav-content {
+  overflow: auto;
+  position: fixed;
+  left: 0;
+  z-index: 999;
+  width: 300px;
+  height: 100%;
+  background: #fff;
+}
+#nav-content nav a {
+  display: block;
+  padding: 1.5rem 1rem;
+  color: #333;
+}
+@media (max-width: 768px) {
+/*アイコンのスペース*/
+#nav-open {
+  display: block;
+  vertical-align: middle;
+  padding-left: 1rem;
+}
+/*閉じる用の薄黒カバー*/
+#nav-close {
+  display: none;/*はじめは隠しておく*/
+  position: fixed;
+  z-index: 99;
+  top: 0;/*全体に広がるように*/
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0;
+  transition: .3s ease-in-out;
+}
+#nav-content {
+  top: 0;
+  transition: .1s ease-in-out;
+  transform: translateX(-105%);/*左に隠しておく*/
+  -webkit-transform: translateX(-105%);
+}
+/*チェックが入ったらもろもろ表示*/
+#nav-input:checked ~ #nav-close {
+  display: block;/*カバーを表示*/
+  opacity: .5;
+}
+#nav-input:checked ~ #nav-content {
+  transition: .3s ease-in-out;
+  transform: translateX(0%);/*中身を表示（右へスライド）*/
+  -webkit-transform: translateX(0%);
+}
+#nav-content .head {
+  display: table;
+  width: 100%;
+}
+#nav-content .head label {
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
+  height: 59px;
+  position: relative;
+}
+#nav-content .head label:before {
+  content: '\0d7';
+  font-size: 2rem;
+  position: absolute;
+  top: 14%;
+  left: 1rem;
+}
+}
+@media (min-width: 768px) {
+#nav-content {
+  top: 60px;
+  width: 300px;
+}
+#nav-content nav a:hover {
+  background-color: #ddd;
+}
+#nav-content .head {
+  display: none;
+}
+}
+/* comp-ui */
+.form-elem {
+  margin-bottom: 1.5em;
+}
+.form-elem .thumb {
+  width: 200px;
+}
+label.comp-ui {
+  font-weight: bold;
+}
+label>input[type="text"].comp-ui,
+label>select.comp-ui,
+label>textarea.comp-ui,
+.form-elem .thumb {
+  margin-top: .25rem;
+}
+select.comp-ui {
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+  border: 0;
+  margin: 0;
+  padding: 0;
+  background: none transparent;
+  vertical-align: middle;
+  font-size: inherit;
+  color: inherit;
+  box-sizing: content-box;
+}
+a.comp-ui {
+  display: block;
+  text-align: center;
+}
+button.comp-ui {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+a.comp-ui,
+button.comp-ui {
+  width: 100%;
+  padding: .5rem 0;
+  border-radius: 3rem;
+}
+input[type="file"].comp-ui {
+  width: 100%;
+  margin-top: 1rem;
+}
+input[type="text"].comp-ui,
+select.comp-ui,
+textarea.comp-ui {
+  width: 100%;
+  padding: .5em;
+  box-sizing: border-box;
+  border: solid 1px #ddd;
+  border-radius: 3px;
+}
+@media (max-width: 768px) {
+.radio-block label,
+a.comp-ui,
+button.comp-ui,
+input.comp-ui,
+select.comp-ui,
+textarea.comp-ui {
+  font-size: 16px;
+}
+}
+@media (min-width: 768px) {
+.radio-block label,
+a.comp-ui,
+button.comp-ui,
+input.comp-ui,
+select.comp-ui,
+textarea.comp-ui {
+  font-size: .9rem;
+}
+}
+/* radio-block */
+.radio-block {
+  display: table;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.action .label-text {
+  padding: .5rem 0;
+  border-radius: 3px 3px 0 0;
+  border-left: solid 1px #FFCCBC;
+  border-right: solid 1px #FFCCBC;
+  border-top: solid 1px #FFCCBC;
+}
+.radio-block input[type="radio"],
+.radio-block label {
+  display: table-cell;
+  width: 50%;
+}
+.radio-block input[type="radio"] {
+  display: none;
+}
+.radio-block label {
+  border: solid 1px #FFCCBC;
+  padding: .5rem 0;
+}
+.radio-block label:first-of-type {
+  border-radius: 0 0 0 3px;
+  border-right: none;
+}
+.radio-block label:last-of-type {
+  border-radius: 0 0 3px 0;
+  border-left: none;
+}
