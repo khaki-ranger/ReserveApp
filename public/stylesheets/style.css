@@ -1,1 +1,40 @@
-
+.signin {
+  background-image: url(/images/welcome.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+.signin .dialog {
+  padding: 1rem 1rem 0 1rem;
+  background: rgba(255, 255, 255, .95);
+  border: solid 1px #ddd;
+  border-radius: 3px;
+}
+@media (max-width: 576px) {
+.signin {
+  padding: 1rem;
+}
+}
+@media (min-width: 576px) {
+.signin {
+  padding: 6rem 1rem;
+}
+.signin .dialog {
+  margin: 0 0 0 auto;
+}
+}
+@media (min-width: 576px) and (max-width: 768px) {
+.signin .dialog {
+  width: 50%;
+}
+}
+@media (min-width: 768px) and (max-width: 992px) {
+.signin .dialog {
+  width: 40%;
+}
+}
+@media (min-width: 992px) {
+.signin .dialog {
+  width: 30%;
+}
+}

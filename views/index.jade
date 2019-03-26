@@ -1,14 +1,19 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
-  form(action="/login" method="post")
-    div.userid
-      label ユーザーID
-      input(type="text" name="username")
-    div.password
-      label パスワード
-      input(type="password" name="password")
-    div.button
-      input(type="submit" value="ログイン")
+  section.signin
+    .dialog
+      form.ui-component(action="/login" method="post")
+        div.userid.ui-block
+          label.ui-component(id="username") ユーザーネーム
+          input.ui-component(type="text" name="username" for="username" placeholder="username")
+        div.password.ui-block
+          label.ui-component パスワード
+          input.ui-component(type="password" name="password" placeholder="password")
+        div.ui-block
+          button.ui-component ログイン
+  section.information
+    .container
+      .head-component
+        h1 お知らせ
+          span INFORMATION
