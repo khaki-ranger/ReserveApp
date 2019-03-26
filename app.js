@@ -5,6 +5,11 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var helmet = require('helmet');
 
+// データモデルの読み込みと定義
+var User = require('./models/user');
+User.sync();
+
+// ルーターの読み込み
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
@@ -21,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// ルーターの定義
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 

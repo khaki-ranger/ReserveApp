@@ -3,3 +3,12 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
+  form(action="/login" method="post")
+    div.userid
+      label ユーザーID
+      input(type="text" name="username")
+    div.password
+      label パスワード
+      input(type="password" name="password")
+    div.button
+      input(type="submit" value="ログイン")
