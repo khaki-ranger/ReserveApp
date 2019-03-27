@@ -6,6 +6,8 @@ block content
       form.ui-component(action="/register" method="post")
         div.userid.ui-block
           label.ui-component(for="username") ユーザーネーム
+            if message
+              span.message.caution #{message}
           input.ui-component(type="text" name="username" id="username" placeholder="username")
         div.password.ui-block
           label.ui-component(for="password") パスワード
@@ -16,4 +18,4 @@ block content
             each role in roles
               option(value="#{role.num}") #{role.name}
         div.ui-block
-          button.ui-component 登録
+          button.ui-component(type="submit") 登録

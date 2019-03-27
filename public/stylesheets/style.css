@@ -1,3 +1,4 @@
+/* signin and register */
 .signin {
   background-image: url(/images/welcome.jpg);
   background-size: cover;
@@ -10,6 +11,11 @@
   background: rgba(255, 255, 255, .95);
   border: solid 1px #ddd;
   border-radius: 3px;
+}
+.signin .dialog .message,
+.register .dialog .message {
+  margin-left: .5rem;
+  font-size: .9rem;
 }
 @media (max-width: 576px) {
 .signin,
