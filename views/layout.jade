@@ -25,6 +25,9 @@ html
          a(href="/")
            i(class="fas fa-star")
       .login
+        if loginUser
           span.nav-login
-            i(class="fas fa-user-circle")
+            span #{loginUser.username}
+        else
+          span.nav-login ログインしていません
     block content
