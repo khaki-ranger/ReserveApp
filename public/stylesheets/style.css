@@ -4,14 +4,16 @@
   background-repeat: no-repeat;
   background-position: center;
 }
-.signin .dialog {
+.signin .dialog,
+.register .dialog {
   padding: 1rem 1rem 0 1rem;
   background: rgba(255, 255, 255, .95);
   border: solid 1px #ddd;
   border-radius: 3px;
 }
 @media (max-width: 576px) {
-.signin {
+.signin,
+.register {
   padding: 1rem;
 }
 }
@@ -21,6 +23,10 @@
 }
 .signin .dialog {
   margin: 0 0 0 auto;
+}
+.register {
+  width: 50%;
+  margin: 2rem auto;
 }
 }
 @media (min-width: 576px) and (max-width: 768px) {

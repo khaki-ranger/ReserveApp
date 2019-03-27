@@ -232,8 +232,16 @@ button.ui-component {
   margin-top: .5rem;
   font-weight: bold;
 }
+select.ui-component {
+  background-color: white;
+  height: 2.4rem;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  appearance: none;
+}
 input[type="text"].ui-component,
 input[type="password"].ui-component,
+select.ui-component,
 button.ui-component {
   width: 100%;
   box-sizing: border-box;
@@ -241,7 +249,8 @@ button.ui-component {
   border-radius: 3px;
 }
 input[type="text"].ui-component,
-input[type="password"].ui-component {
+input[type="password"].ui-component,
+select.ui-component {
   margin-top: .25rem;
   border: solid 1px #ddd;
 }

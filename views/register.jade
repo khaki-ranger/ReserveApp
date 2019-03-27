@@ -1,0 +1,19 @@
+extends layout
+
+block content
+  section.register
+    .dialog
+      form.ui-component(action="/register" method="post")
+        div.userid.ui-block
+          label.ui-component(for="username") ユーザーネーム
+          input.ui-component(type="text" name="username" id="username" placeholder="username")
+        div.password.ui-block
+          label.ui-component(for="password") パスワード
+          input.ui-component(type="password" name="password" id="password" placeholder="password")
+        div.role.ui-block
+          label.ui-component(for="role") 権限
+          select.ui-component(name="role" id="role")
+            each role in roles
+              option(value="#{role.num}") #{role.name}
+        div.ui-block
+          button.ui-component 登録
