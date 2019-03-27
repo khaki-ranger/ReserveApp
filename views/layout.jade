@@ -28,6 +28,7 @@ html
         if loginUser
           span.nav-login
             span #{loginUser.username}
+            a(href="/logout") ログアウト
         else
           span.nav-login ログインしていません
     block content

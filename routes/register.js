@@ -3,6 +3,8 @@ const express = require('express');
 const router = express.Router();
 const uuidV1 = require('uuid/v1');
 const User = require('../models/user');
+const loginUser = require('./login-user');
+
 const roles = [
   {num: 3, name: 'ユーザー'},
   {num: 2, name: '管理者'},
@@ -11,10 +13,13 @@ const roles = [
 const message = {};
 
 router.get('/', (req, res, next) => {
-  res.render('register', {
-    title: '新規ユーザー登録',
-    roles: roles,
-    message: message
+  const title = '新規ユーザー登録';
+  loginUser(req.user, (result) => {
+    res.render('register', {
+      title: title,
+      roles: roles,
+      message: message
+    });
   });
 });
 
