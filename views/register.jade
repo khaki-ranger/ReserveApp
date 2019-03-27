@@ -6,11 +6,13 @@ block content
       form.ui-component(action="/register" method="post")
         div.userid.ui-block
           label.ui-component(for="username") ユーザーネーム
-            if message
-              span.message.caution #{message}
+            if message.username
+              span.message.caution #{message.username}
           input.ui-component(type="text" name="username" id="username" placeholder="username")
         div.password.ui-block
           label.ui-component(for="password") パスワード
+            if message.password
+              span.message.caution #{message.password}
           input.ui-component(type="password" name="password" id="password" placeholder="password")
         div.role.ui-block
           label.ui-component(for="role") 権限

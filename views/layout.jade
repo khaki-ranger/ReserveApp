@@ -5,15 +5,14 @@ html
     meta(http-equiv="X-UA-Compatible" content="IE=edge7")
     meta(name="viewport" content="width=device-width, initial-scale=1")
     title= title
-    link(rel='stylesheet', href='/stylesheets/common.css')
-    link(rel='stylesheet', href='/stylesheets/style.css')
-    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.1/css/all.css')
+    link(rel='stylesheet', href='/stylesheets/style.css', type="text/css")
+    link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.1/css/all.css', type="text/css")
   body
     header
       .menu
         div(id="nav-drawer")
           input(id="nav-input", type="checkbox", class="nav-unshown")
-          label(id="nav-open", for="nav-input", class="nav-unshown")
+          label(id="nav-open", for="nav-input")
             i(class="fas fa-bars")
           label(id="nav-close", for="nav-input", class="nav-unshown")
           div(id="nav-content")
