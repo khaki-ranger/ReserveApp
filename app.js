@@ -57,7 +57,6 @@ var logoutRouter = require('./routes/logout');
 
 var app = express();
 app.use(helmet());
-app.use(flash());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -78,6 +77,7 @@ app.use(session({
 }));
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',

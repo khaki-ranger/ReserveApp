@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const uuidV1 = require('uuid/v1');
 const User = require('../models/user');
+const authenticationEnsurer = require('./authentication-ensurer');
 const loginUser = require('./login-user');
 
 const roles = [
@@ -12,18 +13,19 @@ const roles = [
 ];
 const message = {};
 
-router.get('/', (req, res, next) => {
+router.get('/', authenticationEnsurer, (req, res, next) => {
   const title = '新規ユーザー登録';
   loginUser(req.user, (result) => {
     res.render('register', {
       title: title,
+      loginUser: result,
       roles: roles,
       message: message
     });
   });
 });
 
-router.post('/', (req, res, next) => {
+router.post('/', authenticationEnsurer, (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const role = req.body.role;
