@@ -346,14 +346,14 @@ button.ui-component {
 }
 .office-list .box>.information{
   width: 20%;
+  background-color: #d7092f;
+  color: white;
 }
 .office-list .box .data {
   border-left: solid 1px #ddd;
   padding: 1rem;
 }
 .office-list .box>.information .name {
-  background-color: #d7092f;
-  color: white;
   padding: 1rem;
   text-align: center;
   font-weight: bold;
@@ -364,15 +364,17 @@ button.ui-component {
 .space-list .space {
   margin-bottom: 1rem;
 }
-.space-list .space .information .name {
+.space-list .space>.information {
+  margin-bottom: .25rem;
+}
+.space-list .space>.information .name {
   float: left;
   font-weight: bold;
-  margin-bottom: .5rem;
 }
-.space-list .space .information .capacity {
+.space-list .space>.information .capacity {
   float: right;
 }
-.space-list .space .information .capacity span {
+.space-list .space>.information .capacity span {
   font-weight: bold;
   padding: 0 .25rem;
 }
