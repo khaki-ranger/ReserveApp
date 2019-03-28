@@ -25,43 +25,47 @@ block content
           h1 Reservation
             span ご予約内容確認
     - var hasOffice = offices.length > 0 
-    section.office
-      .container
-        .office-list
-          each office in offices
-            .box
-              .information
-                .photo
-                  img(src="#{office.imgPath}" class="responsive-img")
-                .name #{office.officename}
-              .data
-                ul.space-list
-                  li.space.clearfix
-                    .information.clearfix
-                      .name スペース1
-                      .capacity
-                        |最大
-                        span 4
-                        |名
-                    .schedule
-                      .period
-                        .time 9:00 - 10:00
-                        .status.unavailable &#10005;
-                      .period
-                        .time 10:00 - 11:00
-                        .status.available &#9675;
-                      .period
-                        .time 11:00 - 12:00
-                        .status.available &#9675;
-                      .period
-                        .time 12:00 - 13:00
-                        .status.available &#9675;
-                      .period
-                        .time 14:00 - 15:00
-                        .status.available &#9675;
-                      .period
-                        .time 15:00 - 16:00
-                        .status.available &#9675;
-                      .period
-                        .time 16:00 - 17:30
-                        .status.available &#9675;
+    if hasOffice
+      section.office
+        .container
+          .office-list
+            each office in offices
+              .box
+                .information
+                  .photo
+                    img(src="#{office.imgPath}" class="responsive-img")
+                  .name #{office.officename}
+                .data
+                  - var hasSpace = office.spaces.length > 0 
+                  if hasSpace
+                    ul.space-list
+                      each space in office.spaces
+                        li.space.clearfix
+                          .information.clearfix
+                            .name #{space.spacename}
+                            .capacity
+                              |最大
+                              span #{space.capacity}
+                              |名
+                          .schedule
+                            .period
+                              .time 9:00 - 10:00
+                              .status.unavailable &#10005;
+                            .period
+                              .time 10:00 - 11:00
+                              .status.available &#9675;
+                            .period
+                              .time 11:00 - 12:00
+                              .status.available &#9675;
+                            .period
+                              .time 12:00 - 13:00
+                              .status.available &#9675;
+                            .period
+                              .time 14:00 - 15:00
+                              .status.available &#9675;
+                            .period
+                              .time 15:00 - 16:00
+                              .status.available &#9675;
+                            .period
+                              .time 16:00 - 17:30
+                              .status.available &#9675;
