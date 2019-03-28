@@ -9,22 +9,9 @@ html
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.1/css/all.css', type="text/css")
   body
     header
-      .menu
-        div(id="nav-drawer")
-          input(id="nav-input", type="checkbox", class="nav-unshown")
-          label(id="nav-open", for="nav-input")
-            i(class="fas fa-bars")
-          label(id="nav-close", for="nav-input", class="nav-unshown")
-          div(id="nav-content")
-            .head
-              label.nav-unshown(for="nav-input") MENU
-            .navigation
-              nav
-                a(href="/") ホーム
       .logo
-         a(href="/")
-           i(class="fas fa-star")
-      .login
+         a(href="/") SERVICE NAME
+      .action
         if loginUser
           span.nav-login
             span #{loginUser.username}

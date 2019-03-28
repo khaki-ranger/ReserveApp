@@ -15,7 +15,8 @@ const schedules = [
     date: '2019-03-28 10:49:00.173+00',
     periodNum: 6,
     guestname: '鈴木イチロー',
-    mailaddress: 'suzuki@mail.com'
+    mailaddress: 'suzuki@mail.com',
+    canceled: false
   },
   {
     id: 2,
@@ -24,7 +25,8 @@ const schedules = [
     date: '2019-03-28 10:49:00.173+00',
     periodNum: 2,
     guestname: '中村紀洋',
-    mailaddress: 'nakamura@mail.com'
+    mailaddress: 'nakamura@mail.com',
+    canceled: false
   }
 ];
 
