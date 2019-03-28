@@ -49,7 +49,7 @@ block content
                               |名
                           .schedule
                             each period in space.periods
-                              .period(class="num-#{period.periodId}")
+                              .period(class="num-#{period.num}")
                                 .time #{period.periodname}
                                 if period.availability
                                   .status.available &#9675;
