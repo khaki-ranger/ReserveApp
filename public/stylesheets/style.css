@@ -333,12 +333,11 @@ button.ui-component {
 }
 }
 /* office-list */
-.office-list {
-}
 .office-list .box {
   display: table;
   width: 100%;
   border: solid 1px #ddd;
+  margin-bottom: 1rem;
 }
 .office-list .box>.information,
 .office-list .box .data {

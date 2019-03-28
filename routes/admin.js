@@ -136,7 +136,7 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
       if (office) {
         message.officename = 'すでに登録されているオフィス名です';
         loginUser(req.user, (result) => {
-          res.render('admin/officename', {
+          res.render('admin/officecreate', {
             title: title,
             loginUser: result,
             message: message
