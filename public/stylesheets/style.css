@@ -381,39 +381,39 @@ button.ui-component {
   display: table;
   width: 100%;
 }
-.space-list .space .schedule .term {
+.space-list .space .schedule .period {
   display: table-cell;
   width: 10%;
   vertical-align: middle;
 }
-.space-list .space .schedule .term .time,
-.space-list .space .schedule .term .status {
+.space-list .space .schedule .period .time,
+.space-list .space .schedule .period .status {
   text-align: center;
   padding: .5rem 0;
   background-color: #eee;
 }
-.space-list .space .schedule .term:last-child .time,
-.space-list .space .schedule .term:last-child .status {
+.space-list .space .schedule .period:last-child .time,
+.space-list .space .schedule .period:last-child .status {
   border-right: none;
 }
-.space-list .space .schedule .term .time {
+.space-list .space .schedule .period .time {
   border-right: solid 1px white;
   border-bottom: solid 1px white;
   font-size: .75rem;
 }
-.space-list .space .schedule .term .status {
+.space-list .space .schedule .period .status {
   border-right: solid 1px white;
   font-size: 1rem;
 }
-.space-list .space .schedule .term .status.available {
+.space-list .space .schedule .period .status.available {
   cursor: pointer;
   background-color: #ccc;
   font-weight: bold;
 }
-.space-list .space .schedule .term .status.available:hover {
+.space-list .space .schedule .period .status.available:hover {
   background-color: #d7092f;
   color: white;
 }
-.space-list .space .schedule .term .status.unavailable {
+.space-list .space .schedule .period .status.unavailable {
   font-size: .75rem;
 }

@@ -11,7 +11,16 @@ var flash = require('connect-flash');
 
 // データモデルの読み込みと定義
 var User = require('./models/user');
-User.sync();
+var Office = require('./models/office');
+User.sync({
+    force: false,
+    alter:true
+  }).then(() => {
+    Office.sync({
+      force: false,
+      alter:true
+  });
+});
 
 // セッションの利用
 passport.serializeUser(function (user, done) {
