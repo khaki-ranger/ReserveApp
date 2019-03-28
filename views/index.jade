@@ -48,24 +48,10 @@ block content
                               span #{space.capacity}
                               |名
                           .schedule
-                            .period
-                              .time 9:00 - 10:00
-                              .status.unavailable &#10005;
-                            .period
-                              .time 10:00 - 11:00
-                              .status.available &#9675;
-                            .period
-                              .time 11:00 - 12:00
-                              .status.available &#9675;
-                            .period
-                              .time 12:00 - 13:00
-                              .status.available &#9675;
-                            .period
-                              .time 14:00 - 15:00
-                              .status.available &#9675;
-                            .period
-                              .time 15:00 - 16:00
-                              .status.available &#9675;
-                            .period
-                              .time 16:00 - 17:30
-                              .status.available &#9675;
+                            each period in space.periods
+                              .period(class="num-#{period.periodId}")
+                                .time #{period.periodname}
+                                if period.availability
+                                  .status.available &#9675;
+                                else
+                                  .status.unavailable &#10005;
