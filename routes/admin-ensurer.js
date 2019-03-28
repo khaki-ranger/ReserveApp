@@ -1,9 +1,8 @@
 'use strict';
-require('dotenv').config();
 
 function ensure(req, res, next) {
   if (req.isAuthenticated()) {
-    if (req.user.username === process.env.SUPER_USERNAME) {
+    if (req.user.role === 1 || req.user.role === 2) {
       return next();
     } else {
       res.redirect('/');
