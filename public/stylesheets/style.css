@@ -1,6 +1,6 @@
 /* reset */
 img {
-  vertical-align:bottom;
+  vertical-align: bottom;
 }
 p {
   margin: 0;
@@ -331,4 +331,89 @@ button.ui-component {
 .signin .dialog {
   width: 30%;
 }
+}
+/* office-list */
+.office-list {
+}
+.office-list .box {
+  display: table;
+  width: 100%;
+  border: solid 1px #ddd;
+}
+.office-list .box>.information,
+.office-list .box .data {
+  display: table-cell;
+  vertical-align: top;
+}
+.office-list .box>.information{
+  width: 20%;
+}
+.office-list .box .data {
+  border-left: solid 1px #ddd;
+  padding: 1rem;
+}
+.office-list .box>.information .name {
+  background-color: #d7092f;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  font-weight: bold;
+}
+.office-list .box .data {
+}
+/* space-list */
+.space-list .space {
+  margin-bottom: 1rem;
+}
+.space-list .space .information .name {
+  float: left;
+  font-weight: bold;
+  margin-bottom: .5rem;
+}
+.space-list .space .information .capacity {
+  float: right;
+}
+.space-list .space .information .capacity span {
+  font-weight: bold;
+  padding: 0 .25rem;
+}
+.space-list .space .schedule {
+  display: table;
+  width: 100%;
+}
+.space-list .space .schedule .term {
+  display: table-cell;
+  width: 10%;
+  vertical-align: middle;
+}
+.space-list .space .schedule .term .time,
+.space-list .space .schedule .term .status {
+  text-align: center;
+  padding: .5rem 0;
+  background-color: #eee;
+}
+.space-list .space .schedule .term:last-child .time,
+.space-list .space .schedule .term:last-child .status {
+  border-right: none;
+}
+.space-list .space .schedule .term .time {
+  border-right: solid 1px white;
+  border-bottom: solid 1px white;
+  font-size: .75rem;
+}
+.space-list .space .schedule .term .status {
+  border-right: solid 1px white;
+  font-size: 1rem;
+}
+.space-list .space .schedule .term .status.available {
+  cursor: pointer;
+  background-color: #ccc;
+  font-weight: bold;
+}
+.space-list .space .schedule .term .status.available:hover {
+  background-color: #d7092f;
+  color: white;
+}
+.space-list .space .schedule .term .status.unavailable {
+  font-size: .75rem;
 }

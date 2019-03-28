@@ -13,14 +13,53 @@ block content
             input.ui-component(type="password" name="password" placeholder="password")
           div.ui-block
             button.ui-component(type="submit") ログイン
-    section.information
+    section.about
       .container
         .head-component
-          h1 ABOUT
+          h1 About
             span このサービスについて
   else
-    section.information
+    section.reservation
       .container
         .head-component
-          h1 INFORMATION
-            span お知らせ
+          h1 Reservation
+            span ご予約内容確認
+    section.office
+      .container
+        .office-list
+          .box
+            .information
+              .photo
+                img(src="/images/office_a.jpg" class="responsive-img")
+              .name オフィスA
+            .data
+              ul.space-list
+                li.space.clearfix
+                  .information.clearfix
+                    .name スペース1
+                    .capacity
+                      |最大
+                      span 4
+                      |名
+                  .schedule
+                    .term
+                      .time 9:00 - 10:00
+                      .status.unavailable &#10005;
+                    .term
+                      .time 10:00 - 11:00
+                      .status.available &#9675;
+                    .term
+                      .time 11:00 - 12:00
+                      .status.available &#9675;
+                    .term
+                      .time 12:00 - 13:00
+                      .status.available &#9675;
+                    .term
+                      .time 14:00 - 15:00
+                      .status.available &#9675;
+                    .term
+                      .time 15:00 - 16:00
+                      .status.available &#9675;
+                    .term
+                      .time 16:00 - 17:30
+                      .status.available &#9675;

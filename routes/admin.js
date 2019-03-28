@@ -51,6 +51,7 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
     loginUser(req.user, (result) => {
       res.render('admin/register', {
         title: '新規ユーザー登録',
+        loginUser: result,
         roles: roles,
         message: message
       });
@@ -67,6 +68,7 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
         loginUser(req.user, (result) => {
           res.render('admin/register', {
             title: '新規ユーザー登録',
+            loginUser: result,
             roles: roles,
             message: message
           });
@@ -85,6 +87,5 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
     });
   }
 });
-
 
 module.exports = router;
