@@ -6,6 +6,7 @@ const loginUser = require('./login-user');
 const adminEnsurer = require('./admin-ensurer');
 const User = require('../models/user');
 const Office = require('../models/office');
+const Space = require('../models/space');
 
 const roles = [
   {num: 3, name: 'ユーザー'},
@@ -14,7 +15,7 @@ const roles = [
 ];
 
 router.get('/', adminEnsurer, (req, res, next) => {
-  const title = '管理者専用';
+  const title = '管理者トップ';
   loginUser(req.user, (result) => {
     res.render('admin/index', {
       title: title,
@@ -148,6 +149,62 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
           res.redirect('/');
         });
       }
+    });
+  }
+});
+
+router.get('/space/create', adminEnsurer, (req, res, next) => {
+  const title = '新規スペース登録';
+  const message = {};
+  Office.findAll({
+    order: [['"createdAt"', 'ASC']]
+  }).then((offices) => {
+    loginUser(req.user, (result) => {
+      res.render('admin/spacecreate', {
+        title: title,
+        loginUser: result,
+        offices: offices,
+        message: message
+      });
+    });
+  });
+});
+
+router.post('/space/create', adminEnsurer, (req, res, next) => {
+  const title = '新規スペース登録';
+  const message = {};
+  const dataObject = {
+    spaceId: uuidV1(),
+    spacename: req.body.spacename,
+    capacity: req.body.capacity,
+    officeId: req.body.officeid,
+    createdBy: req.user.userId
+  }
+  // サーバー側でも値のチェック
+  if (!dataObject.spacename || !dataObject.capacity) {
+    if (!dataObject.spacename) {
+      message.spacename = 'スペース名が未入力です'
+    }
+    if (!dataObject.capacity) {
+      message.capacity = '最大収容人数が未入力です'
+    }
+    Office.findAll({
+      order: [['"createdAt"', 'ASC']]
+    }).then((offices) => {
+      loginUser(req.user, (result) => {
+        res.render('admin/spacecreate', {
+          title: title,
+          loginUser: result,
+          offices: offices,
+          message: message
+        });
+      });
+    });
+  } else {
+    // スペース名の重複は良しとする
+    // DBへの登録処理
+    Space.create(dataObject).then(() => {
+      res.redirect('/');
     });
   }
 });

@@ -7,10 +7,10 @@ const Office = require('../models/office');
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const title = '予約サービス';
-  loginUser(req.user, (result) => {
-    Office.findAll({
-      order: [['"updatedAt"', 'ASC']]
-    }).then((offices) => {
+  Office.findAll({
+    order: [['"updatedAt"', 'ASC']]
+  }).then((offices) => {
+    loginUser(req.user, (result) => {
       res.render('index', {
         title: title,
         loginUser: result,

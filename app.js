@@ -12,6 +12,7 @@ var flash = require('connect-flash');
 // データモデルの読み込みと定義
 var User = require('./models/user');
 var Office = require('./models/office');
+var Space = require('./models/space');
 User.sync({
     force: false,
     alter:true
@@ -19,6 +20,9 @@ User.sync({
     Office.sync({
       force: false,
       alter:true
+    }).then(() => {
+      Space.belongsTo(Office, {foreignKey: 'officeId' });
+      Space.sync();
   });
 });
 
