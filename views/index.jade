@@ -1,19 +1,26 @@
 extends layout
 
 block content
-  section.signin
-    .dialog
-      form.ui-component(action="/login" method="post")
-        div.userid.ui-block
-          label.ui-component(id="username") ユーザーネーム
-          input.ui-component(type="text" name="username" for="username" placeholder="username")
-        div.password.ui-block
-          label.ui-component パスワード
-          input.ui-component(type="password" name="password" placeholder="password")
-        div.ui-block
-          button.ui-component(type="submit") ログイン
-  section.information
-    .container
-      .head-component
-        h1 ABOUT
-          span このサービスについて
+  if !loginUser
+    section.signin
+      .dialog
+        form.ui-component(action="/login" method="post")
+          div.userid.ui-block
+            label.ui-component(id="username") ユーザーネーム
+            input.ui-component(type="text" name="username" for="username" placeholder="username")
+          div.password.ui-block
+            label.ui-component パスワード
+            input.ui-component(type="password" name="password" placeholder="password")
+          div.ui-block
+            button.ui-component(type="submit") ログイン
+    section.information
+      .container
+        .head-component
+          h1 ABOUT
+            span このサービスについて
+  else
+    section.information
+      .container
+        .head-component
+          h1 INFORMATION
+            span お知らせ

@@ -1,9 +1,9 @@
-extends layout
+extends ../layout
 
 block content
   section.register
     .dialog
-      form.ui-component(action="/register" method="post")
+      form.ui-component(action="/admin/user/register" method="post")
         div.userid.ui-block
           label.ui-component(for="username") ユーザーネーム
             if message.username

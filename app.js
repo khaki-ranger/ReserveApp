@@ -52,8 +52,8 @@ passport.use(new LocalStrategy(
 
 // ルーターの読み込み
 var indexRouter = require('./routes/index');
-var registerRouter = require('./routes/register');
 var logoutRouter = require('./routes/logout');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 app.use(helmet());
@@ -81,14 +81,14 @@ app.use(flash());
 
 app.post('/login',
   passport.authenticate('local', { successRedirect: '/',
-                                   failureRedirect: '/register',
+                                   failureRedirect: '/',
                                    failureFlash: true })
 );
 
 // ルーターの定義
 app.use('/', indexRouter);
-app.use('/register', registerRouter);
 app.use('/logout', logoutRouter);
+app.use('/admin', adminRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
