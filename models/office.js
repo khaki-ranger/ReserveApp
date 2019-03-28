@@ -17,7 +17,7 @@ const Office = loader.database.define('offices', {
     allowNull: false
   },
   createdBy: {
-    type: Sequelize.BIGINT,
+    type: Sequelize.UUID,
     allowNull: false
   }
 }, {

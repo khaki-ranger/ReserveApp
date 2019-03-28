@@ -1,0 +1,18 @@
+extends ../layout
+
+block content
+  section.register
+    .dialog
+      form.ui-component(action="/admin/office/create" method="post")
+        div.officename.ui-block
+          label.ui-component(for="officename") オフィス名
+            if message.officename
+              span.message.caution #{message.officename}
+          input.ui-component(type="text" name="officename" id="officename" placeholder="officename")
+        div.imgpath.ui-block
+          label.ui-component(for="imgpath") 画像パス
+            if message.imgpath
+              span.message.caution #{message.imgpath}
+          input.ui-component(type="text" name="imgpath" id="imgpath" placeholder="imgpath")
+        div.ui-block
+          button.ui-component(type="submit") 登録
