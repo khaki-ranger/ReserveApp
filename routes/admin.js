@@ -12,7 +12,7 @@ const roles = [
   {num: 1, name: '実装者'}
 ];
 
-router.get('/', adminEnsurer, function(req, res, next) {
+router.get('/', adminEnsurer, (req, res, next) => {
   const title = '管理者専用';
   loginUser(req.user, (result) => {
     res.render('admin/index', {
@@ -22,7 +22,7 @@ router.get('/', adminEnsurer, function(req, res, next) {
   });
 });
 
-router.get('/user/register', adminEnsurer, function(req, res, next) {
+router.get('/user/register', adminEnsurer, (req, res, next) => {
   const title = '新規ユーザー登録';
   const message = {};
   loginUser(req.user, (result) => {
@@ -35,7 +35,7 @@ router.get('/user/register', adminEnsurer, function(req, res, next) {
   });
 });
 
-router.post('/', adminEnsurer, (req, res, next) => {
+router.post('/user/register', adminEnsurer, (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
   const role = req.body.role;
@@ -48,10 +48,12 @@ router.post('/', adminEnsurer, (req, res, next) => {
     if (!password) {
       message.password = 'パスワードが未入力です'
     }
-    res.render('register', {
-      title: '新規ユーザー登録',
-      roles: roles,
-      message: message
+    loginUser(req.user, (result) => {
+      res.render('admin/register', {
+        title: '新規ユーザー登録',
+        roles: roles,
+        message: message
+      });
     });
   } else {
     User.findOne({
@@ -62,10 +64,12 @@ router.post('/', adminEnsurer, (req, res, next) => {
       // username の重複をチェック
       if (user) {
         message.username = 'すでに登録されているユーザーネームです';
-        res.render('admin/register', {
-          title: '新規ユーザー登録',
-          roles: roles,
-          message: message
+        loginUser(req.user, (result) => {
+          res.render('admin/register', {
+            title: '新規ユーザー登録',
+            roles: roles,
+            message: message
+          });
         });
       } else {
         // DBへの登録処理
