@@ -52,6 +52,6 @@ block content
                               .period(class="num-#{period.num}")
                                 .time #{period.periodname}
                                 if period.availability
-                                  .status.available &#9675;
+                                  a.status.available(href="/schedule/") &#9675;
                                 else
                                   .status.unavailable &#10005;
