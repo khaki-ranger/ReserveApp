@@ -9,5 +9,10 @@ block content
             if message.guestname
               span.message.caution #{message.guestname}
           input.ui-component(type="text" name="guestname" id="guestname" placeholder="guestname")
+        div.mainaddress.ui-block
+          label.ui-component(for="mainaddress") メールアドレス
+            if message.mainaddress
+              span.message.caution #{message.mainaddress}
+          input.ui-component(type="text" name="mainaddress" id="mainaddress" placeholder="mainaddress")
         div.ui-block
-          button.ui-component(type="submit") 予約
+          button.ui-component(type="submit" disabled) 予約

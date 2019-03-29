@@ -15,7 +15,7 @@ const roles = [
 ];
 
 router.get('/', adminEnsurer, (req, res, next) => {
-  const title = '管理者トップ';
+  const title = '管理者トップ | SERVICE NAME';
   loginUser(req.user, (result) => {
     res.render('admin/index', {
       title: title,
@@ -25,7 +25,7 @@ router.get('/', adminEnsurer, (req, res, next) => {
 });
 
 router.get('/user/register', adminEnsurer, (req, res, next) => {
-  const title = '新規ユーザー登録';
+  const title = '新規ユーザー登録 | SERVICE NAME';
   const message = {};
   loginUser(req.user, (result) => {
     res.render('admin/register', {
@@ -38,7 +38,7 @@ router.get('/user/register', adminEnsurer, (req, res, next) => {
 });
 
 router.post('/user/register', adminEnsurer, (req, res, next) => {
-  const title = '新規ユーザー登録';
+  const title = '新規ユーザー登録 | SERVICE NAME';
   const message = {};
   const username = req.body.username;
   const password = req.body.password;
@@ -92,7 +92,7 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
 });
 
 router.get('/office/create', adminEnsurer, (req, res, next) => {
-  const title = '新規オフィス登録';
+  const title = '新規オフィス登録 | SERVICE NAME';
   const message = {};
   loginUser(req.user, (result) => {
     res.render('admin/officecreate', {
@@ -104,7 +104,7 @@ router.get('/office/create', adminEnsurer, (req, res, next) => {
 });
 
 router.post('/office/create', adminEnsurer, (req, res, next) => {
-  const title = '新規オフィス登録';
+  const title = '新規オフィス登録 | SERVICE NAME';
   const message = {};
   const dataObject = {
     officeId: uuidV1(),
@@ -154,7 +154,7 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
 });
 
 router.get('/space/create', adminEnsurer, (req, res, next) => {
-  const title = '新規スペース登録';
+  const title = '新規スペース登録 | SERVICE NAME';
   const message = {};
   Office.findAll({
     order: [['"createdAt"', 'ASC']]
@@ -171,7 +171,7 @@ router.get('/space/create', adminEnsurer, (req, res, next) => {
 });
 
 router.post('/space/create', adminEnsurer, (req, res, next) => {
-  const title = '新規スペース登録';
+  const title = '新規スペース登録 | SERVICE NAME';
   const message = {};
   const dataObject = {
     spaceId: uuidV1(),

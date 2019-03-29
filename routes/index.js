@@ -32,7 +32,7 @@ const schedules = [
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  const title = '予約サービス';
+  const title = 'SERVICE NAME';
   Office.findAll({
     order: [['"createdAt"', 'ASC']]
   }).then((offices) => {

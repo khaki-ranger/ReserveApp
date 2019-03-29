@@ -18,6 +18,9 @@ block content
         .head-component
           h1 About
             span このサービスについて
+        .read 
+          |このサービスは、会員専用のためご利用にはログインが必要です。
+          |また、現在開発中のため、動作や見た目が変わります。
   else
     - var hasOffice = offices.length > 0 
     if hasOffice
@@ -42,7 +45,7 @@ block content
                               |最大
                               span #{space.capacity}
                               |名
-                          .schedule
+                          .reservation
                             each period in space.periods
                               .period(class="num-#{period.num}")
                                 .time #{period.periodname}

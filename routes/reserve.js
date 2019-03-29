@@ -5,7 +5,7 @@ const loginUser = require('./login-user');
 const authenticationEnsurer = require('./authentication-ensurer');
 
 router.get('/', authenticationEnsurer, (req, res, next) => {
-  const title = '予約';
+  const title = '予約 | SERVICE NAME';
   const message = {};
   loginUser(req.user, (result) => {
     res.render('reserve', {
