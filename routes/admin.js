@@ -14,7 +14,7 @@ const roles = [
   {num: 1, name: '実装者'}
 ];
 
-router.get('/', adminEnsurer, (req, res, next) => {
+router.get('/', (req, res, next) => {
   const title = '管理者トップ';
   loginUser(req.user, (result) => {
     res.render('admin/index', {
@@ -24,7 +24,7 @@ router.get('/', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/user/register', adminEnsurer, (req, res, next) => {
+router.get('/user/register', (req, res, next) => {
   const title = '新規ユーザー登録';
   const message = {};
   loginUser(req.user, (result) => {
@@ -37,7 +37,7 @@ router.get('/user/register', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.post('/user/register', adminEnsurer, (req, res, next) => {
+router.post('/user/register', (req, res, next) => {
   const title = '新規ユーザー登録';
   const message = {};
   const username = req.body.username;
