@@ -67,6 +67,7 @@ passport.use(new LocalStrategy(
 var indexRouter = require('./routes/index');
 var logoutRouter = require('./routes/logout');
 var adminRouter = require('./routes/admin');
+var reserveRouter = require('./routes/reserve');
 
 var app = express();
 app.use(helmet());
@@ -102,6 +103,7 @@ app.post('/login',
 app.use('/', indexRouter);
 app.use('/logout', logoutRouter);
 app.use('/admin', adminRouter);
+app.use('/reserve', reserveRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

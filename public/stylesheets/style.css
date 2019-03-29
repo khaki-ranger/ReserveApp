@@ -93,7 +93,8 @@ header .action {
   width: 70%;
   text-align: right;
 }
-header .action span {
+header .action span,
+header .action a {
   margin-right: 1rem;
 }
 /* ui-component */
@@ -161,21 +162,18 @@ button.ui-component {
   background-repeat: no-repeat;
   background-position: center;
 }
-.signin .dialog,
-.register .dialog {
+.dialog {
   padding: 1rem 1rem 0 1rem;
   background: rgba(255, 255, 255, .95);
   border: solid 1px #ddd;
   border-radius: 3px;
 }
-.signin .dialog .message,
-.register .dialog .message {
+.dialog .message {
   margin-left: .5rem;
   font-size: .9rem;
 }
 @media (max-width: 576px) {
-.signin,
-.register {
+.signin {
   padding: 1rem;
 }
 }
@@ -186,6 +184,7 @@ button.ui-component {
 .signin .dialog {
   margin: 0 0 0 auto;
 }
+.reserve,
 .register {
   width: 50%;
   margin: 2rem auto;
@@ -207,6 +206,9 @@ button.ui-component {
 }
 }
 /* office-list */
+section.office {
+  margin-top: 1rem;
+}
 .office-list .box {
   display: table;
   width: 100%;

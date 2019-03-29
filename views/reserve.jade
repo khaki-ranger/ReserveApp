@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  section.reserve
+    .dialog
+      form.ui-component(action="/reserve" method="post")
+        div.guestname.ui-block
+          label.ui-component(for="guestname") お名前
+            if message.guestname
+              span.message.caution #{message.guestname}
+          input.ui-component(type="text" name="guestname" id="guestname" placeholder="guestname")
+        div.ui-block
+          button.ui-component(type="submit") 予約

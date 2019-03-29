@@ -19,11 +19,6 @@ block content
           h1 About
             span このサービスについて
   else
-    section.reservation
-      .container
-        .head-component
-          h1 Reservation
-            span ご予約内容確認
     - var hasOffice = offices.length > 0 
     if hasOffice
       section.office
@@ -52,6 +47,6 @@ block content
                               .period(class="num-#{period.num}")
                                 .time #{period.periodname}
                                 if period.availability
-                                  a.status.available(href="/schedule/") &#9675;
+                                  a.status.available(href="/reserve") &#9675;
                                 else
                                   .status.unavailable &#10005;

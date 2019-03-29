@@ -13,9 +13,10 @@ html
          a(href="/") SERVICE NAME
       .action
         if loginUser
-          span.nav-login
-            span #{loginUser.username}
-            a(href="/logout") ログアウト
+          span #{loginUser.username}
+          if loginUser.role === 1
+            a(href="/admin") 管理者メニュー
+          a(href="/logout") ログアウト
         else
           span.nav-login ログインしていません
     block content
