@@ -1,0 +1,7 @@
+{
+  "name": "ReserveApp",
+  "description": "予約システム",
+  "logo": "",
+  "keywords": ["node"],
+  "image": "heroku/nodejs"
+}
