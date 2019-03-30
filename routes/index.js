@@ -33,88 +33,97 @@ const schedules = [
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const title = 'SERVICE NAME';
-  Office.findAll({
-    order: [['"createdAt"', 'ASC']]
-  }).then((offices) => {
-    Space.findAll({
-      include: [
-        {
-          model: Office,
-          attributes: ['officeId']
-        }
-      ],
+  // ログイン済かどうかで処理を分岐
+  if (req.user) {
+    // ログイン済
+    Office.findAll({
       order: [['"createdAt"', 'ASC']]
-    }).then((spaces) => {
-      offices.forEach((office) => {
-        const spacesArray = [];
-        spaces.forEach((space) => {
-          if(office.officeId === space.officeId) {
-
-            // 取り敢えず
-            // 他に良い方法が無いか探る
-            const periodObj = {
-              1: {
-                num: 1,
-                periodname: '9:00 - 10:00',
-                availability: true
-              },
-              2: {
-                num: 2,
-                periodname: '10:00 - 11:00',
-                availability: true
-              },
-              3: {
-                num: 3,
-                periodname: '11:00 - 12:00',
-                availability: true
-              },
-              4: {
-                num: 4,
-                periodname: '12:00 - 13:00',
-                availability: true
-              },
-              5: {
-                num: 5,
-                periodname: '13:00 - 14:00',
-                availability: true
-              },
-              6: {
-                num: 6,
-                periodname: '14:00 - 15:00',
-                availability: true
-              },
-              7: {
-                num: 7,
-                periodname: '15:00 - 16:00',
-                availability: true
-              },
-              8: {
-                num: 8,
-                periodname: '16:00 - 17:30',
-                availability: true
-              }
-            };
-
-            schedules.forEach((schedule) => {
-              if(space.spaceId === schedule.spaceId) {
-                periodObj[schedule.periodNum].availability = false;
-              }
-            });
-            space['periods'] = periodObj;
-            spacesArray.push(space);
+    }).then((offices) => {
+      Space.findAll({
+        include: [
+          {
+            model: Office,
+            attributes: ['officeId']
           }
+        ],
+        order: [['"createdAt"', 'ASC']]
+      }).then((spaces) => {
+        offices.forEach((office) => {
+          const spacesArray = [];
+          spaces.forEach((space) => {
+            if(office.officeId === space.officeId) {
+  
+              // 取り敢えず
+              // 他に良い方法が無いか探る
+              const periodObj = {
+                1: {
+                  num: 1,
+                  periodname: '9:00 - 10:00',
+                  availability: true
+                },
+                2: {
+                  num: 2,
+                  periodname: '10:00 - 11:00',
+                  availability: true
+                },
+                3: {
+                  num: 3,
+                  periodname: '11:00 - 12:00',
+                  availability: true
+                },
+                4: {
+                  num: 4,
+                  periodname: '12:00 - 13:00',
+                  availability: true
+                },
+                5: {
+                  num: 5,
+                  periodname: '13:00 - 14:00',
+                  availability: true
+                },
+                6: {
+                  num: 6,
+                  periodname: '14:00 - 15:00',
+                  availability: true
+                },
+                7: {
+                  num: 7,
+                  periodname: '15:00 - 16:00',
+                  availability: true
+                },
+                8: {
+                  num: 8,
+                  periodname: '16:00 - 17:30',
+                  availability: true
+                }
+              };
+  
+              schedules.forEach((schedule) => {
+                if(space.spaceId === schedule.spaceId) {
+                  periodObj[schedule.periodNum].availability = false;
+                }
+              });
+              space['periods'] = periodObj;
+              spacesArray.push(space);
+            }
+          });
+          office['spaces'] = spacesArray;
         });
-        office['spaces'] = spacesArray;
-      });
-      loginUser(req.user, (result) => {
-        res.render('index', {
-          title: title,
-          loginUser: result,
-          offices: offices
+        loginUser(req.user, (result) => {
+          res.render('index', {
+            title: title,
+            loginUser: result,
+            offices: offices
+          });
         });
       });
     });
-  });
+  } else {
+    // 未ログイン
+    res.render('index', {
+      title: title,
+    });
+  }
 });
 
 module.exports = router;
