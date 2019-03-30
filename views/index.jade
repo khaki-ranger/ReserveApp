@@ -34,10 +34,10 @@ block content
                     img(src="#{office.imgPath}" class="responsive-img")
                   .name #{office.officename}
                 .data
-                  - var hasSpace = office.spaces.length > 0 
-                  if hasSpace
+                  - var spaces = officeSpaceObject[office.officeId]
+                  if spaces
                     ul.space-list
-                      each space in office.spaces
+                      each space in spaces
                         li.space.clearfix
                           .information.clearfix
                             .name #{space.spacename}
@@ -45,11 +45,12 @@ block content
                               |最大
                               span #{space.capacity}
                               |名
-                          .reservation
-                            each period in space.periods
-                              .period(class="num-#{period.num}")
-                                .time #{period.periodname}
-                                if period.availability
-                                  a.status.available(href="/reserve") &#9675;
-                                else
-                                  .status.unavailable &#10005;
+                          if space.periods
+                            .reservation
+                              each period in space.periods
+                                .period(class="num-#{period.num}")
+                                  .time #{period.periodname}
+                                  if period.availability
+                                    a.status.available(href="/reserve") &#9675;
+                                  else
+                                    .status.unavailable &#10005;

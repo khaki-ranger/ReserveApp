@@ -56,7 +56,7 @@ class Periods {
 
 // 仮データ
 // 後にDBから取得する
-const reservations = [
+const r = [
   {
     id: 1,
     userId: '48cb2540-5041-11e9-a06c-1d597b669eb2',
@@ -96,29 +96,40 @@ router.get('/', function(req, res, next) {
           }
         ],
         order: [['"createdAt"', 'ASC']]
-      }).then((spaces) => {
-        offices.forEach((office) => {
-          const spacesArray = [];
-          spaces.forEach((space) => {
-            if(office.officeId === space.officeId) {
-              // 個々のオフィスの予定を表現するインスタンスを作成
-              const periods = new Periods();
-              reservations.forEach((reservation) => {
-                if(space.spaceId === reservation.spaceId) {
-                  periods[reservation.periodNum].availability = false;
-                }
-              });
-              space['periods'] = periods;
-              spacesArray.push(space);
-            }
-          });
-          office['spaces'] = spacesArray;
+      }).then((s) => {
+        // Reservationsのデータが取得できることを想定
+        // key = spaceId, value = [予約]
+        const reservationObject = {};
+        r.forEach((reservation) => {
+          if(!reservationObject[reservation.spaceId]) {
+            reservationObject[reservation.spaceId] = [];
+          }
+          reservationObject[reservation.spaceId].push(reservation);
+        });
+        // officeに属するspaceの情報を配列で持つオブジェクトを作成
+        // key = officeId, value = [スペース]
+        const officeSpaceObject = {};
+        s.forEach((space) => {
+          if (!officeSpaceObject[space.officeId]) {
+            officeSpaceObject[space.officeId] = [];
+          }
+          officeSpaceObject[space.officeId].push(space);
+          // 個々のオフィスの予定を表現するインスタンスを作成
+          const periods = new Periods();
+          const reservations = reservationObject[space.spaceId];
+          if (reservations && reservations.length > 0) {
+            reservations.forEach((reservation) => {
+              periods[reservation.periodNum].availability = false;
+            });
+          }
+          space['periods'] = periods;
         });
         loginUser(req.user, (result) => {
           res.render('index', {
             title: title,
             loginUser: result,
-            offices: offices
+            offices: offices,
+            officeSpaceObject: officeSpaceObject
           });
         });
       });
