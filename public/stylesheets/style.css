@@ -1,3 +1,13 @@
+/*
+@media (max-width: 576px) {
+}
+@media (min-width: 576px) and (max-width: 768px) {
+}
+@media (min-width: 768px) and (max-width: 992px) {
+}
+@media (min-width: 992px) {
+}
+*/
 /* reset */
 img {
   vertical-align: bottom;
@@ -210,10 +220,36 @@ section.office {
   margin-top: 1rem;
 }
 .office-list .box {
-  display: table;
   width: 100%;
   border: solid 1px #ddd;
   margin-bottom: 1rem;
+}
+.office-list .box>.information{
+  background-color: #d7092f;
+  color: white;
+}
+.office-list .box .data {
+  padding: 1rem;
+}
+.office-list .box>.information .name {
+  text-align: center;
+  font-weight: bold;
+}
+@media (max-width: 768px) {
+.office-list .box>.information{
+  position: relative;
+}
+.office-list .box>.information .name {
+  background: linear-gradient(to top, #d7092f, transparent);
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  padding: 30% 0 1rem 0;
+}
+}
+@media (min-width: 768px) {
+.office-list .box {
+  display: table;
 }
 .office-list .box>.information,
 .office-list .box .data {
@@ -222,19 +258,13 @@ section.office {
 }
 .office-list .box>.information{
   width: 20%;
-  background-color: #d7092f;
-  color: white;
-}
-.office-list .box .data {
-  border-left: solid 1px #ddd;
-  padding: 1rem;
 }
 .office-list .box>.information .name {
   padding: 1rem;
-  text-align: center;
-  font-weight: bold;
 }
 .office-list .box .data {
+  border-left: solid 1px #ddd;
+}
 }
 /* space-list */
 .space-list .space {
@@ -254,33 +284,19 @@ section.office {
   font-weight: bold;
   padding: 0 .25rem;
 }
-.space-list .space .reservation {
-  display: table;
-  width: 100%;
-}
-.space-list .space .reservation .period {
-  display: table-cell;
-  width: 10%;
-  vertical-align: middle;
-}
 .space-list .space .reservation .period .time,
 .space-list .space .reservation .period .status {
   text-align: center;
-  padding: .5rem 0;
+  padding: .5rem .1rem;
   background-color: #eee;
-}
-.space-list .space .reservation .period:last-child .time,
-.space-list .space .reservation .period:last-child .status {
-  border-right: none;
-}
-.space-list .space .reservation .period .time {
   border-right: solid 1px white;
   border-bottom: solid 1px white;
+}
+.space-list .space .reservation .period .time {
   font-size: .75rem;
 }
 .space-list .space .reservation .period .status {
   display: block;
-  border-right: solid 1px white;
   font-size: 1rem;
 }
 .space-list .space .reservation .period .status.available {
@@ -293,6 +309,45 @@ section.office {
 }
 .space-list .space .reservation .period .status.unavailable {
   font-size: .75rem;
+}
+@media (max-width: 576px) {
+.space-list .space .reservation .period {
+  display: table;
+  width: 100%;
+}
+.space-list .space .reservation .period>.time,
+.space-list .space .reservation .period>.status {
+  display: table-cell;
+  vertical-align: middle;
+}
+.space-list .space .reservation .period>.time {
+  width: 60%;
+}
+.space-list .space .reservation .period>.status {
+  width: 40%;
+}
+.space-list .space .reservation .period:last-child .time,
+.space-list .space .reservation .period:last-child .status {
+  border-bottom: none;
+}
+}
+@media (min-width: 576px) {
+.space-list .space .reservation {
+  display: table;
+  width: 100%;
+}
+.space-list .space .reservation .period {
+  display: table-cell;
+  width: 10%;
+  vertical-align: middle;
+}
+.space-list .space .reservation .period .status {
+  border-right: solid 1px white;
+}
+.space-list .space .reservation .period:last-child .time,
+.space-list .space .reservation .period:last-child .status {
+  border-right: none;
+}
 }
 /* admin */
 .admin {

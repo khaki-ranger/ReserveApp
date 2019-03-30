@@ -76,7 +76,17 @@ const r = [
     guestname: '山田太郎',
     mailaddress: 'nakamura@mail.com',
     canceled: false
-  }
+  },
+  {
+    id: 3,
+    userId: '48cb2540-5041-11e9-a06c-1d597b669eb2',
+    spaceId: 'dc275e50-514d-11e9-87ec-7dd538d6d6ff',
+    date: '2019-03-28 10:49:00.173+00',
+    periodNum: 7,
+    guestname: 'ロナルド=レーガン',
+    mailaddress: 'nakamura@mail.com',
+    canceled: false
+  },
 ];
 
 /* GET home page. */
