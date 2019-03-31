@@ -13,6 +13,7 @@ var flash = require('connect-flash');
 var User = require('./models/user');
 var Office = require('./models/office');
 var Space = require('./models/space');
+var Reservation = require('./models/reservation');
 User.sync({
     force: false,
     alter:true
@@ -22,7 +23,13 @@ User.sync({
       alter:true
     }).then(() => {
       Space.belongsTo(Office, {foreignKey: 'officeId' });
-      Space.sync();
+      Space.sync({
+        force: false,
+        alter:true
+      }).then(() => {
+        Reservation.belongsTo(Space, {foreignKey: 'spaceId' });
+        Reservation.sync();
+    });
   });
 });
 

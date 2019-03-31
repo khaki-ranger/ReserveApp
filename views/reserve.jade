@@ -19,10 +19,10 @@ block content
             if message.guestname
               span.message.caution #{message.guestname}
           input.ui-component(type="text" name="guestname" id="guestname" placeholder="guestname")
-        .mainaddress.ui-block
-          label.ui-component(for="mainaddress") メールアドレス
-            if message.mainaddress
-              span.message.caution #{message.mainaddress}
-          input.ui-component(type="text" name="mainaddress" id="mainaddress" placeholder="mainaddress")
+        .mailaddress.ui-block
+          label.ui-component(for="mailaddress") メールアドレス
+            if message.mailaddress
+              span.message.caution #{message.mailaddress}
+          input.ui-component(type="text" name="mailaddress" id="mailaddress" placeholder="mailaddress")
         div.ui-block
           button.ui-component(type="submit") 予約
