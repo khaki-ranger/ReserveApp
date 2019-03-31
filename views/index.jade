@@ -51,6 +51,6 @@ block content
                                 .period(class="num-#{period.num}")
                                   .time #{period.periodname}
                                   if period.availability
-                                    a.status.available(href="/reserve") &#9675;
+                                    a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/2019/month/04/day/01") &#9675;
                                   else
                                     .status.unavailable &#10005;
