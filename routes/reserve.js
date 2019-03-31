@@ -5,13 +5,12 @@ const loginUser = require('./login-user');
 const authenticationEnsurer = require('./authentication-ensurer');
 const Office = require('../models/office');
 const Space = require('../models/space');
+const Reservation = require('../models/reservation');
 const Periods = require('./periods');
 
-router.get('/space/:spaceid/period/:periodnum/year/:year/month/:month/day/:day', authenticationEnsurer, (req, res, next) => {
-  const title = '予約 | SERVICE NAME';
-  const message = {};
+const getParams = ((params, callback) => {
   const periods = new Periods();
-  const date = new Date(req.params.year, req.params.month, req.params.day);
+  const date = new Date(params.year, params.month - 1 , params.day);
   const dayofweeknum = date.getDay();
   const dayofweekstring = ['日', '月', '火', '水', '木', '金', '土'][dayofweeknum];
   Space.findOne({
@@ -22,21 +21,35 @@ router.get('/space/:spaceid/period/:periodnum/year/:year/month/:month/day/:day',
       }
     ],
     where: {
-      spaceId: req.params.spaceid
+      spaceId: params.spaceId
     }
   }).then((s) => {
     if(s) {
-      const params = {
+      const result = {
         officename: s.office.officename, 
-        spaceId: req.params.spaceid,
+        spaceId: params.spaceId,
         spacename: s.spacename,
-        periodnum: req.params.periodnum,
-        periodname: periods[req.params.periodnum].periodname,
-        year: req.params.year,
-        month: req.params.month,
-        day: req.params.day,
+        periodnum: params.periodnum,
+        periodname: periods[params.periodnum].periodname,
+        year: params.year,
+        month: params.month,
+        day: params.day,
         dayofweekstring: dayofweekstring
-      };
+      }
+      callback(null, result);
+    } else {
+      callbakc('スペースがありません');
+    }
+  });
+});
+
+router.get('/space/:spaceId/period/:periodnum/year/:year/month/:month/day/:day', authenticationEnsurer, (req, res, next) => {
+  const title = '予約 | SERVICE NAME';
+  const message = {};
+  getParams(req.params, (err, params) => {
+    if (err) {
+      console.log(err);
+    } else {
       loginUser(req.user, (result) => {
         res.render('reserve', {
           title: title,
@@ -45,15 +58,40 @@ router.get('/space/:spaceid/period/:periodnum/year/:year/month/:month/day/:day',
           params: params
         });
       });
-    } else {
-      console.log('スペースが見つかりませんでした');
     }
   });
 });
 
 router.post('/', authenticationEnsurer, (req, res, next) => {
-  console.log(req.body);
-  res.json(req.body);
+  const title = '予約 | SERVICE NAME';
+  const message = {};
+  const guestname = req.body.guestname;
+  const mailaddress = req.body.mailaddress;
+  // サーバー側でも値のチェック
+  if (!guestname || !mailaddress) {
+    if (!guestname ) {
+      console.log('お名前が未入力です');
+    }
+    if (!mailaddress) {
+      console.log('メールアドレスが未入力です');
+    }
+    // 後でエラー処理をする
+    res.json('エラー');
+  } else {
+    const date = new Date(req.body.year, req.body.month - 1, req.body.day);
+    Reservation.create({
+      spaceId: req.body.spaceId,
+      date: date,
+      periodnum: req.body.periodnum,
+      guestname: guestname,
+      mailaddress: mailaddress,
+      createdBy: req.user.userId,
+      canceled: false
+    }).then((r) => {
+      console.log(r);
+      res.redirect('/');
+    });
+  }
 });
 
 module.exports = router;
