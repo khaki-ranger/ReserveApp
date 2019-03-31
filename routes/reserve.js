@@ -3,10 +3,10 @@ const express = require('express');
 const router = express.Router();
 const loginUser = require('./login-user');
 const authenticationEnsurer = require('./authentication-ensurer');
+const Periods = require('./periods');
 const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
-const Periods = require('./periods');
 
 const getParams = ((params, callback) => {
   const periods = new Periods();
