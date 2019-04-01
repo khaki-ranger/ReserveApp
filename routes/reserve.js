@@ -11,8 +11,8 @@ const Reservation = require('../models/reservation');
 const getParams = ((params, callback) => {
   const periods = new Periods();
   const date = new Date(params.year, params.month - 1 , params.day);
-  const dayofweeknum = date.getDay();
-  const dayofweekstring = ['日', '月', '火', '水', '木', '金', '土'][dayofweeknum];
+  const dayOfWeekNum = date.getDay();
+  const dayOfWeekString = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
   Space.findOne({
     include: [
       {

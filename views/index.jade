@@ -29,19 +29,21 @@ block content
         .block.present
           .holder
             .nav.prev 
-              i.fas.fa-chevron-left.fa-lg
+              a(href="/?year=#{date.year}&month=#{date.month}&day=#{date.day - 1}")
+                i.fas.fa-chevron-left.fa-lg
             .text
-              span.num 2019
+              span.num #{date.year}
               span.unit 年
-              span.num 4
+              span.num #{date.month}
               span.unit 月
-              span.num 1
+              span.num #{date.day}
               span.unit 日
               span.unit (
-              span.dayofweek 月
+              span.dayofweek #{date.dayOfWeekString}
               span.unit )
             .nav.next 
-              i.fas.fa-chevron-right.fa-lg
+              a(href="/?year=#{date.year}&month=#{date.month}&day=#{date.day + 1}")
+                i.fas.fa-chevron-right.fa-lg
         .block.select
           a(href="/")
             i.fas.fa-calendar-alt.fa-2x

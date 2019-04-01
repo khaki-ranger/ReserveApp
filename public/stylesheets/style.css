@@ -450,6 +450,9 @@ section.office {
 .date .present .nav:hover {
   color: gray;
 }
+.date .present .nav a {
+  display: block;
+}
 @media (max-width: 576px) {
 .date .holder {
   position: relative;
@@ -496,10 +499,7 @@ section.office {
   width: 20%;
 }
 .date .present .nav {
-  width: 25%;
-}
-.date .present .text {
-  width: 50%;
+  width: 30%;
 }
 .date .present .prev {
   text-align: right;

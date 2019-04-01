@@ -7,12 +7,30 @@ const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
 
+const getDayOfWeekString = ((date) => {
+  const dayOfWeekNum = date.getDay();
+  const dayOfWeekstring = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
+  return dayOfWeekstring;
+});
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   const title = 'SERVICE NAME';
   // ログイン済かどうかで処理を分岐
   if (req.user) {
     // ログイン済
+    let today;
+    if (req.query.year && req.query.month && req.query.day) {
+      today = new Date(req.query.year, req.query.month - 1, req.query.day);
+    } else {
+      today = new Date();
+    }
+    const date = {
+      year: today.getFullYear(),
+      month: today.getMonth() + 1,
+      day: today.getDate(),
+      dayOfWeekString: getDayOfWeekString(today)
+    }
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
@@ -61,6 +79,7 @@ router.get('/', function(req, res, next) {
             res.render('index', {
               title: title,
               loginUser: result,
+              date: date,
               offices: offices,
               officeSpaceObject: officeSpaceObject
             });
