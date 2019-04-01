@@ -22,6 +22,29 @@ block content
           |このサービスは、会員専用のためご利用にはログインが必要です。
           |また、現在開発中のため、動作や見た目が変わります。
   else
+    section.date
+      .holder
+        .block.today
+          a.ui-component(href="/") 本日
+        .block.present
+          .holder
+            .nav.prev 
+              i.fas.fa-chevron-left.fa-lg
+            .text
+              span.num 2019
+              span.unit 年
+              span.num 4
+              span.unit 月
+              span.num 1
+              span.unit 日
+              span.unit (
+              span.dayofweek 月
+              span.unit )
+            .nav.next 
+              i.fas.fa-chevron-right.fa-lg
+        .block.select
+          a(href="/")
+            i.fas.fa-calendar-alt.fa-2x
     - var hasOffice = offices.length > 0 
     if hasOffice
       section.office

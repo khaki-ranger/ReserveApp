@@ -36,9 +36,13 @@ header {
 #nav-content .head {
   background: #d7092f;
 }
+a.ui-component:hover,
 button.ui-component {
   background-color: #d7092f;
   color: white;
+}
+a.ui-component:hover {
+  border-color: #d7092f;
 }
 .caution {
   color: red;
@@ -135,6 +139,11 @@ label.ui-component {
   font-weight: bold;
   display: block;
 }
+a.ui-component {
+  display: block;
+  text-align: center;
+  border: solid 1px #ddd;
+}
 button.ui-component {
   margin-top: .5rem;
   font-weight: bold;
@@ -149,6 +158,7 @@ select.ui-component {
 input[type="text"].ui-component,
 input[type="password"].ui-component,
 select.ui-component,
+a.ui-component,
 button.ui-component {
   width: 100%;
   box-sizing: border-box;
@@ -401,4 +411,64 @@ section.office {
 }
 .admin ul li a:hover {
   text-decoration: underline;
+}
+/* date */
+.date {
+  padding: 1rem 1rem 0 1rem;
+}
+.date .holder {
+  display: table;
+  width: 100%;
+}
+.date .holder .block {
+  display: table-cell;
+  vertical-align: middle;
+}
+.date .holder .present {
+  text-align: center;
+  width: 50%;
+}
+.date .holder .today,
+.date .holder .select {
+  width: 25%;
+}
+.date .holder .select {
+  text-align: right;
+}
+.date .present .nav,
+.date .present .text {
+  display: table-cell;
+  vertical-align: middle;
+}
+.date .present .nav {
+  width: 25%;
+  cursor: pointer;
+}
+.date .present .text {
+  width: 50%;
+  text-align: center;
+}
+.date .present .prev {
+  text-align: right;
+}
+.date .present .next {
+  text-align: left;
+}
+.date .present .text .num {
+  font-weight: bold;
+  font-size: 2rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
+.date .present .text .unit:nth-of-type(7) {
+  padding-left: .25rem;
+}
+.date .present .text .dayofweek {
+  font-weight: bold;
+  font-size: 1.25rem;
+  padding-left: .25rem;
+  padding-right: .25rem;
+}
+.date .present .nav:hover {
+  color: gray;
 }
