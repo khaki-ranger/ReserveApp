@@ -88,7 +88,6 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
       createdBy: req.user.userId,
       canceled: false
     }).then((r) => {
-      console.log(r);
       res.redirect('/');
     });
   }

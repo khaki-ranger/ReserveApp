@@ -193,6 +193,10 @@ button.ui-component {
 .signin {
   padding: 1rem;
 }
+.reserve .dialog,
+.register .dialog {
+  border: none;
+}
 }
 @media (min-width: 576px) {
 .signin {
@@ -203,7 +207,6 @@ button.ui-component {
 }
 .reserve,
 .register {
-  width: 50%;
   margin: 2rem auto;
 }
 }
@@ -211,15 +214,27 @@ button.ui-component {
 .signin .dialog {
   width: 50%;
 }
+.reserve,
+.register {
+  width: 75%;
+}
 }
 @media (min-width: 768px) and (max-width: 992px) {
 .signin .dialog {
   width: 40%;
 }
+.reserve,
+.register {
+  width: 60%;
+}
 }
 @media (min-width: 992px) {
 .signin .dialog {
   width: 30%;
+}
+.reserve,
+.register {
+  width: 50%;
 }
 }
 /* office-list */
