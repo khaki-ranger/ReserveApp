@@ -11,11 +11,13 @@ html
     header
       .logo
          a(href="/") SERVICE NAME
+      .menu
+        if loginUser
+          if loginUser.role === 1
+            a(href="/admin") 管理者メニュー
       .action
         if loginUser
           span #{loginUser.username}
-          if loginUser.role === 1
-            a(href="/admin") 管理者メニュー
           a(href="/logout") ログアウト
         else
           span.nav-login ログインしていません

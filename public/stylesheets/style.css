@@ -89,23 +89,41 @@ header {
   display: table;
 }
 header .logo,
+header .menu,
 header .action {
   display: table-cell;
   vertical-align: middle;
 }
 header .logo {
-  width: 30%;
+  width: 140px;
   padding-left: 1rem;
   font-size: 1rem;
   font-weight: bold;
 }
+header .menu {
+}
 header .action {
-  width: 70%;
   text-align: right;
 }
 header .action span,
 header .action a {
   margin-right: 1rem;
+}
+@media (max-width: 576px) {
+header .menu {
+  display: none;
+}
+}
+@media (min-width: 576px) {
+header .action {
+  width: 40%;
+}
+}
+@media (min-width: 576px) and (max-width: 768px) {
+}
+@media (min-width: 768px) and (max-width: 992px) {
+}
+@media (min-width: 992px) {
 }
 /* ui-component */
 .ui-block {
@@ -251,7 +269,7 @@ section.office {
   color: white;
 }
 .office-list .box .data {
-  padding: 1rem;
+  padding: 1rem 1rem 0 1rem;
 }
 .office-list .box>.information .name {
   text-align: center;
