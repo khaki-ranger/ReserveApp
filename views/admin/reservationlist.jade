@@ -1,0 +1,34 @@
+extends ../layout
+
+block content
+  section.admin-list
+    .container
+      .head-component
+        h1 ReservationList
+          span 予約一覧
+    .container
+      table
+        thead
+          tr
+            th Num
+            th id
+            th 施設名
+            th 予約者名
+            th メールアドレス
+            th 予約日
+            th 時間帯
+            th 作成日時
+            th キャンセル
+        tbody
+          each reservation, index in reservations
+            tr
+              td.num #{index + 1}
+              td.id #{reservation.reservationId}
+              td.spacename #{reservation.space.spacename}
+              td.guestname #{reservation.guestname}
+              td.mailaddress #{reservation.mailaddress}
+              td.date #{reservation.formattedDate}
+              td.period #{reservation.periodnum}（#{reservation.periodname}）
+              td.createdAt #{reservation.formattedCreatedAt}
+              td.canceled #{reservation.canceled}
+        

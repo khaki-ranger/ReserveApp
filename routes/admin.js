@@ -2,11 +2,14 @@
 const express = require('express');
 const router = express.Router();
 const uuidV1 = require('uuid/v1');
+const moment = require('moment');
 const loginUser = require('./login-user');
 const adminEnsurer = require('./admin-ensurer');
+const Periods = require('./periods');
 const User = require('../models/user');
 const Office = require('../models/office');
 const Space = require('../models/space');
+const Reservation = require('../models/reservation');
 
 const roles = [
   {num: 3, name: 'ユーザー'},
@@ -20,6 +23,51 @@ router.get('/', adminEnsurer, (req, res, next) => {
     res.render('admin/index', {
       title: title,
       loginUser: result
+    });
+  });
+});
+
+router.get('/reservation', adminEnsurer, (req, res, next) => {
+  const title = '予約一覧 | SERVICE NAME';
+  const periods = new Periods();
+  Reservation.findAll({
+    include: [
+      {
+        model: Space,
+        attributes: ['spacename']
+      }
+    ],
+    order: [['"date"', 'ASC']]
+  }).then((r) => {
+    r.forEach((reservation) => {
+      reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
+      reservation.formattedCreatedAt = moment(reservation.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+      reservation.periodname = periods[reservation.periodnum].periodname;
+    });
+    loginUser(req.user, (result) => {
+      res.render('admin/reservationlist', {
+        title: title,
+        loginUser: result,
+        reservations: r
+      });
+    });
+  });
+});
+
+router.get('/user', adminEnsurer, (req, res, next) => {
+  const title = 'ユーザー一覧 | SERVICE NAME';
+  User.findAll({
+    order: [['"createdAt"', 'ASC']]
+  }).then((u) => {
+    u.forEach((user) => {
+      user.formattedCreatedAt = moment(user.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+    });
+    loginUser(req.user, (result) => {
+      res.render('admin/userlist', {
+        title: title,
+        loginUser: result,
+        users: u
+      });
     });
   });
 });

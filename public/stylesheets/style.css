@@ -477,17 +477,28 @@ section.office {
 }
 }
 /* admin */
-.admin {
-  margin-bottom: 1rem;
-}
-.admin ul {
+.admin-index ul {
   padding-left: 1rem;
+  padding-bottom: 1rem;
 }
-.admin ul li {
+.admin-index ul li {
   margin-bottom: 1rem;
 }
-.admin ul li a:hover {
+.admin-index ul li a:hover {
   text-decoration: underline;
+}
+.admin-list table {
+  border-left: solid 1px #ddd;
+  border-top: solid 1px #ddd;
+}
+.admin-list table th,
+.admin-list table td {
+  padding: 1rem;
+  border-right: solid 1px #ddd;
+  border-bottom: solid 1px #ddd;
+}
+.admin-list table th {
+  background-color: #eee;
 }
 /* date */
 section.date {

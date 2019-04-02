@@ -1,0 +1,25 @@
+extends ../layout
+
+block content
+  section.admin-list
+    .container
+      .head-component
+        h1 UserList
+          span ユーザー一覧
+    .container
+      table
+        thead
+          tr
+            th Num
+            th userId
+            th ユーザーネーム
+            th 権限
+            th 作成日時
+        tbody
+          each user, index in users
+            tr
+              td.num #{index + 1}
+              td.id #{user.userId}
+              td.name #{user.username}
+              td.role #{user.role}
+              td.createdAt #{user.formattedCreatedAt}
