@@ -29,7 +29,7 @@ block content
         .block.present
           .holder
             .nav.prev 
-              a(href="/?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day - 1}")
+              a(href="?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day - 1}")
                 i.fas.fa-chevron-left.fa-lg
             .text
               span.num #{currentDate.year}
@@ -42,7 +42,7 @@ block content
               span.dayofweek #{currentDate.dayOfWeekString}
               span.unit )
             .nav.next 
-              a(href="/?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day + 1}")
+              a(href="?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day + 1}")
                 i.fas.fa-chevron-right.fa-lg
         .block.select
           a(href="/")
@@ -76,6 +76,6 @@ block content
                                 .period(class="num-#{period.num}")
                                   .time #{period.periodname}
                                   if period.availability
-                                    a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/2019/month/04/day/01") &#9675;
+                                    a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/#{currentDate.year}/month/#{currentDate.month}/day/#{currentDate.day}") &#9675;
                                   else
                                     .status.unavailable &#10005;

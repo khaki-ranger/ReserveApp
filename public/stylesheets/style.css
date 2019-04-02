@@ -413,106 +413,106 @@ section.office {
   text-decoration: underline;
 }
 /* date */
-.date {
+section.date {
   padding: 1rem 1rem 0 1rem;
 }
-.date .holder .select {
+section.date .holder .select {
   text-align: right;
 }
-.date .holder .present>.holder {
+section.date .holder .present>.holder {
   display: table;
   width: 100%;
 }
-.date .present .nav,
-.date .present .text {
+section.date .present .nav,
+section.date .present .text {
   display: table-cell;
   vertical-align: middle;
 }
-.date .present .nav {
+section.date .present .nav {
   cursor: pointer;
 }
-.date .present .text {
+section.date .present .text {
   text-align: center;
 }
-.date .present .text .num {
+section.date .present .text .num {
   font-weight: bold;
   padding-left: .25rem;
   padding-right: .25rem;
 }
-.date .present .text .unit:nth-of-type(7) {
+section.date .present .text .unit:nth-of-type(7) {
   padding-left: .25rem;
 }
-.date .present .text .dayofweek {
+section.date .present .text .dayofweek {
   font-weight: bold;
   padding-left: .25rem;
   padding-right: .25rem;
 }
-.date .present .nav:hover {
+section.date .present .nav:hover {
   color: gray;
 }
-.date .present .nav a {
+section.date .present .nav a {
   display: block;
 }
 @media (max-width: 576px) {
-.date .holder {
+section.date .holder {
   position: relative;
 }
-.date .holder .today {
+section.date .holder .today {
   width: 50%;
   margin-bottom: 1rem;
 }
-.date .holder .select {
+section.date .holder .select {
   position: absolute;
   right: 0;
   top: .5rem;
 }
-.date .present .nav {
+section.date .present .nav {
   width: 3rem;
 }
-.date .present .prev {
+section.date .present .prev {
   text-align: left;
 }
-.date .present .next {
+section.date .present .next {
   text-align: right;
 }
-.date .present .text .num {
+section.date .present .text .num {
   font-size: 1.5rem;
 }
-.date .present .text .dayofweek {
+section.date .present .text .dayofweek {
   font-size: 1rem;
 }
 }
 @media (min-width: 576px) {
-.date>.holder {
+section.date>.holder {
   display: table;
   width: 100%;
 }
-.date>.holder .block {
+section.date>.holder .block {
   display: table-cell;
   vertical-align: middle;
 }
-.date .holder .present {
+section.date .holder .present {
   text-align: center;
 }
-.date .holder .today,
-.date .holder .select {
+section.date .holder .today,
+section.date .holder .select {
   width: 20%;
 }
-.date .present .nav {
+section.date .present .nav {
   width: 30%;
 }
-.date .present .prev {
+section.date .present .prev {
   text-align: right;
   padding-right: .5rem;
 }
-.date .present .next {
+section.date .present .next {
   text-align: left;
   padding-left: .5rem;
 }
-.date .present .text .num {
+section.date .present .text .num {
   font-size: 2rem;
 }
-.date .present .text .dayofweek {
+section.date .present .text .dayofweek {
   font-size: 1.25rem;
 }
 }
