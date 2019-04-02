@@ -82,6 +82,82 @@ body {
   display: none !important;
 }
 }
+
+
+
+
+
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 0;
+  height: 0;
+  transition: background-color .5s ease;
+  background-color: rgba(0, 0, 0, 0);
+  z-index: -1;
+}
+.overlay.visible {
+  background-color: rgba(0, 0, 0, .6);
+  width: 100%;
+  height: 100%;
+  z-index: 100;
+}
+.overlay .modal {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: white;
+  border-radius: 4px;
+}
+.overlay .modal.visible {
+  display: block;
+}
+.overlay .modal .panel {
+  height: 100%;
+}
+.overlay .modal .close {
+  position: absolute;
+  right: 0;
+  top: 0;
+  border: none;
+  font-size: 2rem;
+  margin: .5rem .25rem 0 0;
+}
+.overlay .modal .close:before {
+  font-family: "Font Awesome 5 Free";
+  content: '\f057';
+}
+@media (min-width: 768px) {
+}
+@media (max-width: 576px) {
+.overlay .modal {
+  width: 80%;
+  height: 80%;
+}
+}
+@media (min-width: 576px) and (max-width: 768px) {
+.overlay .modal {
+  width: 60%;
+  height: 60%;
+}
+}
+@media (min-width: 768px) and (max-width: 992px) {
+.overlay .modal {
+  width: 50%;
+  height: 50%;
+}
+}
+@media (min-width: 992px) {
+.overlay .modal {
+  width: 40%;
+  height: 40%;
+}
+}
 /* header */
 header {
   position: fixed;
