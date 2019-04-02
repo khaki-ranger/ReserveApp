@@ -124,15 +124,16 @@ body {
   position: absolute;
   right: 0;
   top: 0;
-  border: none;
   font-size: 2rem;
-  margin: .5rem .25rem 0 0;
+  margin: .5rem .5rem 0 0;
+  cursor: pointer;
+}
+.overlay .modal .close:hover {
+  color: gray;
 }
 .overlay .modal .close:before {
   font-family: "Font Awesome 5 Free";
   content: '\f057';
-}
-@media (min-width: 768px) {
 }
 @media (max-width: 576px) {
 .overlay .modal {
@@ -494,6 +495,10 @@ section.date {
 }
 section.date .holder .select {
   text-align: right;
+  cursor: pointer;
+}
+section.date .holder .select:hover {
+  color: gray;
 }
 section.date .holder .present>.holder {
   display: table;
