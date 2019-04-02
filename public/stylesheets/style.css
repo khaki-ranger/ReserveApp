@@ -37,11 +37,13 @@ header {
   background: #d7092f;
 }
 a.ui-component:hover,
+div.ui-component:hover,
 button.ui-component {
   background-color: #d7092f;
   color: white;
 }
-a.ui-component:hover {
+a.ui-component:hover,
+div.ui-component:hover {
   border-color: #d7092f;
 }
 .caution {
@@ -210,13 +212,12 @@ header .action {
 .ui-block {
   margin-bottom: 1rem;
 }
-.ui-component {
-}
 label.ui-component {
   font-weight: bold;
   display: block;
 }
-a.ui-component {
+a.ui-component,
+div.ui-component {
   display: block;
   text-align: center;
   border: solid 1px #ddd;
@@ -236,6 +237,7 @@ input[type="text"].ui-component,
 input[type="password"].ui-component,
 select.ui-component,
 a.ui-component,
+div.ui-component,
 button.ui-component {
   width: 100%;
   box-sizing: border-box;

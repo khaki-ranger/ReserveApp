@@ -14,7 +14,7 @@ const Reservation = require('../models/reservation');
 const roles = [
   {num: 3, name: 'ユーザー'},
   {num: 2, name: '管理者'},
-  {num: 1, name: '実装者'}
+  {num: 1, name: '開発者'}
 ];
 
 router.get('/', adminEnsurer, (req, res, next) => {

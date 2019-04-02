@@ -78,3 +78,21 @@ block content
                                     a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/#{currentDate.year}/month/#{currentDate.month}/day/#{currentDate.day}") &#9675;
                                   else
                                     .status.unavailable &#10005;
+
+block modal
+  section.date
+    .holder
+      .block.today
+        .ui-component 今月
+      .block.present
+        .holder
+          .nav.prev 
+            i.fas.fa-chevron-left.fa-lg
+          .text
+            span.num 2019
+            span.unit 年
+            span.num 4
+            span.unit 月
+          .nav.next 
+            i.fas.fa-chevron-right.fa-lg
+      .block.select
