@@ -29,20 +29,20 @@ block content
         .block.present
           .holder
             .nav.prev 
-              a(href="/?year=#{date.year}&month=#{date.month}&day=#{date.day - 1}")
+              a(href="/?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day - 1}")
                 i.fas.fa-chevron-left.fa-lg
             .text
-              span.num #{date.year}
+              span.num #{currentDate.year}
               span.unit 年
-              span.num #{date.month}
+              span.num #{currentDate.month}
               span.unit 月
-              span.num #{date.day}
+              span.num #{currentDate.day}
               span.unit 日
               span.unit (
-              span.dayofweek #{date.dayOfWeekString}
+              span.dayofweek #{currentDate.dayOfWeekString}
               span.unit )
             .nav.next 
-              a(href="/?year=#{date.year}&month=#{date.month}&day=#{date.day + 1}")
+              a(href="/?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day + 1}")
                 i.fas.fa-chevron-right.fa-lg
         .block.select
           a(href="/")

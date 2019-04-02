@@ -7,8 +7,8 @@ const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
 
-const getDayOfWeekString = ((date) => {
-  const dayOfWeekNum = date.getDay();
+const getDayOfWeekString = ((dateObj) => {
+  const dayOfWeekNum = dateObj.getDay();
   const dayOfWeekstring = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
   return dayOfWeekstring;
 });
@@ -19,17 +19,15 @@ router.get('/', function(req, res, next) {
   // ログイン済かどうかで処理を分岐
   if (req.user) {
     // ログイン済
-    let today;
+    let currentday = new Date();
     if (req.query.year && req.query.month && req.query.day) {
-      today = new Date(req.query.year, req.query.month - 1, req.query.day);
-    } else {
-      today = new Date();
+      currentday = new Date(req.query.year, req.query.month - 1, req.query.day);
     }
-    const date = {
-      year: today.getFullYear(),
-      month: today.getMonth() + 1,
-      day: today.getDate(),
-      dayOfWeekString: getDayOfWeekString(today)
+    const currentDate = {
+      year: currentday.getFullYear(),
+      month: currentday.getMonth() + 1,
+      day: currentday.getDate(),
+      dayOfWeekString: getDayOfWeekString(currentday)
     }
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
@@ -79,7 +77,7 @@ router.get('/', function(req, res, next) {
             res.render('index', {
               title: title,
               loginUser: result,
-              date: date,
+              currentDate: currentDate,
               offices: offices,
               officeSpaceObject: officeSpaceObject
             });
