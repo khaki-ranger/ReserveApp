@@ -12,7 +12,7 @@ const getParams = ((params, callback) => {
   const periods = new Periods();
   const date = new Date(params.year, params.month - 1 , params.day);
   const dayOfWeekNum = date.getDay();
-  const dayOfWeekString = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
+  const dayofweekstring = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
   Space.findOne({
     include: [
       {

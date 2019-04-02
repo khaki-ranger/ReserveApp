@@ -19,16 +19,18 @@ router.get('/', function(req, res, next) {
   // ログイン済かどうかで処理を分岐
   if (req.user) {
     // ログイン済
-    let currentday = new Date();
+    let currentDay = new Date();
     if (req.query.year && req.query.month && req.query.day) {
-      currentday = new Date(req.query.year, req.query.month - 1, req.query.day);
+      currentDay = new Date(req.query.year, req.query.month - 1, req.query.day);
     }
     const currentDate = {
-      year: currentday.getFullYear(),
-      month: currentday.getMonth() + 1,
-      day: currentday.getDate(),
-      dayOfWeekString: getDayOfWeekString(currentday)
+      year: currentDay.getFullYear(),
+      month: currentDay.getMonth() + 1,
+      day: currentDay.getDate(),
+      dayOfWeekString: getDayOfWeekString(currentDay)
     }
+    const startDate = new Date(currentDate.year, currentDate.month - 1, currentDate.day);
+    console.log('Start : ' + startDate);
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
@@ -43,7 +45,8 @@ router.get('/', function(req, res, next) {
       }).then((s) => {
         Reservation.findAll({
           where: {
-            canceled: false
+            canceled: false, 
+            date: startDate
           }
         }).then((r) => {
           // 各スペース毎の予約の情報を配列で持つオブジェクトを作成
