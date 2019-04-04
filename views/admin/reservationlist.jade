@@ -10,10 +10,11 @@ block content
       table
         thead
           tr
-            th Num
+            th No
             th id
-            th 施設名
-            th 予約者名
+            th 施設
+            th 部屋
+            th 予約者
             th メールアドレス
             th 予約日
             th 時間帯
@@ -22,8 +23,9 @@ block content
         tbody
           each reservation, index in reservations
             tr
-              td.num #{index + 1}
+              td.no #{index + 1}
               td.id #{reservation.reservationId}
+              td.officename #{reservation.officename}
               td.spacename #{reservation.space.spacename}
               td.guestname #{reservation.guestname}
               td.mailaddress #{reservation.mailaddress}

@@ -489,18 +489,24 @@ section.office {
 .admin-index ul li a:hover {
   text-decoration: underline;
 }
+.admin-list {
+  margin-bottom: 1rem;
+}
 .admin-list table {
   border-left: solid 1px #ddd;
   border-top: solid 1px #ddd;
 }
 .admin-list table th,
 .admin-list table td {
-  padding: 1rem;
   border-right: solid 1px #ddd;
   border-bottom: solid 1px #ddd;
 }
 .admin-list table th {
   background-color: #eee;
+  padding: .5rem 0;
+}
+.admin-list table td {
+  padding: .5rem 1rem;
 }
 /* date */
 section.date {

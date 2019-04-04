@@ -37,18 +37,37 @@ router.get('/reservation', adminEnsurer, (req, res, next) => {
         attributes: ['spacename']
       }
     ],
-    order: [['"date"', 'ASC']]
+    order: [['"date"', 'DESC']]
   }).then((r) => {
-    r.forEach((reservation) => {
-      reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
-      reservation.formattedCreatedAt = moment(reservation.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
-      reservation.periodname = periods[reservation.periodnum].periodname;
-    });
-    loginUser(req.user, (result) => {
-      res.render('admin/reservationlist', {
-        title: title,
-        loginUser: result,
-        reservations: r
+    Space.findAll({
+      include: [
+        {
+          model: Office,
+          attributes: ['officeId', 'officename']
+        }
+      ]
+    }).then((s) => {
+      // 各spaceが所属するofficeの情報をオブジェクトで持つオブジェクトを作成
+      // key = spaceId:String, value = office:Object
+      const spaceOfficeObject = {};
+      s.forEach((space) => {
+        if (!spaceOfficeObject[space.spaceId]) {
+          spaceOfficeObject[space.spaceId] = {};
+        }
+        spaceOfficeObject[space.spaceId] = space.office;
+      });
+      r.forEach((reservation) => {
+        reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
+        reservation.formattedCreatedAt = moment(reservation.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+        reservation.periodname = periods[reservation.periodnum].periodname;
+        reservation.officename = spaceOfficeObject[reservation.spaceId].officename;
+      });
+      loginUser(req.user, (result) => {
+        res.render('admin/reservationlist', {
+          title: title,
+          loginUser: result,
+          reservations: r
+        });
       });
     });
   });
