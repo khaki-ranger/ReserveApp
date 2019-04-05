@@ -46,7 +46,6 @@ ${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}
     if (error) {
       console.log(error);
       // 後でエラー処理をする
-      res.json(error);
     } else {
       console.log(response);
     }
