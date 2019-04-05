@@ -234,6 +234,7 @@ select.ui-component {
   appearance: none;
 }
 input[type="text"].ui-component,
+input[type="email"].ui-component,
 input[type="password"].ui-component,
 select.ui-component,
 a.ui-component,
@@ -245,6 +246,7 @@ button.ui-component {
   border-radius: 3px;
 }
 input[type="text"].ui-component,
+input[type="email"].ui-component,
 input[type="password"].ui-component,
 select.ui-component {
   margin-top: .25rem;
