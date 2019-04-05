@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 require('dotenv').config();
+const MAIL_SMTP_HOST  = process.env.MAIL_SMTP_HOST;
 const MAIL_AUTH_USER = process.env.MAIL_AUTH_USER;
 const MAIL_AUTH_PASSWORD = process.env.MAIL_AUTH_PASSWORD;
 const nodemailer = require('nodemailer');
@@ -27,13 +28,13 @@ ${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}
 `;
 
   const message = {
-    from: MAIL_AUTH_USER,
+    from: 'ツモリンク <' + MAIL_AUTH_USER + '>',
     to: params.to,
     subject: '［予約サービス］ご予約完了のお知らせ',
     text: messageBody
   };
   const smtpConfig = {
-    host: 'smtp.gmail.com',
+    host: MAIL_SMTP_HOST,
     port: 465,
     secure: true,
     auth: {
