@@ -223,7 +223,6 @@ div.ui-component {
   border: solid 1px #ddd;
 }
 button.ui-component {
-  margin-top: .5rem;
   font-weight: bold;
 }
 select.ui-component {
@@ -617,4 +616,43 @@ section.date .present .text .num {
 section.date .present .text .dayofweek {
   font-size: 1.25rem;
 }
+}
+/* my-reservation-list */
+.my-reservation-list {
+  margin-bottom: 1rem;
+}
+.my-reservation-list .block {
+  display: table;
+  width: 100%;
+  border-top: solid 1px #ddd;
+  border-left: solid 1px #ddd;
+}
+.my-reservation-list .block:last-child {
+  border-bottom: solid 1px #ddd;
+}
+.my-reservation-list .block .line {
+  display: table-cell;
+  border-right: solid 1px #ddd;
+  vertical-align: middle;
+}
+.my-reservation-list .block .line>div {
+  padding: .5rem 1rem;
+}
+.my-reservation-list .block .head {
+  display: none;
+  text-align: center;
+}
+.my-reservation-list .block:first-child .head {
+  display: block;
+  background-color: #eee;
+}
+.my-reservation-list .block .date{
+  width: 15rem;
+}
+.my-reservation-list .block .officename,
+.my-reservation-list .block .spacename {
+  width: 10rem;
+}
+.my-reservation-list .block .action {
+  width: 10rem;
 }

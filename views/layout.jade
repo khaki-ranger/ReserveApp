@@ -18,6 +18,7 @@ html
       .action
         if loginUser
           span #{loginUser.username}
+          a(href="/mypage") マイページ
           a(href="/logout") ログアウト
         else
           span.nav-login ログインしていません
