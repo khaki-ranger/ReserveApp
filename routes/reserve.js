@@ -13,7 +13,7 @@ const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
 
-const sendGmail = ((params) => {
+const sendMail = ((params) => {
 
 const messageBody = `${params.guestname} 様
 予約確認メールのテストです。
@@ -45,8 +45,8 @@ ${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}
   const transporter = nodemailer.createTransport(smtpConfig);
   transporter.sendMail(message, (error, response) => {
     if (error) {
-      console.log(error);
       // 後でエラー処理をする
+      console.log(error);
     } else {
       console.log(response);
     }
@@ -148,7 +148,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
           response.guestname = r.guestname;
           response.to = r.mailaddress;
           response.createdAt = r.createdAt;
-          sendGmail(response); 
+          sendMail(response); 
         }
       });
       res.redirect('/');
@@ -156,6 +156,32 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
       console.log(error);
     });
   }
+});
+
+router.get('/cancel/:reservationId', authenticationEnsurer, (req, res, next) => {
+  Reservation.findOne({
+    where: {
+      reservationId: req.params.reservationId
+    }
+  }).then((r) => {
+    if (req.user.userId === r.createdBy) {
+      const param = {
+        canceled: true
+      };
+      const filter = {
+        where: {
+          reservationId: req.params.reservationId
+        }
+      };
+      Reservation.update(param, filter).then(() => {
+        res.redirect('/mypage');
+      });
+    } else {
+      // 後でエラー処理をする
+      console.log('userIdが一致しません');
+      res.redirect('/');
+    }
+  });
 });
 
 module.exports = router;
