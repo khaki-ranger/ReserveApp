@@ -41,6 +41,7 @@ div.ui-component:hover,
 button.ui-component {
   background-color: #d7092f;
   color: white;
+  cursor: pointer;
 }
 a.ui-component:hover,
 div.ui-component:hover {

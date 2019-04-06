@@ -36,4 +36,11 @@ block content
             .line.action
               .head キャンセル
               .body
-                a.ui-component(href="/reserve/cancel/#{reservation.reservationId}") キャンセル
+                .ui-component.btn-cancel(data-id="#{reservation.reservationId}") キャンセル
+
+block modal
+  .section.cancel
+    p キャンセルしますか？
+    .nav-holder.clearfix
+      .button 閉じる
+      a.ui-component.confirm(href="/") キャンセル

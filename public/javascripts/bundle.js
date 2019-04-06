@@ -77,19 +77,31 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _jquery2.default)(window).on('load', function () {
-
   var overlay = (0, _jquery2.default)('.overlay');
   var modal = (0, _jquery2.default)('.modal');
-  (0, _jquery2.default)('.date .select').on('click', function () {
+
+  function openModal() {
     overlay.addClass('visible');
     modal.addClass('visible');
-  });
+  }
+
   (0, _jquery2.default)('.overlay').on('click', function () {
     overlay.removeClass('visible');
     modal.removeClass('visible');
   });
   (0, _jquery2.default)('.overlay .panel').on('click', function (event) {
     event.stopPropagation();
+  });
+
+  (0, _jquery2.default)('.date .select').on('click', function () {
+    openModal();
+  });
+
+  (0, _jquery2.default)('.btn-cancel').on('click', function () {
+    openModal();
+    var id = (0, _jquery2.default)(this).data('id');
+    var href = '/reserve/cancel/' + id;
+    (0, _jquery2.default)('.cancel .confirm').attr('href', href);
   });
 });
 
