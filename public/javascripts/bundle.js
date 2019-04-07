@@ -84,19 +84,20 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     overlay.addClass('visible');
     modal.addClass('visible');
   }
-
-  (0, _jquery2.default)('.overlay').on('click', function () {
+  function closeModal() {
     overlay.removeClass('visible');
     modal.removeClass('visible');
-  });
-  (0, _jquery2.default)('.overlay .panel').on('click', function (event) {
-    event.stopPropagation();
-  });
+  }
 
   (0, _jquery2.default)('.date .select').on('click', function () {
     openModal();
   });
-
+  (0, _jquery2.default)('.overlay, .close, .btn-close').on('click', function () {
+    closeModal();
+  });
+  (0, _jquery2.default)('.overlay .panel').on('click', function (event) {
+    event.stopPropagation();
+  });
   (0, _jquery2.default)('.btn-cancel').on('click', function () {
     openModal();
     var id = (0, _jquery2.default)(this).data('id');

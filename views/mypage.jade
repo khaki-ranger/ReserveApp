@@ -40,7 +40,11 @@ block content
 
 block modal
   .section.cancel
-    p キャンセルしますか？
-    .nav-holder.clearfix
-      .button 閉じる
-      a.ui-component.confirm(href="/") キャンセル
+    .message
+      h1 予約をキャンセルしますか？
+      .body 説明文
+    .nav-holder
+      .btn-holder
+        .button.ui-component.btn-close 閉じる
+      .btn-holder
+        a.ui-component.confirm(href="/") キャンセル

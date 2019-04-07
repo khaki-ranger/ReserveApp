@@ -9,19 +9,20 @@ $(window).on('load', function(){
     overlay.addClass('visible');
     modal.addClass('visible');
   }
-
-  $('.overlay').on('click', function() {
+  function closeModal() {
     overlay.removeClass('visible');
     modal.removeClass('visible');
-  });
-  $('.overlay .panel').on('click', function(event) {
-    event.stopPropagation();
-  });
+  }
 
   $('.date .select').on('click', function() {
     openModal();
   });
-
+  $('.overlay, .close, .btn-close').on('click', function() {
+    closeModal();
+  });
+  $('.overlay .panel').on('click', function(event) {
+    event.stopPropagation();
+  });
   $('.btn-cancel').on('click', function() {
     openModal();
     var id = $(this).data('id');

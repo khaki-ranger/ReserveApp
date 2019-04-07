@@ -657,3 +657,37 @@ section.date .present .text .dayofweek {
 .my-reservation-list .block .action {
   width: 10rem;
 }
+/* cancel */
+.cancel {
+  padding: 1rem;
+}
+.cancel .message {
+}
+.cancel .message h1 {
+  text-align: center;
+  font-size: 1rem;
+}
+.cancel .message .body {
+}
+.cancel .nav-holder {
+  position: absolute;
+  bottom: 1rem;
+  left: 0;
+  width: 100%;
+  display: table;
+}
+.cancel .nav-holder .btn-holder {
+  display: table-cell;
+  width: 50%;
+}
+.cancel .nav-holder .btn-holder:first-child {
+  padding: 0 .5rem 0 1rem;
+}
+.cancel .nav-holder .btn-holder:last-child {
+  padding: 0 1rem 0 .5rem;
+}
+.cancel .nav-holder .confirm {
+  border: none;
+  background: #d7092f;
+  color: white;
+}
