@@ -14,16 +14,13 @@ $(window).on('load', function(){
     modal.removeClass('visible');
   }
 
-  $('.date .select').on('click', function() {
-    openModal();
-  });
   $('.overlay, .close, .btn-close').on('click', function() {
     closeModal();
   });
   $('.overlay .panel').on('click', function(event) {
     event.stopPropagation();
   });
-  $('.btn-cancel').on('click', function() {
+  $('.btn-cancel, .nav-detail').on('click', function() {
     openModal();
     var id = $(this).data('id');
     var href = '/reserve/cancel/' + id;

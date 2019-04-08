@@ -430,10 +430,13 @@ section.office {
   display: block;
   font-size: 1rem;
 }
+.space-list .space .reservation .period .status.nav-detail,
 .space-list .space .reservation .period .status.available {
   background-color: #ccc;
   font-weight: bold;
+  cursor: pointer;
 }
+.space-list .space .reservation .period .status.nav-detail:hover,
 .space-list .space .reservation .period .status.available:hover {
   background-color: #d7092f;
   color: white;

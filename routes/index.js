@@ -72,6 +72,11 @@ router.get('/', function(req, res, next) {
             if (reservations && reservations.length > 0) {
               reservations.forEach((reservation) => {
                 periods[reservation.periodnum].availability = false;
+                if(reservation.createdBy === req.user.userId){
+                  console.log(reservation);
+                  periods[reservation.periodnum].isSelf = true;
+                  periods[reservation.periodnum].reservationId = reservation.reservationId;
+                }
               });
             }
             space['periods'] = periods;

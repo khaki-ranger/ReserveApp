@@ -77,22 +77,30 @@ block content
                                   if period.availability
                                     a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/#{currentDate.year}/month/#{currentDate.month}/day/#{currentDate.day}") &#9675;
                                   else
-                                    .status.unavailable &#10005;
+                                    if period.isSelf
+                                      .status.unavailable.nav-detail(data-id="#{period.reservationId}") 予約済
+                                    else
+                                      .status.unavailable &#10005;
 
 block modal
-  section.date
-    .holder
-      .block.today
-        .ui-component 今月
-      .block.present
-        .holder
-          .nav.prev 
-            i.fas.fa-chevron-left.fa-lg
-          .text
-            span.num 2019
-            span.unit 年
-            span.num 4
-            span.unit 月
-          .nav.next 
-            i.fas.fa-chevron-right.fa-lg
-      .block.select
+  .section.cancel
+    .message
+      h1 予約内容
+      .information
+        .name
+          .head お名前
+          .body 
+        .office
+          .head 施設名
+          .body 
+        .space
+          .head 部屋
+          .body 
+        .date
+          .head 日時
+          .body 年 月 日() 
+    .nav-holder
+      .btn-holder
+        .button.ui-component.btn-close 閉じる
+      .btn-holder
+        a.ui-component.confirm(href="/") 予約をキャンセルする

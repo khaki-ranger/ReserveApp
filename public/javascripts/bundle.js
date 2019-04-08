@@ -89,16 +89,13 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     modal.removeClass('visible');
   }
 
-  (0, _jquery2.default)('.date .select').on('click', function () {
-    openModal();
-  });
   (0, _jquery2.default)('.overlay, .close, .btn-close').on('click', function () {
     closeModal();
   });
   (0, _jquery2.default)('.overlay .panel').on('click', function (event) {
     event.stopPropagation();
   });
-  (0, _jquery2.default)('.btn-cancel').on('click', function () {
+  (0, _jquery2.default)('.btn-cancel, .nav-detail').on('click', function () {
     openModal();
     var id = (0, _jquery2.default)(this).data('id');
     var href = '/reserve/cancel/' + id;
