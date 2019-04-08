@@ -26,5 +26,8 @@ block content
             if message.mailaddress
               span.message.caution #{message.mailaddress}
           input.ui-component(type="email" name="mailaddress" id="mailaddress" placeholder="mailaddress")
-        div.ui-block
-          button.ui-component(type="submit") 予約
+        .ui-block
+          .btn-holder
+            a.ui-component(href="/?year=#{params.year}&month=#{params.month}&day=#{params.day}") 戻る
+          .btn-holder
+            button.ui-component(type="submit") 予約

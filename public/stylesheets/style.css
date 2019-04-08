@@ -244,6 +244,7 @@ div.ui-component {
 }
 button.ui-component {
   font-weight: bold;
+  border: solid 1px #d7092f;
 }
 select.ui-component {
   background-color: white;
@@ -275,6 +276,9 @@ select.ui-component {
 .ui-component {
   font-size: 16px;
 }
+.ui-block>.btn-holder {
+  margin-top: 1rem;
+}
 }
 @media (min-width: 768px) {
 .ui-component {
@@ -282,6 +286,19 @@ select.ui-component {
 }
 button.ui-component {
   cursor: pointer;
+}
+.ui-block {
+  display: table;
+  width: 100%;
+}
+.ui-block>.btn-holder {
+  display: table-cell;
+}
+.ui-block>.btn-holder:first-child {
+  padding-right: .5rem;
+}
+.ui-block>.btn-holder:last-child {
+  padding-left: .5rem;
 }
 }
 /* head-component */
