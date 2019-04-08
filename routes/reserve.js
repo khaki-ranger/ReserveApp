@@ -76,43 +76,54 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     if (!mailaddress) {
       console.log('メールアドレスが未入力です');
     }
-    // 後でエラー処理をする
-    res.json('エラー');
+    throw new Error('お名前とメールアドレスを入力してください。');
   } else {
     const date = new Date(req.body.year, req.body.month - 1, req.body.day);
-    Reservation.create({
-      spaceId: req.body.spaceId,
-      date: date,
-      periodnum: req.body.periodnum,
-      guestname: guestname,
-      mailaddress: mailaddress,
-      createdBy: req.user.userId,
-      canceled: false
-    }).then((r) => {
-      console.log('create reservation');
-      const params = {
-        spaceId: r.spaceId,
-        periodnum: r.periodnum,
-        year: req.body.year,
-        month: req.body.month - 1,
-        day: req.body.day
-      };
-      getParams(params, (error, response) => {
-        if (error) {
-          // 後でエラー処理をする
-          console.log(error);
-        } else {
-          response.canceled = false;
-          response.guestname = r.guestname;
-          response.to = r.mailaddress;
-          response.createdAt = r.createdAt;
-          const sendmail = new Sendmail(response);
-          sendmail.send();
-        }
-      });
-      res.redirect('/');
-    }).catch((error) => {
-      console.log(error);
+    Reservation.findOne({
+      where: {
+        spaceId: req.body.spaceId,
+        date: date,
+        periodnum: req.body.periodnum,
+        canceled: false
+      }
+    }).then((already) => {
+      if(already) {
+        throw new Error('既に重複する予約があるため予約ができません。');
+      } else {
+        Reservation.create({
+          spaceId: req.body.spaceId,
+          date: date,
+          periodnum: req.body.periodnum,
+          guestname: guestname,
+          mailaddress: mailaddress,
+          createdBy: req.user.userId,
+          canceled: false
+        }).then((r) => {
+          console.log('create reservation');
+          const params = {
+            spaceId: r.spaceId,
+            periodnum: r.periodnum,
+            year: req.body.year,
+            month: req.body.month - 1,
+            day: req.body.day
+          };
+          getParams(params, (error, response) => {
+            if (error) {
+              throw new Error(error);
+            } else {
+              response.canceled = false;
+              response.guestname = r.guestname;
+              response.to = r.mailaddress;
+              response.createdAt = r.createdAt;
+              const sendmail = new Sendmail(response);
+              sendmail.send();
+            }
+          });
+          res.redirect('/');
+        }).catch((error) => {
+          throw new Error(error);
+        });
+      }
     });
   }
 });
