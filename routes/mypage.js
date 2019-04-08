@@ -20,7 +20,7 @@ router.get('/', authenticationEnsurer, (req, res, next) => {
       }
     ],
     where: {
-      canceled: false
+      createdBy: req.user.userId
     },
     order: [['"date"', 'DESC']]
   }).then((r) => {
@@ -43,7 +43,6 @@ router.get('/', authenticationEnsurer, (req, res, next) => {
       });
       r.forEach((reservation) => {
         reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
-        reservation.formattedCreatedAt = moment(reservation.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
         reservation.periodname = periods[reservation.periodnum].periodname;
         reservation.officename = spaceOfficeObject[reservation.spaceId].officename;
       });

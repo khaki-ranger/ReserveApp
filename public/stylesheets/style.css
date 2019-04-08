@@ -659,6 +659,17 @@ section.date .present .text .dayofweek {
 }
 .my-reservation-list .block .action {
   width: 10rem;
+  text-align: center;
+}
+.my-reservation-list .block .action .btn-cancel {
+  cursor: pointer;
+  color: red;
+}
+.my-reservation-list .block .action .btn-cancel:hover {
+  text-decoration: underline;
+}
+.my-reservation-list .block .action span {
+  color: gray;
 }
 /* cancel */
 .cancel {

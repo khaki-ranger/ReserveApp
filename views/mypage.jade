@@ -36,7 +36,10 @@ block content
             .line.action
               .head キャンセル
               .body
-                .ui-component.btn-cancel(data-id="#{reservation.reservationId}") キャンセル
+                if reservation.canceled
+                  span キャンセル済み
+                else
+                  .btn-cancel(data-id="#{reservation.reservationId}") キャンセル
 
 block modal
   .section.cancel
