@@ -99,7 +99,8 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
       };
       getParams(params, (error, response) => {
         if (error) {
-          console.log(err);
+          // 後でエラー処理をする
+          console.log(error);
         } else {
           response.canceled = false;
           response.guestname = r.guestname;
@@ -132,6 +133,27 @@ router.get('/cancel/:reservationId', authenticationEnsurer, (req, res, next) => 
         }
       };
       Reservation.update(param, filter).then(() => {
+        console.log('cancel reservation');
+        const params = {
+          spaceId: r.spaceId,
+          periodnum: r.periodnum,
+          year: r.date.getFullYear(),
+          month: r.date.getMonth() + 1,
+          day: r.date.getDate()
+        };
+        getParams(params, (error, response) => {
+          if (error) {
+            // 後でエラー処理をする
+            console.log(error);
+          } else {
+            response.canceled = true;
+            response.guestname = r.guestname;
+            response.to = r.mailaddress;
+            response.createdAt = r.createdAt;
+            const sendmail = new Sendmail(response);
+            sendmail.send();
+          }
+        });
         res.redirect('/mypage');
       });
     } else {
