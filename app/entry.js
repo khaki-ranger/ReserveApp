@@ -14,6 +14,10 @@ $(window).on('load', function(){
     modal.removeClass('visible');
   }
 
+  $('header .icon').on('click', function() {
+    $('header .mymenu:not(:animated)').slideToggle('fast');
+  });
+
   $('.overlay, .close, .btn-close').on('click', function() {
     closeModal();
   });

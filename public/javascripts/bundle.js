@@ -89,6 +89,10 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     modal.removeClass('visible');
   }
 
+  (0, _jquery2.default)('header .icon').on('click', function () {
+    (0, _jquery2.default)('header .mymenu:not(:animated)').slideToggle('fast');
+  });
+
   (0, _jquery2.default)('.overlay, .close, .btn-close').on('click', function () {
     closeModal();
   });

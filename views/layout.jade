@@ -11,17 +11,19 @@ html
     header
       .logo
          a(href="/") SERVICE NAME
-      .menu
-        if loginUser
-          if loginUser.role === 1
-            a(href="/admin") 管理者メニュー
       .action
         if loginUser
-          span #{loginUser.username}
-          a(href="/mypage") マイページ
-          a(href="/logout") ログアウト
+          .icon
+            i.fas.fa-user-circle
+          .mymenu
+            span #{loginUser.username}
+            a(href="/mypage") マイページ
+            if loginUser
+              if loginUser.role === 1
+                a(href="/admin") 管理者メニュー
+            a(href="/logout") ログアウト
         else
-          span.nav-login ログインしていません
+          .nav-login ログインしていません
     block content
     .overlay
       .modal

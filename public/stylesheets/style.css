@@ -85,11 +85,6 @@ body {
   display: none !important;
 }
 }
-
-
-
-
-
 .overlay {
   position: fixed;
   left: 0;
@@ -128,7 +123,7 @@ body {
   right: 0;
   top: 0;
   font-size: 2rem;
-  padding: 12px 1rem;
+  padding: 16px 1rem;
   cursor: pointer;
 }
 .overlay .modal .close:hover {
@@ -146,20 +141,20 @@ body {
 }
 @media (min-width: 576px) and (max-width: 768px) {
 .overlay .modal {
-  width: 60%;
-  height: 60%;
+  width: 70%;
+  height: 70%;
 }
 }
 @media (min-width: 768px) and (max-width: 992px) {
 .overlay .modal {
-  width: 50%;
-  height: 50%;
+  width: 60%;
+  height: 60%;
 }
 }
 @media (min-width: 992px) {
 .overlay .modal {
-  width: 40%;
-  height: 40%;
+  width: 50%;
+  height: 50%;
 }
 }
 /* header */
@@ -173,41 +168,65 @@ header {
   display: table;
 }
 header .logo,
-header .menu,
 header .action {
   display: table-cell;
   vertical-align: middle;
 }
 header .logo {
-  width: 140px;
+  width: 150px;
   padding-left: 1rem;
   font-size: 1rem;
   font-weight: bold;
 }
-header .menu {
-}
 header .action {
   text-align: right;
 }
-header .action span,
-header .action a {
+header .action>div {
   margin-right: 1rem;
+  display: inline-block;
+}
+header .action .icon i {
+  font-size: 2rem;
 }
 @media (max-width: 576px) {
-header .menu {
+header .action .mymenu {
   display: none;
+  position: absolute;
+  top: 60px;
+  right: -2px;
+  background-color: white;
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  color: #333;
+  width: 40%;
+}
+header .action .mymenu>a,
+header .action .mymenu>span {
+  text-align: center;
+  display: block;
+  padding: 1rem 0;
+}
+header .action .mymenu>a {
+  border-bottom: solid 1px #ddd;
+}
+header .action .mymenu>span {
+  border-bottom: solid 1px #ddd;
+  background-color: #eee;
 }
 }
 @media (min-width: 576px) {
-header .action {
-  width: 40%;
+header .action .icon {
+  display: none;
 }
+header .action .mymenu {
+  display: block;
 }
-@media (min-width: 576px) and (max-width: 768px) {
+header .action .mymenu a {
+  padding-left: 1rem;
 }
-@media (min-width: 768px) and (max-width: 992px) {
+header .action .mymenu a:hover {
+  text-decoration: underline;
 }
-@media (min-width: 992px) {
 }
 /* ui-component */
 .ui-block {
@@ -675,11 +694,8 @@ section.date .present .text .dayofweek {
 .cancel {
   padding: 1rem;
 }
-.cancel .message {
-}
 .cancel .message h1 {
   text-align: center;
-  font-size: 1rem;
   margin: 0 0 1rem 0;
 }
 .cancel .nav-holder {
@@ -687,17 +703,6 @@ section.date .present .text .dayofweek {
   bottom: 1rem;
   left: 0;
   width: 100%;
-  display: table;
-}
-.cancel .nav-holder .btn-holder {
-  display: table-cell;
-  width: 50%;
-}
-.cancel .nav-holder .btn-holder:first-child {
-  padding: 0 .5rem 0 1rem;
-}
-.cancel .nav-holder .btn-holder:last-child {
-  padding: 0 1rem 0 .5rem;
 }
 .cancel .nav-holder .confirm {
   border: none;
@@ -710,7 +715,25 @@ section.date .present .text .dayofweek {
 .cancel .information>div>.head{
   font-weight: bold;
 }
+@media (max-width: 576px) {
+.cancel .nav-holder .btn-holder {
+  padding: 1rem 1rem 0 1rem;
+}
+}
 @media (min-width: 576px) {
+.cancel .nav-holder {
+  display: table;
+}
+.cancel .nav-holder .btn-holder {
+  display: table-cell;
+  width: 50%;
+}
+.cancel .nav-holder .btn-holder:first-child {
+  padding: 0 .5rem 0 1rem;
+}
+.cancel .nav-holder .btn-holder:last-child {
+  padding: 0 1rem 0 .5rem;
+}
 .cancel .information>div{
   display: table;
   width: 100%;
