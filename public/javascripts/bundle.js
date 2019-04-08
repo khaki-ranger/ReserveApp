@@ -99,7 +99,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
     openModal();
     var id = (0, _jquery2.default)(this).data('id');
     var href = '/reserve/cancel/' + id;
+    var dateText = (0, _jquery2.default)(this).data('year') + '年' + (0, _jquery2.default)(this).data('month') + '月' + (0, _jquery2.default)(this).data('day') + '日(' + (0, _jquery2.default)(this).data('dayofweek') + ') ' + (0, _jquery2.default)(this).data('periodname');
     (0, _jquery2.default)('.cancel .confirm').attr('href', href);
+    (0, _jquery2.default)('.cancel .information .name .body').text((0, _jquery2.default)(this).data('name'));
+    (0, _jquery2.default)('.cancel .information .office .body').text((0, _jquery2.default)(this).data('office'));
+    (0, _jquery2.default)('.cancel .information .space .body').text((0, _jquery2.default)(this).data('space'));
+    (0, _jquery2.default)('.cancel .information .date .body').text(dateText);
   });
 });
 

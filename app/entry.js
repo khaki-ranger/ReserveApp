@@ -24,7 +24,12 @@ $(window).on('load', function(){
     openModal();
     var id = $(this).data('id');
     var href = '/reserve/cancel/' + id;
+    var dateText = $(this).data('year') + '年' + $(this).data('month') + '月' + $(this).data('day') + '日(' + $(this).data('dayofweek') + ') ' + $(this).data('periodname');
     $('.cancel .confirm').attr('href', href);
+    $('.cancel .information .name .body').text($(this).data('name'));
+    $('.cancel .information .office .body').text($(this).data('office'));
+    $('.cancel .information .space .body').text($(this).data('space'));
+    $('.cancel .information .date .body').text(dateText);
   });
 
 });

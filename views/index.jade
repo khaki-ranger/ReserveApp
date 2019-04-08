@@ -78,7 +78,7 @@ block content
                                     a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/#{currentDate.year}/month/#{currentDate.month}/day/#{currentDate.day}") &#9675;
                                   else
                                     if period.isSelf
-                                      .status.unavailable.nav-detail(data-id="#{period.reservationId}") 予約済
+                                      .status.unavailable.nav-detail(data-id="#{period.reservationId}" data-name="#{period.guestname}" data-office="#{period.officename}" data-space="#{period.spacename}" data-year="#{period.year}" data-month="#{period.month}" data-day="#{period.day}" data-dayofweek="#{period.dayofweek}" data-periodname="#{period.periodname}") 予約済
                                     else
                                       .status.unavailable &#10005;
 
@@ -87,9 +87,6 @@ block modal
     .message
       h1 予約内容
       .information
-        .name
-          .head お名前
-          .body 
         .office
           .head 施設名
           .body 
@@ -99,6 +96,9 @@ block modal
         .date
           .head 日時
           .body 年 月 日() 
+        .name
+          .head お名前
+          .body 
     .nav-holder
       .btn-holder
         .button.ui-component.btn-close 閉じる

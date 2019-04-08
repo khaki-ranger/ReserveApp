@@ -38,7 +38,7 @@ router.get('/', function(req, res, next) {
         include: [
           {
             model: Office,
-            attributes: ['officeId']
+            attributes: ['officeId', 'officename']
           }
         ],
         order: [['"createdAt"', 'ASC']]
@@ -73,9 +73,15 @@ router.get('/', function(req, res, next) {
               reservations.forEach((reservation) => {
                 periods[reservation.periodnum].availability = false;
                 if(reservation.createdBy === req.user.userId){
-                  console.log(reservation);
                   periods[reservation.periodnum].isSelf = true;
                   periods[reservation.periodnum].reservationId = reservation.reservationId;
+                  periods[reservation.periodnum].guestname = reservation.guestname;
+                  periods[reservation.periodnum].officename = space.office.officename;
+                  periods[reservation.periodnum].spacename = space.spacename;
+                  periods[reservation.periodnum].year = reservation.date.getFullYear();
+                  periods[reservation.periodnum].month = reservation.date.getMonth() + 1;
+                  periods[reservation.periodnum].day = reservation.date.getDate();
+                  periods[reservation.periodnum].dayofweek = getDayOfWeekString(reservation.date);;
                 }
               });
             }

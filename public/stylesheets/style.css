@@ -128,7 +128,7 @@ body {
   right: 0;
   top: 0;
   font-size: 2rem;
-  padding: 18px 1rem;
+  padding: 12px 1rem;
   cursor: pointer;
 }
 .overlay .modal .close:hover {
@@ -669,8 +669,7 @@ section.date .present .text .dayofweek {
 .cancel .message h1 {
   text-align: center;
   font-size: 1rem;
-}
-.cancel .message .body {
+  margin: 0 0 1rem 0;
 }
 .cancel .nav-holder {
   position: absolute;
@@ -693,4 +692,22 @@ section.date .present .text .dayofweek {
   border: none;
   background: #d7092f;
   color: white;
+}
+.cancel .information>div{
+  margin-bottom: 1rem;
+}
+.cancel .information>div>.head{
+  font-weight: bold;
+}
+@media (min-width: 576px) {
+.cancel .information>div{
+  display: table;
+  width: 100%;
+}
+.cancel .information>div>div{
+  display: table-cell;
+}
+.cancel .information>div>.head{
+  width: 25%;
+}
 }
