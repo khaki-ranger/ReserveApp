@@ -8,8 +8,16 @@ const MAIL_AUTH_PASSWORD = process.env.MAIL_AUTH_PASSWORD;
 module.exports = class Sendmail {
   constructor(params) {
 
+    if(!params.canceled) {
+      this.subject = '［予約サービス］ご予約完了のお知らせ';
+      this.bodyText = '予約完了メールのテストです。';
+    } else {
+      this.subject = '［予約サービス］ご予約キャンセルのお知らせ';
+      this.bodyText = '予約キャンセルメールのテストです。';
+    }
+
 this.messageBody = `${params.guestname} 様
-予約確認メールのテストです。
+${this.bodyText}
 
 【ご予約施設】
 ${params.officename}
@@ -23,7 +31,7 @@ ${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}
     this.message = {
       from: 'ツモリンク <' + MAIL_AUTH_USER + '>',
       to: params.to,
-      subject: '［予約サービス］ご予約完了のお知らせ',
+      subject: this.subject,
       text: this.messageBody
     };
     this.smtpConfig = {

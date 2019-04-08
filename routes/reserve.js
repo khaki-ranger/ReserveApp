@@ -101,6 +101,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
         if (error) {
           console.log(err);
         } else {
+          response.canceled = false;
           response.guestname = r.guestname;
           response.to = r.mailaddress;
           response.createdAt = r.createdAt;
