@@ -128,7 +128,7 @@ body {
   right: 0;
   top: 0;
   font-size: 2rem;
-  margin: .5rem .5rem 0 0;
+  padding: 18px 1rem;
   cursor: pointer;
 }
 .overlay .modal .close:hover {
