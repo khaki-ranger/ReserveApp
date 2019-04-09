@@ -1,17 +1,12 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 const loginUser = require('./login-user');
 const Periods = require('./periods');
 const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
-
-const getDayOfWeekString = ((dateObj) => {
-  const dayOfWeekNum = dateObj.getDay();
-  const dayOfWeekstring = ['日', '月', '火', '水', '木', '金', '土'][dayOfWeekNum];
-  return dayOfWeekstring;
-});
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
@@ -19,18 +14,21 @@ router.get('/', function(req, res, next) {
   // ログイン済かどうかで処理を分岐
   if (req.user) {
     // ログイン済
-    let currentDay = new Date();
+    let current  = moment().tz('Asia/Tokyo');
     if (req.query.year && req.query.month && req.query.day) {
-      currentDay = new Date(req.query.year, req.query.month - 1, req.query.day);
+      current = moment({
+        year: req.query.year,
+        month: req.query.month - 1,
+        day: req.query.day
+      });
     }
     const currentDate = {
-      year: currentDay.getFullYear(),
-      month: currentDay.getMonth() + 1,
-      day: currentDay.getDate(),
-      dayOfWeekString: getDayOfWeekString(currentDay)
+      year: current.year(),
+      month: current.month() + 1,
+      day: current.date(),
+      dayOfWeekString: ['日', '月', '火', '水', '木', '金', '土'][current.day()]
     }
-    const startDate = new Date(currentDate.year, currentDate.month - 1, currentDate.day);
-    console.log('Start : ' + startDate);
+    const startDate = new Date(current.year(), current.month(), current.date());
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
@@ -73,15 +71,16 @@ router.get('/', function(req, res, next) {
               reservations.forEach((reservation) => {
                 periods[reservation.periodnum].availability = false;
                 if(reservation.createdBy === req.user.userId){
+                  const m = moment(reservation.date);
                   periods[reservation.periodnum].isSelf = true;
                   periods[reservation.periodnum].reservationId = reservation.reservationId;
                   periods[reservation.periodnum].guestname = reservation.guestname;
                   periods[reservation.periodnum].officename = space.office.officename;
                   periods[reservation.periodnum].spacename = space.spacename;
-                  periods[reservation.periodnum].year = reservation.date.getFullYear();
-                  periods[reservation.periodnum].month = reservation.date.getMonth() + 1;
-                  periods[reservation.periodnum].day = reservation.date.getDate();
-                  periods[reservation.periodnum].dayofweek = getDayOfWeekString(reservation.date);;
+                  periods[reservation.periodnum].year = m.year();;
+                  periods[reservation.periodnum].month = m.month() + 1;
+                  periods[reservation.periodnum].day = m.date();
+                  periods[reservation.periodnum].dayofweek = ['日', '月', '火', '水', '木', '金', '土'][m.day()];
                 }
               });
             }
