@@ -7,6 +7,8 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css', type="text/css")
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.1/css/all.css', type="text/css")
+    if configVars
+      script(src="#{configVars.vuejs}")
   body
     header
       .logo
@@ -31,3 +33,4 @@ html
           block modal
         .close
     script(src="/javascripts/bundle.js")
+    block script

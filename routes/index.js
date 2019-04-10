@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const moment = require('moment');
 const loginUser = require('./login-user');
+const configVars = require('./config-vars');
 const Periods = require('./periods');
 const Office = require('../models/office');
 const Space = require('../models/space');
@@ -89,6 +90,7 @@ router.get('/', function(req, res, next) {
             res.render('index', {
               title: title,
               loginUser: result,
+              configVars: configVars,
               currentDate: currentDate,
               offices: offices,
               officeSpaceObject: officeSpaceObject
@@ -101,6 +103,7 @@ router.get('/', function(req, res, next) {
     // 未ログイン
     res.render('index', {
       title: title,
+      configVars: configVars
     });
   }
 });

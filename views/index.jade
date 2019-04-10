@@ -1,6 +1,7 @@
 extends layout
 
 block content
+  #app {{message}}
   if !loginUser
     section.signin
       .dialog
@@ -104,3 +105,14 @@ block modal
         .btn-close.ui-component 閉じる
       .btn-holder
         a.ui-component.confirm(href="/") 予約をキャンセルする
+
+block script
+  script.
+    'use strict';
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue!'
+      }
+    })
