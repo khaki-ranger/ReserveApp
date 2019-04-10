@@ -119,7 +119,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
               sendmail.send();
             }
           });
-          res.redirect('/');
+          res.redirect('/reserve/complete');
         }).catch((error) => {
           throw new Error(error);
         });
@@ -165,13 +165,43 @@ router.get('/cancel/:reservationId', authenticationEnsurer, (req, res, next) => 
             sendmail.send();
           }
         });
-        res.redirect('/mypage');
+        res.redirect('/reserve/complete/cancel');
       });
     } else {
       // 後でエラー処理をする
       console.log('userIdが一致しません');
       res.redirect('/');
     }
+  });
+});
+
+router.get('/complete', authenticationEnsurer, (req, res, next) => { 
+  const title = '予約完了 | SERVICE NAME';
+  const message = {
+    title: '予約を完了しました',
+    body: 'メールを送信しました。'
+  };
+  loginUser(req.user, (result) => {
+    res.render('complete', {
+      title: title,
+      loginUser: result,
+      message: message
+    });
+  });
+});
+
+router.get('/complete/cancel', authenticationEnsurer, (req, res, next) => { 
+  const title = '予約キャンセル完了 | SERVICE NAME';
+  const message = {
+    title: '予約のキャンセルを完了しました',
+    body: 'メールを送信しました。'
+  };
+  loginUser(req.user, (result) => {
+    res.render('complete', {
+      title: title,
+      loginUser: result,
+      message: message
+    });
   });
 });
 

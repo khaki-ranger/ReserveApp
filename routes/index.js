@@ -28,7 +28,6 @@ router.get('/', function(req, res, next) {
       day: current.date(),
       dayOfWeekString: ['日', '月', '火', '水', '木', '金', '土'][current.day()]
     }
-    const startDate = new Date(current.year(), current.month(), current.date());
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
@@ -44,7 +43,7 @@ router.get('/', function(req, res, next) {
         Reservation.findAll({
           where: {
             canceled: false, 
-            date: startDate
+            date: new Date(current.year(), current.month(), current.date())
           }
         }).then((r) => {
           // 各スペース毎の予約の情報を配列で持つオブジェクトを作成
