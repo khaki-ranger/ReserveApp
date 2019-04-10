@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const uuidV1 = require('uuid/v1');
 const moment = require('moment');
+const configVars = require('./config-vars');
 const loginUser = require('./login-user');
 const adminEnsurer = require('./admin-ensurer');
 const Periods = require('./periods');
@@ -22,6 +23,7 @@ router.get('/', adminEnsurer, (req, res, next) => {
   loginUser(req.user, (result) => {
     res.render('admin/index', {
       title: title,
+      configVars: configVars,
       loginUser: result
     });
   });
@@ -65,6 +67,7 @@ router.get('/reservation', adminEnsurer, (req, res, next) => {
       loginUser(req.user, (result) => {
         res.render('admin/reservationlist', {
           title: title,
+          configVars: configVars,
           loginUser: result,
           reservations: r
         });
@@ -84,6 +87,7 @@ router.get('/user', adminEnsurer, (req, res, next) => {
     loginUser(req.user, (result) => {
       res.render('admin/userlist', {
         title: title,
+        configVars: configVars,
         loginUser: result,
         users: u
       });
@@ -97,6 +101,7 @@ router.get('/user/register', adminEnsurer, (req, res, next) => {
   loginUser(req.user, (result) => {
     res.render('admin/register', {
       title: title,
+      configVars: configVars,
       loginUser: result,
       roles: roles,
       message: message
@@ -121,6 +126,7 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
     loginUser(req.user, (result) => {
       res.render('admin/register', {
         title: title,
+        configVars: configVars,
         loginUser: result,
         roles: roles,
         message: message
@@ -138,6 +144,7 @@ router.post('/user/register', adminEnsurer, (req, res, next) => {
         loginUser(req.user, (result) => {
           res.render('admin/register', {
             title: title,
+            configVars: configVars,
             loginUser: result,
             roles: roles,
             message: message
@@ -164,6 +171,7 @@ router.get('/office/create', adminEnsurer, (req, res, next) => {
   loginUser(req.user, (result) => {
     res.render('admin/officecreate', {
       title: title,
+      configVars: configVars,
       loginUser: result,
       message: message
     });
@@ -190,6 +198,7 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
     loginUser(req.user, (result) => {
       res.render('admin/officecreate', {
         title: title,
+        configVars: configVars,
         loginUser: result,
         message: message
       });
@@ -206,6 +215,7 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
         loginUser(req.user, (result) => {
           res.render('admin/officecreate', {
             title: title,
+            configVars: configVars,
             loginUser: result,
             message: message
           });
@@ -229,6 +239,7 @@ router.get('/space/create', adminEnsurer, (req, res, next) => {
     loginUser(req.user, (result) => {
       res.render('admin/spacecreate', {
         title: title,
+        configVars: configVars,
         loginUser: result,
         offices: offices,
         message: message
@@ -261,6 +272,7 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
       loginUser(req.user, (result) => {
         res.render('admin/spacecreate', {
           title: title,
+          configVars: configVars,
           loginUser: result,
           offices: offices,
           message: message

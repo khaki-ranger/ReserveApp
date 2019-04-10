@@ -89,8 +89,8 @@ router.get('/', function(req, res, next) {
           loginUser(req.user, (result) => {
             res.render('index', {
               title: title,
-              loginUser: result,
               configVars: configVars,
+              loginUser: result,
               currentDate: currentDate,
               offices: offices,
               officeSpaceObject: officeSpaceObject

@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const router = express.Router();
+const configVars = require('./config-vars');
 const loginUser = require('./login-user');
 const authenticationEnsurer = require('./authentication-ensurer');
 const Periods = require('./periods');
@@ -54,6 +55,7 @@ router.get('/space/:spaceId/period/:periodnum/year/:year/month/:month/day/:day',
       loginUser(req.user, (result) => {
         res.render('reserve', {
           title: title,
+          configVars: configVars,
           loginUser: result,
           message: message,
           params: params
@@ -184,6 +186,7 @@ router.get('/complete', authenticationEnsurer, (req, res, next) => {
   loginUser(req.user, (result) => {
     res.render('complete', {
       title: title,
+      configVars: configVars,
       loginUser: result,
       message: message
     });
@@ -199,6 +202,7 @@ router.get('/complete/cancel', authenticationEnsurer, (req, res, next) => {
   loginUser(req.user, (result) => {
     res.render('complete', {
       title: title,
+      configVars: configVars,
       loginUser: result,
       message: message
     });

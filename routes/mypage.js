@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
+const configVars = require('./config-vars');
 const loginUser = require('./login-user');
 const authenticationEnsurer = require('./authentication-ensurer');
 const Periods = require('./periods');
@@ -49,6 +50,7 @@ router.get('/', authenticationEnsurer, (req, res, next) => {
       loginUser(req.user, (result) => {
         res.render('mypage', {
           title: title,
+          configVars: configVars,
           loginUser: result,
           reservations: r
         });
