@@ -2,7 +2,6 @@ extends layout
 
 block content
   #app
-    pre {{$data}}
     if !loginUser
       section.signin
         .dialog
@@ -24,6 +23,28 @@ block content
             |このサービスは、会員専用のためご利用にはログインが必要です。
             |また、現在開発中のため、動作や見た目が変わります。
     else
+      section.date
+        .holder
+          .block.today
+            .ui-component(v-on:click="changeDate(0)") 本日
+          .block.present
+            .holder
+              .nav.prev(v-on:click="changeDate(-1)") 
+                i.fas.fa-chevron-left.fa-lg
+              .text
+                span.num {{currentDate.year}}
+                span.unit 年
+                span.num {{currentDate.month}}
+                span.unit 月
+                span.num {{currentDate.day}}
+                span.unit 日
+                span.unit (
+                span.dayofweek {{currentDate.dayOfWeekString}}
+                span.unit )
+              .nav.next(v-on:click="changeDate(1)") 
+                i.fas.fa-chevron-right.fa-lg
+          .block.select
+            i.fas.fa-calendar-alt.fa-2x
       section.office
         .container
           .office-list
@@ -45,6 +66,7 @@ block content
                       .period(v-for="period in space.periods", v-bind:key="period.num")
                         .time {{period.periodname}}
                         a.status.available(v-if="period.availability", key="reserve-available") &#9675;
+                        .status.unavailable.nav-detail(v-else-if="period.isSelf", key="reserve-is-self") 予約済
                         .status.unavailable(v-else, key="reserve-not-available") &#10005;
 
 block modal
@@ -88,7 +110,23 @@ block script
             this.currentDate = data.currentDate;
             this.offices = data.offices;
             this.officeSpaceObject = data.officeSpaceObject;
-            console.log(data);
           })
+      },
+      methods: {
+        changeDate: function(direction) {
+          var url = '/api';
+          if (direction !== 0) {
+            var day = Number(this.currentDate.day) + direction;
+            var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
+            url += parameter;
+          }
+          fetch(url)
+            .then(response => response.json())
+            .then((data) => {
+              this.currentDate = data.currentDate;
+              this.offices = data.offices;
+              this.officeSpaceObject = data.officeSpaceObject;
+            })
+        }
       }
     })
