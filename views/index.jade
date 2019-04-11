@@ -1,87 +1,51 @@
 extends layout
 
 block content
-  #app {{message}}
-  if !loginUser
-    section.signin
-      .dialog
-        form.ui-component(action="/login" method="post")
-          div.userid.ui-block
-            label.ui-component(id="username") ユーザーネーム
-            input.ui-component(type="text" name="username" for="username" placeholder="username")
-          div.password.ui-block
-            label.ui-component パスワード
-            input.ui-component(type="password" name="password" placeholder="password")
-          div.ui-block
-            button.ui-component(type="submit") ログイン
-    section.about
-      .container
-        .head-component
-          h1 About
-            span このサービスについて
-        .read 
-          |このサービスは、会員専用のためご利用にはログインが必要です。
-          |また、現在開発中のため、動作や見た目が変わります。
-  else
-    section.date
-      .holder
-        .block.today
-          a.ui-component(href="/") 本日
-        .block.present
-          .holder
-            .nav.prev 
-              a(href="?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day - 1}")
-                i.fas.fa-chevron-left.fa-lg
-            .text
-              span.num #{currentDate.year}
-              span.unit 年
-              span.num #{currentDate.month}
-              span.unit 月
-              span.num #{currentDate.day}
-              span.unit 日
-              span.unit (
-              span.dayofweek #{currentDate.dayOfWeekString}
-              span.unit )
-            .nav.next 
-              a(href="?year=#{currentDate.year}&month=#{currentDate.month}&day=#{currentDate.day + 1}")
-                i.fas.fa-chevron-right.fa-lg
-        .block.select
-          i.fas.fa-calendar-alt.fa-2x
-    - var hasOffice = offices.length > 0 
-    if hasOffice
+  #app
+    pre {{$data}}
+    if !loginUser
+      section.signin
+        .dialog
+          form.ui-component(action="/login" method="post")
+            div.userid.ui-block
+              label.ui-component(id="username") ユーザーネーム
+              input.ui-component(type="text" name="username" for="username" placeholder="username")
+            div.password.ui-block
+              label.ui-component パスワード
+              input.ui-component(type="password" name="password" placeholder="password")
+            div.ui-block
+              button.ui-component(type="submit") ログイン
+      section.about
+        .container
+          .head-component
+            h1 About
+              span このサービスについて
+          .read 
+            |このサービスは、会員専用のためご利用にはログインが必要です。
+            |また、現在開発中のため、動作や見た目が変わります。
+    else
       section.office
         .container
           .office-list
-            each office in offices
-              .box
-                .information
-                  .photo
-                    img(src="#{office.imgPath}" class="responsive-img")
-                  .name #{office.officename}
-                .data
-                  - var spaces = officeSpaceObject[office.officeId]
-                  if spaces
-                    ul.space-list
-                      each space in spaces
-                        li.space.clearfix
-                          .information.clearfix
-                            .name #{space.spacename}
-                            .capacity
-                              |最大
-                              span #{space.capacity}
-                              |名
-                          if space.periods
-                            .reservation
-                              each period in space.periods
-                                .period(class="num-#{period.num}")
-                                  .time #{period.periodname}
-                                  if period.availability
-                                    a.status.available(href="/reserve/space/#{space.spaceId}/period/#{period.num}/year/#{currentDate.year}/month/#{currentDate.month}/day/#{currentDate.day}") &#9675;
-                                  else
-                                    if period.isSelf
-                                      .status.unavailable.nav-detail(data-id="#{period.reservationId}" data-name="#{period.guestname}" data-office="#{period.officename}" data-space="#{period.spacename}" data-year="#{period.year}" data-month="#{period.month}" data-day="#{period.day}" data-dayofweek="#{period.dayofweek}" data-periodname="#{period.periodname}") 予約済
-                                    else
-                                      .status.unavailable &#10005;
+            .box(v-for="office in offices", v-bind:key="office.officeId")
+              .information
+                .photo
+                  img.responsive-img(v-bind:src="office.imgPath")
+                .name {{office.officename}}
+              .data
+                ul.space-list
+                  li.space.clearfix(v-for="space in officeSpaceObject[office.officeId]", v-bind:key="space.spaceid")
+                    .information.clearfix
+                      .name {{space.spacename}}
+                      .capacity
+                        |最大
+                        span {{space.capacity}}
+                        |名
+                    .reservation
+                      .period(v-for="period in space.periods", v-bind:key="period.num")
+                        .time {{period.periodname}}
+                        a.status.available(v-if="period.availability", key="reserve-available") &#9675;
+                        .status.unavailable(v-else, key="reserve-not-available") &#10005;
 
 block modal
   .section.cancel
@@ -113,6 +77,18 @@ block script
     var app = new Vue({
       el: '#app',
       data: {
-        message: 'Hello Vue!'
+        currentDate: {},
+        offices: [],
+        officeSpaceObject: {}
+      },
+      mounted() {
+        fetch('/api')
+          .then(response => response.json())
+          .then((data) => {
+            this.currentDate = data.currentDate;
+            this.offices = data.offices;
+            this.officeSpaceObject = data.officeSpaceObject;
+            console.log(data);
+          })
       }
     })

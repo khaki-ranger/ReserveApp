@@ -9,12 +9,10 @@ const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
 
-/* GET home page. */
-router.get('/', function(req, res, next) {
-  const title = 'SERVICE NAME';
+router.get('/', (req, res, next) => {
   // ログイン済かどうかで処理を分岐
   if (req.user) {
-    // ログイン済
+    // 日付取得
     let current  = moment().tz('Asia/Tokyo');
     if (req.query.year && req.query.month && req.query.day) {
       current = moment({
@@ -29,6 +27,8 @@ router.get('/', function(req, res, next) {
       day: current.date(),
       dayOfWeekString: ['日', '月', '火', '水', '木', '金', '土'][current.day()]
     }
+    const startDate = new Date(current.year(), current.month(), current.date());
+    // データ取得
     Office.findAll({
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
@@ -43,8 +43,8 @@ router.get('/', function(req, res, next) {
       }).then((s) => {
         Reservation.findAll({
           where: {
-            canceled: false, 
-            date: new Date(current.year(), current.month(), current.date())
+            canceled: false,
+            date: startDate
           }
         }).then((r) => {
           // 各スペース毎の予約の情報を配列で持つオブジェクトを作成
@@ -60,10 +60,6 @@ router.get('/', function(req, res, next) {
           // key = officeId, value = [スペース]
           const officeSpaceObject = {};
           s.forEach((space) => {
-            if (!officeSpaceObject[space.officeId]) {
-              officeSpaceObject[space.officeId] = [];
-            }
-            officeSpaceObject[space.officeId].push(space);
             // 個々のオフィスの予定を表現するインスタンスを作成
             const periods = new Periods();
             const reservations = reservationObject[space.spaceId];
@@ -84,27 +80,24 @@ router.get('/', function(req, res, next) {
                 }
               });
             }
-            space['periods'] = periods;
+            space.dataValues['periods'] = periods;
+            if (!officeSpaceObject[space.officeId]) {
+              officeSpaceObject[space.officeId] = [];
+            }
+            officeSpaceObject[space.officeId].push(space);
           });
-          loginUser(req.user, (result) => {
-            res.render('index', {
-              title: title,
-              configVars: configVars,
-              loginUser: result,
-              currentDate: currentDate,
-              offices: offices,
-              officeSpaceObject: officeSpaceObject
-            });
-          });
+          const responseData = {
+            currentDate: currentDate,
+            offices: offices,
+            officeSpaceObject: officeSpaceObject
+          };
+          res.json(responseData);
         });
       });
+
     });
   } else {
-    // 未ログイン
-    res.render('index', {
-      title: title,
-      configVars: configVars
-    });
+    res.json([]);
   }
 });
 

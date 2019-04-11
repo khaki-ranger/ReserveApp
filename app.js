@@ -76,6 +76,7 @@ var logoutRouter = require('./routes/logout');
 var adminRouter = require('./routes/admin');
 var mypageRouter = require('./routes/mypage');
 var reserveRouter = require('./routes/reserve');
+var apiRouter = require('./routes/api');
 
 var app = express();
 app.use(helmet());
@@ -113,6 +114,7 @@ app.use('/logout', logoutRouter);
 app.use('/admin', adminRouter);
 app.use('/mypage', mypageRouter);
 app.use('/reserve', reserveRouter);
+app.use('/api', apiRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
