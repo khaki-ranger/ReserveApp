@@ -51,7 +51,7 @@ block content
             .box(v-for="office in offices", v-bind:key="office.officeId")
               .information
                 .photo
-                  img.responsive-img(v-bind:src="office.imgPath")
+                  img.responsive-img(v-bind:src="office.imgPath", v-on:load="show=true", v-bind:class="{hide: !show}")
                 .name {{office.officename}}
               .data
                 ul.space-list
@@ -101,7 +101,8 @@ block script
       data: {
         currentDate: {},
         offices: [],
-        officeSpaceObject: {}
+        officeSpaceObject: {},
+        show: false
       },
       mounted() {
         fetch('/api')
