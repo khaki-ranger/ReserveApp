@@ -33,6 +33,13 @@ table {
   border-spacing: 0;
   width: 100%;
 }
+/* transition */
+.v-enter-active, .v-leave-active {
+  transition: opacity 1s;
+}
+.v-enter, .v-leave-to {
+  opacity: 0;
+}
 /* colors */
 header {
   background: #d7092f;
