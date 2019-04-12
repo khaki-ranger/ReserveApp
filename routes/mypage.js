@@ -12,6 +12,16 @@ const Reservation = require('../models/reservation');
 
 router.get('/', authenticationEnsurer, (req, res, next) => {
   const title = 'ご予約一覧 | SERVICE NAME';
+  loginUser(req.user, (result) => {
+    res.render('mypage', {
+      title: title,
+      configVars: configVars,
+      loginUser: result
+    });
+  });
+});
+
+router.get('/api', authenticationEnsurer, (req, res, next) => {
   const periods = new Periods();
   Reservation.findAll({
     include: [
@@ -43,18 +53,12 @@ router.get('/', authenticationEnsurer, (req, res, next) => {
         spaceOfficeObject[space.spaceId] = space.office;
       });
       r.forEach((reservation) => {
-        reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
-        reservation.periodname = periods[reservation.periodnum].periodname;
-        reservation.officename = spaceOfficeObject[reservation.spaceId].officename;
+        reservation.dataValues.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
+        reservation.dataValues.periodname = periods[reservation.periodnum].periodname;
+        reservation.dataValues.officename = spaceOfficeObject[reservation.spaceId].officename;
+        reservation.dataValues.spacename = reservation.space.spacename;
       });
-      loginUser(req.user, (result) => {
-        res.render('mypage', {
-          title: title,
-          configVars: configVars,
-          loginUser: result,
-          reservations: r
-        });
-      });
+      res.json(r);
     });
   });
 });

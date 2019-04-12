@@ -1,53 +1,92 @@
 extends layout
 
 block content
-  section.my-reservation
-    .container
-      .head-component
-        h1 Reservation
-          span ご予約一覧
-    .container
-      .my-reservation-list
-        .block
-          .line.date
-            .head 予定日時
-          .line.officename
-            .head 施設
-          .line.spacename
-            .head 部屋
-          .line.guestname
-            .head お名前
-          .line.action
-            .head キャンセル
-        each reservation, index in reservations
+  #app
+    section.my-reservation
+      .container
+        .head-component
+          h1 Reservation
+            span ご予約一覧
+      .container
+        .my-reservation-list
           .block
             .line.date
               .head 予定日時
-              .body #{reservation.formattedDate} #{reservation.periodname}
             .line.officename
               .head 施設
-              .body #{reservation.officename}
             .line.spacename
               .head 部屋
-              .body #{reservation.space.spacename}
             .line.guestname
               .head お名前
-              .body #{reservation.guestname}
+            .line.action
+              .head キャンセル
+          .block(v-for="reservation in reservations", v-bind:key="reservation.reservationId")
+            .line.date
+              .head 予定日時
+              .body {{reservation.formattedDate}} {{reservation.periodname}}
+            .line.officename
+              .head 施設
+              .body {{reservation.officename}}
+            .line.spacename
+              .head 部屋
+              .body {{reservation.space.spacename}}
+            .line.guestname
+              .head お名前
+              .body {{reservation.guestname}}
             .line.action
               .head キャンセル
               .body
-                if reservation.canceled
-                  span キャンセル済み
-                else
-                  .btn-cancel(data-id="#{reservation.reservationId}") キャンセル
+                span(v-if="reservation.canceled", key="canceled") キャンセル済み
+                .btn-cancel(v-else, key="not-canceled", v-on:click="confirm(reservation)") キャンセル
+    transition
+      .overlay(v-show="showModal", v-on:click.self="showModal=!showModal")
+        .modal
+          .panel
+            .section.cancel
+                .message
+                  h1 予約をキャンセルしますか？
+                  .information
+                    .office
+                      .head 施設名
+                      .body {{reservationData.officename}}
+                    .space
+                      .head 部屋
+                      .body {{reservationData.spacename}}
+                    .date
+                      .head 日時
+                      .body {{reservationData.formattedDate}} {{reservationData.periodname}}
+                    .name
+                      .head お名前
+                      .body {{reservationData.guestname}}
+                .nav-holder
+                  .btn-holder
+                    .btn-close.ui-component(v-on:click="showModal=!showModal") 閉じる
+                  .btn-holder
+                    a.ui-component.confirm(v-bind:href="'/reserve/cancel/' + reservationData.reservationId") 予約をキャンセルする
+          .close(v-on:click="showModal=!showModal")
 
-block modal
-  .section.cancel
-    .message
-      h1 予約をキャンセルしますか？
-      .body 説明文
-    .nav-holder
-      .btn-holder
-        .button.ui-component.btn-close 閉じる
-      .btn-holder
-        a.ui-component.confirm(href="/") キャンセル
+block script
+  script.
+    'use strict';
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        showModal: false,
+        reservationData: {},
+        reservations: []
+      },
+      mounted() {
+        fetch('/mypage/api')
+          .then(response => response.json())
+          .then((data) => {
+            this.reservations = data
+          })
+      },
+      methods: {
+        confirm: function(reservationData) {
+          this.showModal=!this.showModal;
+          this.reservationData = reservationData;
+        }
+      }
+    })
