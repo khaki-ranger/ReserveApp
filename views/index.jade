@@ -51,7 +51,7 @@ block content
             .box(v-for="office in offices", v-bind:key="office.officeId")
               .information
                 .photo
-                  img.responsive-img(v-bind:src="office.imgPath", v-on:load="imgShow=true", v-bind:class="{hide: !imgShow}")
+                  img.responsive-img(v-bind:src="office.imgPath", v-on:load="showImg=true", v-bind:class="{hide: !showImg}")
                 .name {{office.officename}}
               .data
                 transition-group.space-list(name="list", tag="ul")
@@ -66,31 +66,34 @@ block content
                       .period(v-for="period in space.periods", v-bind:key="period.num")
                         .time {{period.periodname}}
                         a.status.available(v-if="period.availability", key="reserve-available", v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + currentDate.year + '/month/' + currentDate.month + '/day/' + currentDate.day") &#9675;
-                        .status.unavailable.nav-detail(v-else-if="period.isSelf", key="reserve-is-self", v-bind:data-id="period.reservationId", v-bind:data-name="period.guestname", v-bind:data-office="period.officename", v-bind:data-space="period.spacename", v-bind:data-year="period.year", v-bind:data-month="period.month", v-bind:data-day="period.day", v-bind:data-dayofweek="period.dayofweek", v-bind:data-periodname="period.periodname") 予約済
+                        .status.unavailable.nav-detail(v-else-if="period.isSelf", key="reserve-is-self", v-on:click="viewDetail(period)") 予約済
                         .status.unavailable(v-else, key="reserve-not-available") &#10005;
-
-block modal
-  .section.cancel
-    .message
-      h1 予約内容
-      .information
-        .office
-          .head 施設名
-          .body 
-        .space
-          .head 部屋
-          .body 
-        .date
-          .head 日時
-          .body 年 月 日() 
-        .name
-          .head お名前
-          .body 
-    .nav-holder
-      .btn-holder
-        .btn-close.ui-component 閉じる
-      .btn-holder
-        a.ui-component.confirm(href="/") 予約をキャンセルする
+      transition
+        .overlay(v-show="showModal", v-on:click.self="showModal=!showModal")
+          .modal
+            .panel
+              .section.cancel
+                  .message
+                    h1 予約内容
+                    .information
+                      .office
+                        .head 施設名
+                        .body {{reservationData.officename}}
+                      .space
+                        .head 部屋
+                        .body {{reservationData.spacename}}
+                      .date
+                        .head 日時
+                        .body {{reservationData.year}}年 {{reservationData.month}}月 {{reservationData.day}}日({{reservationData.dayofweek}}) {{reservationData.periodname}}
+                      .name
+                        .head お名前
+                        .body {{reservationData.guestname}}
+                  .nav-holder
+                    .btn-holder
+                      .btn-close.ui-component(v-on:click="showModal=!showModal") 閉じる
+                    .btn-holder
+                      a.ui-component.confirm(v-bind:href="'/reserve/cancel/' + reservationData.reservationId") 予約をキャンセルする
+            .close(v-on:click="showModal=!showModal")
 
 block script
   script.
@@ -102,7 +105,9 @@ block script
         currentDate: {},
         offices: [],
         officeSpaceObject: {},
-        imgShow: false
+        reservationData: {},
+        showImg: false,
+        showModal: false
       },
       mounted() {
         fetch('/api')
@@ -128,6 +133,10 @@ block script
               this.offices = data.offices;
               this.officeSpaceObject = data.officeSpaceObject;
             })
+        },
+        viewDetail: function(reservationData) {
+          this.showModal=!this.showModal
+          this.reservationData = reservationData;
         }
       }
     })
