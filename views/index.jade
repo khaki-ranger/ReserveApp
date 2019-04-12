@@ -54,7 +54,7 @@ block content
                   img.responsive-img(v-bind:src="office.imgPath", v-on:load="showImg=true", v-bind:class="{hide: !showImg}")
                 .name {{office.officename}}
               .data
-                transition-group.space-list(name="list", tag="ul")
+                ul.space-list
                   li.space.clearfix(v-for="space in officeSpaceObject[office.officeId]", v-bind:key="space.spaceId")
                     .information.clearfix
                       .name {{space.spacename}}
@@ -110,7 +110,7 @@ block script
         showModal: false
       },
       mounted() {
-        fetch('/api')
+        fetch('/dateOfCurrentDay')
           .then(response => response.json())
           .then((data) => {
             this.currentDate = data.currentDate;
@@ -120,7 +120,7 @@ block script
       },
       methods: {
         changeDate: function(direction) {
-          var url = '/api';
+          var url = '/dateOfCurrentDay';
           if (direction !== 0) {
             var day = Number(this.currentDate.day) + direction;
             var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
