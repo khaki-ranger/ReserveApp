@@ -77,38 +77,8 @@ var _jquery2 = _interopRequireDefault(_jquery);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 (0, _jquery2.default)(window).on('load', function () {
-  var overlay = (0, _jquery2.default)('.overlay');
-  var modal = (0, _jquery2.default)('.modal');
-
-  function openModal() {
-    overlay.addClass('visible');
-    modal.addClass('visible');
-  }
-  function closeModal() {
-    overlay.removeClass('visible');
-    modal.removeClass('visible');
-  }
-
   (0, _jquery2.default)('header .icon').on('click', function () {
     (0, _jquery2.default)('header .mymenu:not(:animated)').slideToggle('fast');
-  });
-
-  (0, _jquery2.default)('.overlay, .close, .btn-close').on('click', function () {
-    closeModal();
-  });
-  (0, _jquery2.default)('.overlay .panel').on('click', function (event) {
-    event.stopPropagation();
-  });
-  (0, _jquery2.default)('.btn-cancel, .nav-detail').on('click', function () {
-    openModal();
-    var id = (0, _jquery2.default)(this).data('id');
-    var href = '/reserve/cancel/' + id;
-    var dateText = (0, _jquery2.default)(this).data('year') + '年' + (0, _jquery2.default)(this).data('month') + '月' + (0, _jquery2.default)(this).data('day') + '日(' + (0, _jquery2.default)(this).data('dayofweek') + ') ' + (0, _jquery2.default)(this).data('periodname');
-    (0, _jquery2.default)('.cancel .confirm').attr('href', href);
-    (0, _jquery2.default)('.cancel .information .name .body').text((0, _jquery2.default)(this).data('name'));
-    (0, _jquery2.default)('.cancel .information .office .body').text((0, _jquery2.default)(this).data('office'));
-    (0, _jquery2.default)('.cancel .information .space .body').text((0, _jquery2.default)(this).data('space'));
-    (0, _jquery2.default)('.cancel .information .date .body').text(dateText);
   });
 });
 
