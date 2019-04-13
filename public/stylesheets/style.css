@@ -386,9 +386,6 @@ button.ui-component {
 }
 }
 /* office-list */
-section.office {
-  margin-top: 1rem;
-}
 .office-list .box {
   width: 100%;
   border: solid 1px #ddd;
@@ -404,6 +401,16 @@ section.office {
 .office-list .box>.information .name {
   text-align: center;
   font-weight: bold;
+}
+@media (max-width: 576px) {
+section.office {
+  margin-top: 120px;
+}
+}
+@media (min-width: 576px) {
+section.office {
+  margin-top: 74px;
+}
 }
 @media (max-width: 768px) {
 .office-list .box>.information{
@@ -554,7 +561,16 @@ section.office {
 }
 /* date */
 section.date {
-  padding: 1rem 1rem 0 1rem;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: rgba(255, 255, 255, .9);
+  padding: 1rem 0;
+  z-index: 99;
+}
+section.date .holder .today>div {
+  background-color: white;
 }
 section.date .holder .select {
   text-align: right;
@@ -603,12 +619,15 @@ section.date .holder {
 }
 section.date .holder .today {
   width: 50%;
-  margin-bottom: 1rem;
+  margin:0 0 1rem 1rem;
 }
 section.date .holder .select {
   position: absolute;
-  right: 0;
+  right: 1rem;
   top: .5rem;
+}
+section.date .holder .present {
+  padding: 0 1rem;
 }
 section.date .present .nav {
   width: 3rem;
@@ -641,6 +660,12 @@ section.date .holder .present {
 section.date .holder .today,
 section.date .holder .select {
   width: 20%;
+}
+section.date .holder .today {
+  padding-left: 1rem;
+}
+section.date .holder .select {
+  padding-right: 1rem;
 }
 section.date .present .nav {
   width: 30%;
