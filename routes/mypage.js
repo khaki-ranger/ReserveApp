@@ -21,7 +21,7 @@ router.get('/', authenticationEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/api', authenticationEnsurer, (req, res, next) => {
+router.get('/myReservations', authenticationEnsurer, (req, res, next) => {
   const periods = new Periods();
   Reservation.findAll({
     include: [

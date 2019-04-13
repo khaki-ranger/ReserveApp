@@ -77,7 +77,7 @@ block script
         reservations: []
       },
       mounted() {
-        fetch('/mypage/api')
+        fetch('/mypage/myReservations')
           .then(response => response.json())
           .then((data) => {
             this.reservations = data
