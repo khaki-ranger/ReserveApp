@@ -569,8 +569,11 @@ section.date {
   padding: 1rem 0;
   z-index: 99;
 }
-section.date .holder .today>div {
+section.date .holder .today div.ui-component {
   background-color: white;
+}
+section.date .holder .today div.ui-component:hover {
+  background-color: #d7092f;
 }
 section.date .holder .select {
   text-align: right;
