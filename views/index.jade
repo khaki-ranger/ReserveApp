@@ -23,46 +23,73 @@ block content
             |このサービスは、会員専用のためご利用にはログインが必要です。
             |また、現在開発中のため、動作や見た目が変わります。
     else
-      section.date
-        .holder
-          .block.today
-            .ui-component(v-on:click="changeDate(0)") 本日
-          .block.present
-            .holder
-              .nav.prev(v-on:click="changeDate(-1)") 
-                i.fas.fa-chevron-left.fa-lg
-              .text
-                span.num {{currentDate.year}}
-                span.unit 年
-                span.num {{currentDate.month}}
-                span.unit 月
-                span.num {{currentDate.day}}
-                span.unit 日
-                span.unit (
-                span.dayofweek {{currentDate.dayOfWeekString}}
-                span.unit )
-              .nav.next(v-on:click="changeDate(1)") 
-                i.fas.fa-chevron-right.fa-lg
-          .block.select
-            i.fas.fa-calendar-alt.fa-2x
+      date-component(
+        v-bind:current_date="currentDate",
+        v-on:change-date="changeDate"
+      )
       section.office
         .container
           .office-list
-            office-component(v-for="office in offices",
+            office-component(
+               v-for="office in offices",
                v-bind:key="office.officeId",
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",
                v-bind:currentdate="currentDate",
                v-on:show-modal="showModal"
             )
-      modal-component(v-bind:perioddata="periodData" v-bind:modal_visibility="modal_visibility" v-on:clear-modal="clearModal")
+      modal-component(
+        v-bind:period_data="periodData",
+        v-bind:modal_visibility="modal_visibility",
+        v-on:clear-modal="clearModal"
+      )
 
 block script
   script.
     'use strict';
+    
+    var dateComponent = Vue.extend({
+      props:['current_date'],
+      methods: {
+        changeDate: function(direction) {
+          this.$emit('change-date', direction);
+        }
+      },
+      template: `<section class="date">
+                   <div class="holder">
+                     <div class="block today">
+                       <div class="ui-component" v-on:click="changeDate(0)">本日</div>
+                     </div>
+                     <div class="block present">
+                       <div class="holder">
+                         <div class="nav prev" v-on:click="changeDate(-1)"> 
+                           <i class="fas fa-chevron-left fa-lg"></i>
+                         </div>
+                         <div class="text">
+                           <span class="num">{{current_date.year}}</span>
+                           <span class="unit">年</span>
+                           <span class="num">{{current_date.month}}</span>
+                           <span class="unit">月</span>
+                           <span class="num">{{current_date.day}}</span>
+                           <span class="unit">日</span>
+                           <span class="unit">(</span>
+                           <span class="dayofweek">{{current_date.dayOfWeekString}}</span>
+                           <span class="unit">)</span>
+                         </div>
+                         <div class="nav next" v-on:click="changeDate(1)">
+                           <i class="fas fa-chevron-right fa-lg"></i>
+                         </div>
+                       </div>
+                     </div>
+                     <div class="block select">
+                       <i class="fas fa-calendar-alt fa-2x"></i>
+                     </div>
+                   </div>
+                 </section>`,
+    });
 
     var modalComponent = Vue.extend({
-      props:['perioddata', 'modal_visibility'],
+      props:['period_data', 'modal_visibility'],
       methods: {
         clearModal: function() {
           this.$emit('clear-modal');
@@ -78,19 +105,19 @@ block script
                              <div class="information">
                                <div class="office">
                                  <div class="head">施設名</div>
-                                 <div class="body">{{perioddata.officename}}</div>
+                                 <div class="body">{{period_data.officename}}</div>
                                </div>
                                <div class="space">
                                  <div class="head">部屋</div>
-                                 <div class="body">{{perioddata.spacename}}</div>
+                                 <div class="body">{{period_data.spacename}}</div>
                                </div>
                                <div class="date">
                                  <div class="head">日時</div>
-                                 <div class="body">{{perioddata.year}}年 {{perioddata.month}}月 {{perioddata.day}}日({{perioddata.dayofweek}}) {{perioddata.periodname}}</div>
+                                 <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodname}}</div>
                                </div>
                                <div class="name">
                                  <div class="head">お名前</div>
-                                 <div class="body">{{perioddata.guestname}}</div>
+                                 <div class="body">{{period_data.guestname}}</div>
                                </div>
                              </div>
                            </div>
@@ -99,7 +126,7 @@ block script
                                <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
                              </div>
                              <div class="btn-holder">
-                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + perioddata.reservationId">予約をキャンセルする</a>
+                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + period_data.reservationId">予約をキャンセルする</a>
                              </div>
                            </div>
                          </div>
@@ -184,6 +211,7 @@ block script
       el: '#app',
       components: {
         'office-component': officeComponent,
+        'date-component': dateComponent,
         'modal-component': modalComponent
       },
       data: {
