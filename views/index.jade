@@ -48,66 +48,143 @@ block content
       section.office
         .container
           .office-list
-            .box(v-for="office in offices", v-bind:key="office.officeId")
-              .information
-                .photo
-                  img.responsive-img(v-bind:src="office.imgPath", v-on:load="showImg=true", v-bind:class="{hide: !showImg}")
-                .name {{office.officename}}
-              .data
-                ul.space-list
-                  li.space.clearfix(v-for="space in officeSpaceObject[office.officeId]", v-bind:key="space.spaceId")
-                    .information.clearfix
-                      .name {{space.spacename}}
-                      .capacity
-                        |最大
-                        span {{space.capacity}}
-                        |名
-                    .reservation
-                      .period(v-for="period in space.periods", v-bind:key="period.num")
-                        .time {{period.periodname}}
-                        a.status.available(v-if="period.availability", key="reserve-available", v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + currentDate.year + '/month/' + currentDate.month + '/day/' + currentDate.day") &#9675;
-                        .status.unavailable.nav-detail(v-else-if="period.isSelf", key="reserve-is-self", v-on:click="viewDetail(period)") 予約済
-                        .status.unavailable(v-else, key="reserve-not-available") &#10005;
-      transition
-        .overlay(v-show="showModal", v-on:click.self="showModal=!showModal")
-          .modal
-            .panel
-              .section.cancel
-                  .message
-                    h1 予約内容
-                    .information
-                      .office
-                        .head 施設名
-                        .body {{reservationData.officename}}
-                      .space
-                        .head 部屋
-                        .body {{reservationData.spacename}}
-                      .date
-                        .head 日時
-                        .body {{reservationData.year}}年 {{reservationData.month}}月 {{reservationData.day}}日({{reservationData.dayofweek}}) {{reservationData.periodname}}
-                      .name
-                        .head お名前
-                        .body {{reservationData.guestname}}
-                  .nav-holder
-                    .btn-holder
-                      .btn-close.ui-component(v-on:click="showModal=!showModal") 閉じる
-                    .btn-holder
-                      a.ui-component.confirm(v-bind:href="'/reserve/cancel/' + reservationData.reservationId") 予約をキャンセルする
-            .close(v-on:click="showModal=!showModal")
+            office-component(v-for="office in offices",
+               v-bind:key="office.officeId",
+               v-bind:office="office",
+               v-bind:spaces="officeSpaceObject[office.officeId]",
+               v-bind:currentdate="currentDate"
+            )
+      modal-component(v-bind:reservationdata="reservationData" v-bind:showmodal="showModal")
 
 block script
   script.
     'use strict';
 
+    var modalComponent = Vue.extend({
+      props:['reservationdata', 'showmodal'],
+      data: function() {
+        return {
+          showModal: this.showmodal
+        }
+      },
+      template: `<transition>
+                   <div class="overlay" v-show="showModal" v-on:click.self="showModal=!showModal">
+                     <div class="modal">
+                       <div class="panel">
+                         <div class="section cancel">
+                           <div class="message">
+                             <h1>予約内容</h1>
+                             <div class="information">
+                               <div class="office">
+                                 <div class="head">施設名</div>
+                                 <div class="body">{{reservationdata.officename}}</div>
+                               </div>
+                               <div class="space">
+                                 <div class="head">部屋</div>
+                                 <div class="body">{{reservationdata.spacename}}</div>
+                               </div>
+                               <div class="date">
+                                 <div class="head">日時</div>
+                                 <div class="body">{{reservationdata.year}}年 {{reservationdata.month}}月 {{reservationdata.day}}日({{reservationdata.dayofweek}}) {{reservationdata.periodname}}</div>
+                               </div>
+                               <div class="name">
+                                 <div class="head">お名前</div>
+                                 <div class="body">{{reservationdata.guestname}}</div>
+                               </div>
+                             </div>
+                           </div>
+                           <div class="nav-holder">
+                             <div class="btn-holder">
+                               <div class="btn-close ui-component" v-on:click="showModal=!showModal">閉じる</div>
+                             </div>
+                             <div class="btn-holder">
+                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + reservationdata.reservationId">予約をキャンセルする</a>
+                             </div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="close" v-on:click="showModal=!showModal"></div>
+                     </div>
+                   </div>
+                 </transition>`,
+    });
+
+    var spaceComponent = Vue.extend({
+      props:['space', 'currentdate'],
+      methods: {
+        viewDetail: function(reservationData) {
+        }
+      },
+      template: `<li class="space clearfix">
+                        <div class="information clearfix">
+                          <div class="name">{{space.spacename}}</div>
+                          <div class="capacity">
+                            最大<span>{{space.capacity}}</span>名
+                          </div>
+                        </div>
+                        <div class="reservation">
+                          <div class="period" v-for="period in space.periods" v-bind:key="period.num">
+                            <div class="time">{{period.periodname}}</div>
+                            <a v-if="period.availability"
+                               class="status available"
+                               key="reserve-available"
+                               v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + currentdate.year + '/month/' + currentdate.month + '/day/' + currentdate.day"
+                            >
+                               &#9675;
+                            </a>
+                            <div v-else-if="period.isSelf"
+                              class="status unavailable nav-detail"
+                              key="reserve-is-self"
+                              v-on:click="viewDetail(period)"
+                            >
+                              予約済
+                            </div>
+                            <div v-else
+                              class="status unavailable"
+                              key="reserve-not-available"
+                            >
+                              &#10005;
+                            </div>
+                          </div>
+                        </div>
+                      </li>`,
+    });
+
+    var officeComponent = Vue.extend({
+      props:['office', 'spaces', 'currentdate'],
+      data: function() {
+        return {
+          showImg: false
+        }
+      },
+      components: {
+        'space-component': spaceComponent
+      },
+      template: `<div class="box">
+                  <div class="information">
+                    <div class="photo"><img v-bind:src="office.imgPath" v-on:load="showImg=true" v-bind:class="{hide: !showImg}" class="responsive-img"></div>
+                    <div class="name">{{office.officename}}</div>
+                  </div>
+                  <div class="data">
+                    <ul class="space-list">
+                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate"></space-component>
+                    </ul>
+                  </div>
+                </div>`,
+    });
+
     var app = new Vue({
       el: '#app',
+      components: {
+        'office-component': officeComponent,
+        'modal-component': modalComponent
+      },
       data: {
         currentDate: {},
         offices: [],
         officeSpaceObject: {},
         reservationData: {},
-        showImg: false,
-        showModal: false
+        showModal: true
       },
       mounted() {
         fetch('/dateOfCurrentDay')
@@ -133,10 +210,6 @@ block script
               this.offices = data.offices;
               this.officeSpaceObject = data.officeSpaceObject;
             })
-        },
-        viewDetail: function(reservationData) {
-          this.showModal=!this.showModal;
-          this.reservationData = reservationData;
         }
       }
     })
