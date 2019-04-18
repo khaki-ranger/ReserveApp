@@ -52,23 +52,24 @@ block content
                v-bind:key="office.officeId",
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",
-               v-bind:currentdate="currentDate"
+               v-bind:currentdate="currentDate",
+               v-on:show-modal="showmodal"
             )
-      modal-component(v-bind:reservationdata="reservationData" v-bind:showmodal="showModal")
+      modal-component(v-bind:perioddata="periodData" v-bind:showmodal="showModal" v-on:clearmodal="clearmodal")
 
 block script
   script.
     'use strict';
 
     var modalComponent = Vue.extend({
-      props:['reservationdata', 'showmodal'],
-      data: function() {
-        return {
-          showModal: this.showmodal
+      props:['perioddata', 'showmodal'],
+      methods: {
+        clearmodal: function() {
+          this.$emit('clearmodal');
         }
       },
       template: `<transition>
-                   <div class="overlay" v-show="showModal" v-on:click.self="showModal=!showModal">
+                   <div class="overlay" v-show="showmodal" v-on:click.self="clearmodal">
                      <div class="modal">
                        <div class="panel">
                          <div class="section cancel">
@@ -77,33 +78,33 @@ block script
                              <div class="information">
                                <div class="office">
                                  <div class="head">施設名</div>
-                                 <div class="body">{{reservationdata.officename}}</div>
+                                 <div class="body">{{perioddata.officename}}</div>
                                </div>
                                <div class="space">
                                  <div class="head">部屋</div>
-                                 <div class="body">{{reservationdata.spacename}}</div>
+                                 <div class="body">{{perioddata.spacename}}</div>
                                </div>
                                <div class="date">
                                  <div class="head">日時</div>
-                                 <div class="body">{{reservationdata.year}}年 {{reservationdata.month}}月 {{reservationdata.day}}日({{reservationdata.dayofweek}}) {{reservationdata.periodname}}</div>
+                                 <div class="body">{{perioddata.year}}年 {{perioddata.month}}月 {{perioddata.day}}日({{perioddata.dayofweek}}) {{perioddata.periodname}}</div>
                                </div>
                                <div class="name">
                                  <div class="head">お名前</div>
-                                 <div class="body">{{reservationdata.guestname}}</div>
+                                 <div class="body">{{perioddata.guestname}}</div>
                                </div>
                              </div>
                            </div>
                            <div class="nav-holder">
                              <div class="btn-holder">
-                               <div class="btn-close ui-component" v-on:click="showModal=!showModal">閉じる</div>
+                               <div class="btn-close ui-component" v-on:click="clearmodal">閉じる</div>
                              </div>
                              <div class="btn-holder">
-                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + reservationdata.reservationId">予約をキャンセルする</a>
+                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + perioddata.reservationId">予約をキャンセルする</a>
                              </div>
                            </div>
                          </div>
                        </div>
-                       <div class="close" v-on:click="showModal=!showModal"></div>
+                       <div class="close" v-on:click="clearmodal"></div>
                      </div>
                    </div>
                  </transition>`,
@@ -112,7 +113,8 @@ block script
     var spaceComponent = Vue.extend({
       props:['space', 'currentdate'],
       methods: {
-        viewDetail: function(reservationData) {
+        showmodal: function(period) {
+          this.$emit('show-modal', period)
         }
       },
       template: `<li class="space clearfix">
@@ -135,7 +137,7 @@ block script
                             <div v-else-if="period.isSelf"
                               class="status unavailable nav-detail"
                               key="reserve-is-self"
-                              v-on:click="viewDetail(period)"
+                              v-on:click="showmodal(period)"
                             >
                               予約済
                             </div>
@@ -160,6 +162,11 @@ block script
       components: {
         'space-component': spaceComponent
       },
+      methods: {
+        showmodal: function(period) {
+          this.$emit('show-modal', period)
+        }
+      },
       template: `<div class="box">
                   <div class="information">
                     <div class="photo"><img v-bind:src="office.imgPath" v-on:load="showImg=true" v-bind:class="{hide: !showImg}" class="responsive-img"></div>
@@ -167,7 +174,7 @@ block script
                   </div>
                   <div class="data">
                     <ul class="space-list">
-                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate"></space-component>
+                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate" v-on:show-modal="showmodal"></space-component>
                     </ul>
                   </div>
                 </div>`,
@@ -183,8 +190,8 @@ block script
         currentDate: {},
         offices: [],
         officeSpaceObject: {},
-        reservationData: {},
-        showModal: true
+        periodData: {},
+        showModal: false
       },
       mounted() {
         fetch('/dateOfCurrentDay')
@@ -196,6 +203,13 @@ block script
           })
       },
       methods: {
+        showmodal: function(period) {
+          this.showModal = true;
+          this.periodData = period
+        },
+        clearmodal: function() {
+          this.showModal = false;
+        },
         changeDate: function(direction) {
           var url = '/dateOfCurrentDay';
           if (direction !== 0) {
