@@ -53,23 +53,23 @@ block content
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",
                v-bind:currentdate="currentDate",
-               v-on:show-modal="showmodal"
+               v-on:show-modal="showModal"
             )
-      modal-component(v-bind:perioddata="periodData" v-bind:showmodal="showModal" v-on:clearmodal="clearmodal")
+      modal-component(v-bind:perioddata="periodData" v-bind:modal_visibility="modal_visibility" v-on:clear-modal="clearModal")
 
 block script
   script.
     'use strict';
 
     var modalComponent = Vue.extend({
-      props:['perioddata', 'showmodal'],
+      props:['perioddata', 'modal_visibility'],
       methods: {
-        clearmodal: function() {
-          this.$emit('clearmodal');
+        clearModal: function() {
+          this.$emit('clear-modal');
         }
       },
       template: `<transition>
-                   <div class="overlay" v-show="showmodal" v-on:click.self="clearmodal">
+                   <div class="overlay" v-show="modal_visibility" v-on:click.self="clearModal">
                      <div class="modal">
                        <div class="panel">
                          <div class="section cancel">
@@ -96,7 +96,7 @@ block script
                            </div>
                            <div class="nav-holder">
                              <div class="btn-holder">
-                               <div class="btn-close ui-component" v-on:click="clearmodal">閉じる</div>
+                               <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
                              </div>
                              <div class="btn-holder">
                                <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + perioddata.reservationId">予約をキャンセルする</a>
@@ -104,7 +104,7 @@ block script
                            </div>
                          </div>
                        </div>
-                       <div class="close" v-on:click="clearmodal"></div>
+                       <div class="close" v-on:click="clearModal"></div>
                      </div>
                    </div>
                  </transition>`,
@@ -113,7 +113,7 @@ block script
     var spaceComponent = Vue.extend({
       props:['space', 'currentdate'],
       methods: {
-        showmodal: function(period) {
+        showModal: function(period) {
           this.$emit('show-modal', period)
         }
       },
@@ -137,7 +137,7 @@ block script
                             <div v-else-if="period.isSelf"
                               class="status unavailable nav-detail"
                               key="reserve-is-self"
-                              v-on:click="showmodal(period)"
+                              v-on:click="showModal(period)"
                             >
                               予約済
                             </div>
@@ -163,7 +163,7 @@ block script
         'space-component': spaceComponent
       },
       methods: {
-        showmodal: function(period) {
+        showModal: function(period) {
           this.$emit('show-modal', period)
         }
       },
@@ -174,7 +174,7 @@ block script
                   </div>
                   <div class="data">
                     <ul class="space-list">
-                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate" v-on:show-modal="showmodal"></space-component>
+                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate" v-on:show-modal="showModal"></space-component>
                     </ul>
                   </div>
                 </div>`,
@@ -191,7 +191,7 @@ block script
         offices: [],
         officeSpaceObject: {},
         periodData: {},
-        showModal: false
+        modal_visibility: false
       },
       mounted() {
         fetch('/dateOfCurrentDay')
@@ -203,12 +203,12 @@ block script
           })
       },
       methods: {
-        showmodal: function(period) {
-          this.showModal = true;
+        showModal: function(period) {
+          this.modal_visibility = true;
           this.periodData = period
         },
-        clearmodal: function() {
-          this.showModal = false;
+        clearModal: function() {
+          this.modal_visibility = false;
         },
         changeDate: function(direction) {
           var url = '/dateOfCurrentDay';
