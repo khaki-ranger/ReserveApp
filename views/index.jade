@@ -35,7 +35,7 @@ block content
                v-bind:key="office.officeId",
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",
-               v-bind:currentdate="currentDate",
+               v-bind:current_date="currentDate",
                v-on:show-modal="showModal"
             )
       modal-component(
@@ -138,7 +138,7 @@ block script
     });
 
     var spaceComponent = Vue.extend({
-      props:['space', 'currentdate'],
+      props:['space', 'current_date'],
       methods: {
         showModal: function(period) {
           this.$emit('show-modal', period)
@@ -157,7 +157,7 @@ block script
                             <a v-if="period.availability"
                                class="status available"
                                key="reserve-available"
-                               v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + currentdate.year + '/month/' + currentdate.month + '/day/' + currentdate.day"
+                               v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + current_date.year + '/month/' + current_date.month + '/day/' + current_date.day"
                             >
                                &#9675;
                             </a>
@@ -180,7 +180,7 @@ block script
     });
 
     var officeComponent = Vue.extend({
-      props:['office', 'spaces', 'currentdate'],
+      props:['office', 'spaces', 'current_date'],
       data: function() {
         return {
           showImg: false
@@ -201,7 +201,7 @@ block script
                   </div>
                   <div class="data">
                     <ul class="space-list">
-                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:currentdate="currentdate" v-on:show-modal="showModal"></space-component>
+                      <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:show-modal="showModal"></space-component>
                     </ul>
                   </div>
                 </div>`,
