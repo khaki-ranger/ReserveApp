@@ -221,8 +221,29 @@ block script
         periodData: {},
         modal_visibility: false
       },
+      created() {
+        var uri = window.location.href.split('?');
+        if (uri.length == 2) {
+          var vars = uri[1].split('&');
+          var getVars = {};
+          var tmp = '';
+          vars.forEach(function(v){
+            tmp = v.split('=');
+            if(tmp.length == 2)
+            getVars[tmp[0]] = tmp[1];
+          });
+          this.currentDate.year = Number(getVars.year);
+          this.currentDate.month = Number(getVars.month);
+          this.currentDate.day = Number(getVars.day);
+        }
+      },
       mounted() {
-        fetch('/dateOfCurrentDay')
+        var url = '/dateOfCurrentDay';
+        if (this.currentDate.year && this.currentDate.month && this.currentDate.day) {
+          var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + this.currentDate.day;
+          url += parameter;
+        }
+        fetch(url)
           .then(response => response.json())
           .then((data) => {
             this.currentDate = data.currentDate;
