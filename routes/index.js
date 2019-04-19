@@ -13,11 +13,8 @@ const Reservation = require('../models/reservation');
 const getCurrentDate = ((query) => {
   let current  = moment().tz('Asia/Tokyo');
   if (query.year && query.month && query.day) {
-    current = moment({
-      year: query.year,
-      month: query.month - 1,
-      day: query.day
-    });
+    const currentDateObject = new Date(query.year, query.month - 1, query.day);
+    current = moment(currentDateObject).tz('Asia/Tokyo');
   }
   const response = {
     year: current.year(),
