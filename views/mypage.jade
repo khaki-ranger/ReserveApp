@@ -2,42 +2,10 @@ extends layout
 
 block content
   #app
-    section.my-reservation
-      .container
-        .head-component
-          h1 Reservation
-            span ご予約一覧
-      .container
-        .my-reservation-list
-          .block
-            .line.date
-              .head 予定日時
-            .line.officename
-              .head 施設
-            .line.spacename
-              .head 部屋
-            .line.guestname
-              .head お名前
-            .line.action
-              .head キャンセル
-          .block(v-for="reservation in reservations", v-bind:key="reservation.reservationId")
-            .line.date
-              .head 予定日時
-              .body {{reservation.formattedDate}} {{reservation.periodname}}
-            .line.officename
-              .head 施設
-              .body {{reservation.officename}}
-            .line.spacename
-              .head 部屋
-              .body {{reservation.space.spacename}}
-            .line.guestname
-              .head お名前
-              .body {{reservation.guestname}}
-            .line.action
-              .head キャンセル
-              .body
-                span(v-if="reservation.canceled", key="canceled") キャンセル済み
-                .btn-cancel(v-else, key="not-canceled", v-on:click="showModal(reservation)") キャンセル
+    main-component(
+      v-bind:reservations="reservations",
+      v-on:show-modal="showModal"
+    )
     modal-component(
       v-bind:period_data="periodData",
       v-bind:modal_visibility="modal_visibility",
@@ -47,6 +15,68 @@ block content
 block script
   script.
     'use strict';
+
+    var mainComponent = Vue.extend({
+      props:['reservations'],
+      methods: {
+        showModal: function(reservation) {
+          this.$emit('show-modal', reservation);
+        }
+      },
+      template: `<section class="my-reservation">
+                   <div class="container">
+                     <div class="head-component">
+                       <h1>Reservation<span>ご予約一覧</span></h1>
+                     </div>
+                   </div>
+                   <div class="container">
+                     <div class="my-reservation-list">
+                       <div class="block">
+                         <div class="line date">
+                           <div class="head">予定日時</div>
+                         </div>
+                         <div class="line officename">
+                           <div class="head">施設</div>
+                         </div>
+                         <div class="line spacename">
+                           <div class="head">部屋</div>
+                         </div>
+                         <div class="line guestname">
+                           <div class="head">お名前</div>
+                         </div>
+                         <div class="line action">
+                           <div class="head">キャンセル</div>
+                         </div>
+                       </div>
+                       <div class="block" v-for="reservation in reservations" v-bind:key="reservation.reservationId">
+                         <div class="line date">
+                           <div class="head">予定日時</div>
+                           <div class="body">{{reservation.formattedDate}} {{reservation.periodname}}</div>
+                         </div>
+                         <div class="line officename">
+                           <div class="head">施設</div>
+                           <div class="body">{{reservation.officename}}</div>
+                         </div>
+                         <div class="line spacename">
+                           <div class="head">部屋</div>
+                           <div class="body">{{reservation.space.spacename}}</div>
+                         </div>
+                         <div class="line guestname">
+                           <div class="head">お名前</div>
+                           <div class="body">{{reservation.guestname}}</div>
+                         </div>
+                         <div class="line action">
+                           <div class="head">キャンセル</div>
+                           <div class="body">
+                             <span v-if="reservation.canceled" key="canceled">キャンセル済み</span>
+                             <div class="btn-cancel" v-else key="not-canceled" v-on:click="showModal(reservation)">キャンセル</div>
+                           </div>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                 </section>`,
+    });
 
     var modalComponent = Vue.extend({
       props:['period_data', 'modal_visibility'],
@@ -100,6 +130,7 @@ block script
     var app = new Vue({
       el: '#app',
       components: {
+        'main-component': mainComponent,
         'modal-component': modalComponent
       },
       data: {
