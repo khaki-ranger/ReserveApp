@@ -51,7 +51,9 @@ block script
                        <div class="block" v-for="reservation in reservations" v-bind:key="reservation.reservationId">
                          <div class="line date">
                            <div class="head">予定日時</div>
-                           <div class="body">{{reservation.formattedDate}} {{reservation.periodname}}</div>
+                           <div class="body">{{reservation.formattedDate}}
+                             <span>{{reservation.periodname}}</span>
+                           </div>
                          </div>
                          <div class="line officename">
                            <div class="head">施設</div>

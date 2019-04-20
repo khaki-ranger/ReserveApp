@@ -709,6 +709,57 @@ section.date .present .nav {
 .my-reservation-list {
   margin-bottom: 1rem;
 }
+.my-reservation-list .block .line>div {
+  padding: .5rem 1rem;
+  vertical-align: middle;
+}
+.my-reservation-list .block .action .btn-cancel {
+  cursor: pointer;
+  color: red;
+}
+.my-reservation-list .block .action .btn-cancel:hover {
+  text-decoration: underline;
+}
+.my-reservation-list .block .action span {
+  color: gray;
+}
+@media (max-width: 991px) {
+.my-reservation-list .block {
+  border-bottom: solid 1px #ddd;
+  margin-bottom: 1rem;
+}
+.my-reservation-list .block:first-child {
+  border: none;
+  margin: 0;
+}
+.my-reservation-list .block .line {
+  display: table;
+  width: 100%;
+  border-right: solid 1px #ddd;
+}
+.my-reservation-list .block .head,
+.my-reservation-list .block .body {
+  display: table-cell;
+  border-left: solid 1px #ddd;
+  border-top: solid 1px #ddd;
+}
+.my-reservation-list .block .head {
+  text-align: center;
+  background-color: #eee;
+  width: 45%;
+}
+.my-reservation-list .block .body {
+  text-align: left;
+  width: 55%;
+}
+.my-reservation-list .block:first-child .head {
+  display: none;
+}
+.my-reservation-list .block .date span {
+  display: inline-block;
+}
+}
+@media (min-width: 992px) {
 .my-reservation-list .block {
   display: table;
   width: 100%;
@@ -723,9 +774,6 @@ section.date .present .nav {
   border-right: solid 1px #ddd;
   vertical-align: middle;
 }
-.my-reservation-list .block .line>div {
-  padding: .5rem 1rem;
-}
 .my-reservation-list .block .head {
   display: none;
   text-align: center;
@@ -735,25 +783,16 @@ section.date .present .nav {
   background-color: #eee;
 }
 .my-reservation-list .block .date{
-  width: 15rem;
+  width: 25%;
 }
 .my-reservation-list .block .officename,
 .my-reservation-list .block .spacename {
-  width: 10rem;
+  width: 20%;
 }
 .my-reservation-list .block .action {
-  width: 10rem;
+  width: 15%;
   text-align: center;
 }
-.my-reservation-list .block .action .btn-cancel {
-  cursor: pointer;
-  color: red;
-}
-.my-reservation-list .block .action .btn-cancel:hover {
-  text-decoration: underline;
-}
-.my-reservation-list .block .action span {
-  color: gray;
 }
 /* cancel */
 .cancel {
