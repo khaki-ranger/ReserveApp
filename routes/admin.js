@@ -6,6 +6,7 @@ const moment = require('moment');
 const configVars = require('./config-vars');
 const loginUser = require('./login-user');
 const adminEnsurer = require('./admin-ensurer');
+const upload = require('./upload');
 const Periods = require('./periods');
 const User = require('../models/user');
 const Office = require('../models/office');
@@ -17,6 +18,8 @@ const roles = [
   {num: 2, name: '管理者'},
   {num: 1, name: '開発者'}
 ];
+
+const singleUpload = upload.single('image');
 
 router.get('/', adminEnsurer, (req, res, next) => {
   const title = '管理者トップ | SERVICE NAME';
@@ -184,16 +187,12 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
   const dataObject = {
     officeId: uuidV1(),
     officename: req.body.officename,
-    imgPath: req.body.imgpath,
     createdBy: req.user.userId
   }
   // サーバー側でも値のチェック
-  if (!dataObject.officename || !dataObject.imgPath) {
+  if (!dataObject.officename) {
     if (!dataObject.officename) {
       message.officename = 'オフィス名が未入力です'
-    }
-    if (!dataObject.imgPath) {
-      message.imgpath = '画像パスが未入力です'
     }
     loginUser(req.user, (result) => {
       res.render('admin/officecreate', {
@@ -221,10 +220,21 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
           });
         });
       } else {
+        singleUpload(req, res, function(error, some) {
+          if (error) {
+            res.json({'error': error.message});
+          } else if (req.file) {
+            res.json({'imageUrl': req.file.location});
+          } else {
+            res.send("Uploaded!");
+          }
+        });
+/*
         // DBへの登録処理
         Office.create(dataObject).then(() => {
-          res.redirect('/');
+          res.redirect('/admin');
         });
+*/
       }
     });
   }

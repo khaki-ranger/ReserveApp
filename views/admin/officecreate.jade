@@ -9,10 +9,8 @@ block content
             if message.officename
               span.message.caution #{message.officename}
           input.ui-component(type="text" name="officename" id="officename" placeholder="officename")
-        div.imgpath.ui-block
-          label.ui-component(for="imgpath") 画像パス
-            if message.imgpath
-              span.message.caution #{message.imgpath}
-          input.ui-component(type="text" name="imgpath" id="imgpath" placeholder="imgpath")
+        div.image.ui-block
+          label.ui-component(for="image") オフィス画像
+          input.ui-component(type="file" name="image" id="image" placeholder="image")
         div.ui-block
           button.ui-component(type="submit") 登録

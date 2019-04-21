@@ -1,9 +1,10 @@
 'use strict';
 require('dotenv').config();
-const VUEJS = process.env.VUEJS;
 
 const configVars = {
-  vuejs: VUEJS 
+  vuejs: process.env.VUEJS,
+  s3Domain: process.env.S3_DOMAIN, 
+  cdnDomain: process.env.CDN_DOMAIN  
 };
 
 module.exports = configVars;
