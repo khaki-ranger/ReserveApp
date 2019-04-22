@@ -22,6 +22,8 @@ html
             a(href="/mypage") マイページ
             if loginUser
               if loginUser.role === 1
+                a(href="/admin") 開発者メニュー
+              else if loginUser.role === 2
                 a(href="/admin") 管理者メニュー
             a(href="/logout") ログアウト
         else

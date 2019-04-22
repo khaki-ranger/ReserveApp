@@ -6,6 +6,7 @@ const moment = require('moment');
 const configVars = require('./config-vars');
 const loginUser = require('./login-user');
 const adminEnsurer = require('./admin-ensurer');
+const superEnsurer = require('./super-ensurer');
 const upload = require('./upload');
 const Periods = require('./periods');
 const User = require('../models/user');
@@ -77,7 +78,7 @@ router.get('/reservation', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/user', adminEnsurer, (req, res, next) => {
+router.get('/user', superEnsurer, (req, res, next) => {
   const title = 'ユーザー一覧 | SERVICE NAME';
   User.findAll({
     order: [['"createdAt"', 'ASC']]
@@ -96,7 +97,7 @@ router.get('/user', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/user/register', adminEnsurer, (req, res, next) => {
+router.get('/user/register', superEnsurer, (req, res, next) => {
   const title = '新規ユーザー登録 | SERVICE NAME';
   const message = {};
   loginUser(req.user, (result) => {
@@ -110,7 +111,7 @@ router.get('/user/register', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.post('/user/register', adminEnsurer, (req, res, next) => {
+router.post('/user/register', superEnsurer, (req, res, next) => {
   const title = '新規ユーザー登録 | SERVICE NAME';
   const message = {};
   const username = req.body.username;

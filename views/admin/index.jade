@@ -1,37 +1,39 @@
 extends ../layout
 
 block content
-  section.admin-index.admin-reservation
-    .container
-      .head-component
-        h1 Reservation
-          span 予約管理
-      ul
-        li
-          a(href="/admin/reservation") 予約一覧
-  section.admin-index.admin-user
-    .container
-      .head-component
-        h1 User
-          span ユーザー管理
-      ul
-        li
-          a(href="/admin/user") ユーザー一覧
-        li
-          a(href="/admin/user/register") 新規ユーザー登録
-  section.admin-index.admin-office
-    .container
-      .head-component
-        h1 Office
-          span オフィス管理
-      ul
-        li
-          a(href="/admin/office/create") 新規オフィス登録
-  section.admin-index.admin-space
-    .container
-      .head-component
-        h1 Space
-          span スペース管理
-      ul
-        li
-          a(href="/admin/space/create") 新規スペース登録
+  if loginUser
+    if loginUser.role === 1
+      section.admin-index.admin-user
+        .container
+          .head-component
+            h1 User
+              span ユーザー管理
+          ul
+            li
+              a(href="/admin/user") ユーザー一覧
+            li
+              a(href="/admin/user/register") 新規ユーザー登録
+    section.admin-index.admin-reservation
+      .container
+        .head-component
+          h1 Reservation
+            span 予約管理
+        ul
+          li
+            a(href="/admin/reservation") 予約一覧
+    section.admin-index.admin-office
+      .container
+        .head-component
+          h1 Office
+            span オフィス管理
+        ul
+          li
+            a(href="/admin/office/create") 新規オフィス登録
+    section.admin-index.admin-space
+      .container
+        .head-component
+          h1 Space
+            span スペース管理
+        ul
+          li
+            a(href="/admin/space/create") 新規スペース登録
