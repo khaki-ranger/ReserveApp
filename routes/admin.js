@@ -19,7 +19,7 @@ const roles = [
   {num: 1, name: '開発者'}
 ];
 
-const singleUpload = upload.single('image');
+const singleUpload = upload.single('officeimage');
 
 router.get('/', adminEnsurer, (req, res, next) => {
   const title = '管理者トップ | SERVICE NAME';
@@ -184,60 +184,24 @@ router.get('/office/create', adminEnsurer, (req, res, next) => {
 router.post('/office/create', adminEnsurer, (req, res, next) => {
   const title = '新規オフィス登録 | SERVICE NAME';
   const message = {};
-  const dataObject = {
-    officeId: uuidV1(),
-    officename: req.body.officename,
-    createdBy: req.user.userId
-  }
-  // サーバー側でも値のチェック
-  if (!dataObject.officename) {
-    if (!dataObject.officename) {
-      message.officename = 'オフィス名が未入力です'
-    }
-    loginUser(req.user, (result) => {
-      res.render('admin/officecreate', {
-        title: title,
-        configVars: configVars,
-        loginUser: result,
-        message: message
+  singleUpload(req, res, (error) => {
+    if (error) {
+      res.json({'error': error.message});
+    } else {
+      console.log({'imageUrl': req.file.location});
+      const imgPath = req.file.location;
+      const dataObject = {
+        officeId: uuidV1(),
+        officename: req.body.officename,
+        imgPath: imgPath,
+        createdBy: req.user.userId
+      }
+      // DBへの登録処理
+      Office.create(dataObject).then(() => {
+        res.redirect('/admin');
       });
-    });
-  } else {
-    Office.findOne({
-      where: {
-        officename: dataObject.officename
-      }
-    }).then((office) => {
-      // officename の重複をチェック
-      if (office) {
-        message.officename = 'すでに登録されているオフィス名です';
-        loginUser(req.user, (result) => {
-          res.render('admin/officecreate', {
-            title: title,
-            configVars: configVars,
-            loginUser: result,
-            message: message
-          });
-        });
-      } else {
-        singleUpload(req, res, function(error, some) {
-          if (error) {
-            res.json({'error': error.message});
-          } else if (req.file) {
-            res.json({'imageUrl': req.file.location});
-          } else {
-            res.send("Uploaded!");
-          }
-        });
-/*
-        // DBへの登録処理
-        Office.create(dataObject).then(() => {
-          res.redirect('/admin');
-        });
-*/
-      }
-    });
-  }
+    }
+  });
 });
 
 router.get('/space/create', adminEnsurer, (req, res, next) => {

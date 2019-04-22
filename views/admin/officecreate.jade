@@ -3,14 +3,14 @@ extends ../layout
 block content
   section.register
     .dialog
-      form.ui-component(action="/admin/office/create" method="post")
+      form.ui-component(action="/admin/office/create" method="post" enctype="multipart/form-data")
         div.officename.ui-block
           label.ui-component(for="officename") オフィス名
             if message.officename
               span.message.caution #{message.officename}
           input.ui-component(type="text" name="officename" id="officename" placeholder="officename")
-        div.image.ui-block
-          label.ui-component(for="image") オフィス画像
-          input.ui-component(type="file" name="image" id="image" placeholder="image")
+        div.officeimage.ui-block
+          label.ui-component(for="officeimage") オフィス画像
+          input.ui-component(type="file" name="officeimage" id="officeimage" placeholder="officeimage")
         div.ui-block
           button.ui-component(type="submit") 登録
