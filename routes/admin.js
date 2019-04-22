@@ -19,8 +19,6 @@ const roles = [
   {num: 1, name: '開発者'}
 ];
 
-const singleUpload = upload.single('officeimage');
-
 router.get('/', adminEnsurer, (req, res, next) => {
   const title = '管理者トップ | SERVICE NAME';
   loginUser(req.user, (result) => {
@@ -184,18 +182,20 @@ router.get('/office/create', adminEnsurer, (req, res, next) => {
 router.post('/office/create', adminEnsurer, (req, res, next) => {
   const title = '新規オフィス登録 | SERVICE NAME';
   const message = {};
+  const singleUpload = upload.single('officeimage');
   singleUpload(req, res, (error) => {
     if (error) {
       res.json({'error': error.message});
     } else {
       console.log({'imageUrl': req.file.location});
-      const imgPath = req.file.location;
+      const imgPath = process.env.CDN_DOMAIN + req.file.key;
       const dataObject = {
         officeId: uuidV1(),
         officename: req.body.officename,
         imgPath: imgPath,
         createdBy: req.user.userId
       }
+      console.log(dataObject);
       // DBへの登録処理
       Office.create(dataObject).then(() => {
         res.redirect('/admin');
