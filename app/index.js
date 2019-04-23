@@ -1,7 +1,5 @@
 'use strict';
 
-import 'whatwg-fetch'
-
 var dateComponent = Vue.extend({
   props:['current_date'],
   methods: {
