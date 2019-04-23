@@ -26,8 +26,10 @@
     "passport-local": "^1.0.0",
     "pg": "^7.9.0",
     "pg-hstore": "^2.3.2",
+    "promise-polyfill": "8.1.0",
     "sequelize": "^5.1.1",
-    "uuid": "^3.3.2"
+    "uuid": "^3.3.2",
+    "whatwg-fetch": "^3.0.0"
   },
   "engines": {
     "node": "9.11.1",
