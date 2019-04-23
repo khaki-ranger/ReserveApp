@@ -106,7 +106,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
             spaceId: r.spaceId,
             periodnum: r.periodnum,
             year: req.body.year,
-            month: req.body.month - 1,
+            month: req.body.month,
             day: req.body.day
           };
           getParams(params, (error, response) => {
