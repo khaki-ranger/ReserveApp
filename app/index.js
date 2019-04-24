@@ -195,12 +195,12 @@ var app = new Vue({
       var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + this.currentDate.day;
       url += parameter;
     }
-    fetch(url)
-      .then(response => response.json())
-      .then((data) => {
-        this.currentDate = data.currentDate;
-        this.offices = data.offices;
-        this.officeSpaceObject = data.officeSpaceObject;
+    axios
+      .get(url)
+      .then(response => {
+        this.currentDate = response.data.currentDate;
+        this.offices = response.data.offices;
+        this.officeSpaceObject = response.data.officeSpaceObject;
       })
   },
   methods: {
@@ -218,12 +218,12 @@ var app = new Vue({
         var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
         url += parameter;
       }
-      fetch(url)
-        .then(response => response.json())
-        .then((data) => {
-          this.currentDate = data.currentDate;
-          this.offices = data.offices;
-          this.officeSpaceObject = data.officeSpaceObject;
+      axios
+        .get(url)
+        .then(response => {
+          this.currentDate = response.data.currentDate;
+          this.offices = response.data.offices;
+          this.officeSpaceObject = response.data.officeSpaceObject;
         })
     }
   }

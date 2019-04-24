@@ -155,12 +155,10 @@ var app = new Vue({
       var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + this.currentDate.day;
       url += parameter;
     }
-    fetch(url).then(function (response) {
-      return response.json();
-    }).then(function (data) {
-      _this.currentDate = data.currentDate;
-      _this.offices = data.offices;
-      _this.officeSpaceObject = data.officeSpaceObject;
+    axios.get(url).then(function (response) {
+      _this.currentDate = response.data.currentDate;
+      _this.offices = response.data.offices;
+      _this.officeSpaceObject = response.data.officeSpaceObject;
     });
   },
 
@@ -181,12 +179,10 @@ var app = new Vue({
         var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
         url += parameter;
       }
-      fetch(url).then(function (response) {
-        return response.json();
-      }).then(function (data) {
-        _this2.currentDate = data.currentDate;
-        _this2.offices = data.offices;
-        _this2.officeSpaceObject = data.officeSpaceObject;
+      axios.get(url).then(function (response) {
+        _this2.currentDate = response.data.currentDate;
+        _this2.offices = response.data.offices;
+        _this2.officeSpaceObject = response.data.officeSpaceObject;
       });
     }
   }
