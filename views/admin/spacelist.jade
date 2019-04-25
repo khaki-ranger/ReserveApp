@@ -1,0 +1,30 @@
+extends ../layout
+
+block content
+  section.admin-list
+    .container
+      .head-component
+        h1 OfficeList
+          span スペース一覧
+    .container
+      table
+        thead
+          tr
+            th Num
+            th ID
+            th 名前
+            th 所属オフィス
+            th 作成日時
+            th 操作
+        tbody
+          each space, index in spaces
+            tr
+              td.num #{index + 1}
+              td.id #{space.spaceId}
+              td.name #{space.spacename}
+              td.office #{space.office.officename}
+              td.createdAt #{space.formattedCreatedAt}
+              td.action
+                .clearfix
+                  a.ui-component.fl-left.update(href="/admin/space/update/#{space.spaceId}") 編集
+                  a.ui-component.fl-right.delete(href="/admin/space/delete/#{space.spaceId}") 削除

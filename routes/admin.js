@@ -265,6 +265,31 @@ router.post('/office/update', adminEnsurer, (req, res, next) => {
   });
 });
 
+router.get('/space', superEnsurer, (req, res, next) => {
+  const title = 'スペース一覧 | SERVICE NAME';
+  Space.findAll({
+    include: [
+      {
+        model: Office,
+        attributes: ['officename']
+      }
+    ],
+    order: [['"createdAt"', 'ASC']]
+  }).then((s) => {
+    s.forEach((space) => {
+      space.formattedCreatedAt = moment(space.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+    });
+    loginUser(req.user, (result) => {
+      res.render('admin/spacelist', {
+        title: title,
+        configVars: configVars,
+        loginUser: result,
+        spaces: s
+      });
+    });
+  });
+});
+
 router.get('/space/create', adminEnsurer, (req, res, next) => {
   const title = '新規スペース登録 | SERVICE NAME';
   const message = {};
