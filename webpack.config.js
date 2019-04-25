@@ -2,7 +2,8 @@ module.exports = {
   context: __dirname + '/app',
   entry: {
     common: './common',
-    index: './index'
+    index: './index',
+    mypage: './mypage'
   },
   output: {
     path: __dirname + '/public/javascripts',
