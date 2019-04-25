@@ -200,14 +200,11 @@ router.get('/office/create', adminEnsurer, (req, res, next) => {
 });
 
 router.post('/office/create', adminEnsurer, (req, res, next) => {
-  const title = '新規オフィス登録 | SERVICE NAME';
-  const message = {};
   const singleUpload = upload.single('officeimage');
   singleUpload(req, res, (error) => {
     if (error) {
       res.json({'error': error.message});
     } else {
-      console.log({'imageUrl': req.file.location});
       const imgPath = process.env.CDN_DOMAIN + req.file.key;
       const dataObject = {
         officeId: uuidV1(),
@@ -215,7 +212,6 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
         imgPath: imgPath,
         createdBy: req.user.userId
       }
-      console.log(dataObject);
       // DBへの登録処理
       Office.create(dataObject).then(() => {
         res.redirect('/admin');
@@ -241,6 +237,31 @@ router.get('/office/update/:officeId', adminEnsurer, (req, res, next) => {
         office: office
       });
     });
+  });
+});
+
+router.post('/office/update', adminEnsurer, (req, res, next) => {
+  const singleUpload = upload.single('officeimage');
+  singleUpload(req, res, (error) => {
+    if (error) {
+      res.json({'error': error.message});
+    } else {
+      const dataObject = {
+        officename: req.body.officename
+      }
+      if (req.file) {
+        dataObject.imgPath = process.env.CDN_DOMAIN + req.file.key;
+      }
+      const filter = {
+        where: {
+          officeId: req.body.officeId
+        }
+      }
+      // DBの更新処理
+      Office.update(dataObject, filter).then(() => {
+        res.redirect('/admin');
+      });
+    }
   });
 });
 

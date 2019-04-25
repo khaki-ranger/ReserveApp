@@ -4,6 +4,7 @@ block content
   section.register
     .dialog
       form.ui-component(action="/admin/office/update" method="post" enctype="multipart/form-data")
+        input(type="hidden" name="officeId" value="#{office.officeId}")
         div.officename.ui-block
           label.ui-component(for="officename") オフィス名
             if message.officename
