@@ -239,6 +239,11 @@ label.ui-component {
   font-weight: bold;
   display: block;
 }
+label.ui-component span {
+  font-weight: normal;
+  font-size: .9rem;
+  padding: 1rem;
+}
 a.ui-component,
 div.ui-component {
   display: block;
@@ -274,6 +279,9 @@ input[type="password"].ui-component,
 select.ui-component {
   margin-top: .25rem;
   border: solid 1px #ddd;
+}
+input[type="file"].ui-component {
+  margin-top: .25rem;
 }
 @media (max-width: 768px) {
 .ui-component {
@@ -558,6 +566,16 @@ section.office {
 }
 .admin-list table td {
   padding: .5rem 1rem;
+}
+.admin-list table td.num {
+  width: 1rem;
+}
+.admin-list table td.image {
+  padding: 0;
+  width: 200px;
+}
+.admin-list table td.action>div .ui-component {
+  width: 4rem;
 }
 /* date */
 section.date {

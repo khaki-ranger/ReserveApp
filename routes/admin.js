@@ -167,6 +167,25 @@ router.post('/user/register', superEnsurer, (req, res, next) => {
   }
 });
 
+router.get('/office', superEnsurer, (req, res, next) => {
+  const title = 'オフィス一覧 | SERVICE NAME';
+  Office.findAll({
+    order: [['"createdAt"', 'ASC']]
+  }).then((o) => {
+    o.forEach((office) => {
+      office.formattedCreatedAt = moment(office.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
+    });
+    loginUser(req.user, (result) => {
+      res.render('admin/officelist', {
+        title: title,
+        configVars: configVars,
+        loginUser: result,
+        offices: o
+      });
+    });
+  });
+});
+
 router.get('/office/create', adminEnsurer, (req, res, next) => {
   const title = '新規オフィス登録 | SERVICE NAME';
   const message = {};
@@ -202,6 +221,26 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
         res.redirect('/admin');
       });
     }
+  });
+});
+
+router.get('/office/update/:officeId', adminEnsurer, (req, res, next) => {
+  const title = 'オフィス編集 | SERVICE NAME';
+  const message = {};
+  Office.findOne({
+    where: {
+      officeId: req.params.officeId
+    }
+  }).then((office) => {
+    loginUser(req.user, (result) => {
+      res.render('admin/officeupdate', {
+        title: title,
+        configVars: configVars,
+        loginUser: result,
+        message: message,
+        office: office
+      });
+    });
   });
 });
 

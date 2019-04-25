@@ -1,0 +1,31 @@
+extends ../layout
+
+block content
+  section.admin-list
+    .container
+      .head-component
+        h1 OfficeList
+          span オフィス一覧
+    .container
+      table
+        thead
+          tr
+            th Num
+            th 画像
+            th ID
+            th 名前
+            th 作成日時
+            th 操作
+        tbody
+          each office, index in offices
+            tr
+              td.num #{index + 1}
+              td.image
+                img.responsive-img(src="#{office.imgPath}")
+              td.id #{office.officeId}
+              td.name #{office.officename}
+              td.createdAt #{office.formattedCreatedAt}
+              td.action
+                .clearfix
+                  a.ui-component.fl-left.update(href="/admin/office/update/#{office.officeId}") 編集
+                  a.ui-component.fl-right.delete(href="'/admin/office/delete/#{office.officeId}") 削除

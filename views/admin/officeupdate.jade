@@ -1,0 +1,20 @@
+extends ../layout
+
+block content
+  section.register
+    .dialog
+      form.ui-component(action="/admin/office/update" method="post" enctype="multipart/form-data")
+        div.officename.ui-block
+          label.ui-component(for="officename") オフィス名
+            if message.officename
+              span.message.caution #{message.officename}
+          input.ui-component(type="text" name="officename" id="officename" placeholder="officename" value="#{office.officename}")
+        div.officeimage.ui-block
+          label.ui-component(for="officeimage")
+            |オフィス画像
+            span ファイルをアップロードすると画像が変更されます
+          input.ui-component(type="file" name="officeimage" id="officeimage")
+        div.officeimage.ui-block
+          img.responsive-img(src="#{office.imgPath}")
+        div.ui-block
+          button.ui-component(type="submit") 登録
