@@ -1,0 +1,27 @@
+extends ../layout
+
+block content
+  section.register
+    .dialog
+      form.ui-component(action="/admin/space/update" method="post")
+        input(type="hidden" name="spaceId" value="#{space.spaceId}")
+        div.spacename.ui-block
+          label.ui-component(for="spacename") スペース名
+            if message.spacename
+              span.message.caution #{message.spacename}
+          input.ui-component(type="text" name="spacename" id="spacename" placeholder="spacename" value="#{space.spacename}")
+        div.capacity.ui-block
+          label.ui-component(for="capacity") 最大収容人数
+            if message.capacity
+              span.message.caution #{message.capacity}
+          input.ui-component(type="text" name="capacity" id="capacity" placeholder="capacity" value="#{space.capacity}")
+        div.officeid.ui-block
+          label.ui-component(for="officeId") 所属オフィス
+          select.ui-component(name="officeId" id="officeId")
+            each office in offices
+              if space.officeId === office.officeId
+                option(value="#{office.officeId}" selected) #{office.officename}
+              else
+                option(value="#{office.officeId}") #{office.officename}
+        div.ui-block
+          button.ui-component(type="submit") 編集

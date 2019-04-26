@@ -348,4 +348,46 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
   }
 });
 
+router.get('/space/update/:spaceId', adminEnsurer, (req, res, next) => {
+  const title = 'スペース編集 | SERVICE NAME';
+  const message = {};
+  Space.findOne({
+    where: {
+      spaceId: req.params.spaceId
+    }
+  }).then((space) => {
+    Office.findAll({
+      order: [['"createdAt"', 'ASC']]
+    }).then((offices) => {
+      loginUser(req.user, (result) => {
+        res.render('admin/spaceupdate', {
+          title: title,
+          configVars: configVars,
+          loginUser: result,
+          message: message,
+          offices: offices,
+          space: space
+        });
+      });
+    });
+  });
+});
+
+router.post('/space/update', adminEnsurer, (req, res, next) => {
+  const dataObject = {
+    spacename: req.body.spacename,
+    capacity: req.body.capacity,
+    officeId: req.body.officeId
+  }
+  const filter = {
+    where: {
+      spaceId: req.body.spaceId
+    }
+  }
+  // DBの更新処理
+  Space.update(dataObject, filter).then(() => {
+    res.redirect('/admin');
+  });
+});
+
 module.exports = router;
