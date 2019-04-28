@@ -574,6 +574,9 @@ section.office {
   padding: 0;
   width: 200px;
 }
+.admin-list table td.action {
+  width: 144px;
+}
 .admin-list table td.action>div .ui-component {
   width: 4rem;
 }
