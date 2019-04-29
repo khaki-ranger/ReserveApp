@@ -82,6 +82,14 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
   });
 });
 
+var confirmationElems = document.getElementsByClassName('confirmation');
+var confirmIt = function confirmIt(e) {
+  if (!confirm('削除して良いですか?')) e.preventDefault();
+};
+for (var i = 0, l = confirmationElems.length; i < l; i++) {
+  confirmationElems[i].addEventListener('click', confirmIt, false);
+}
+
 /***/ }),
 /* 1 */
 /***/ (function(module, exports, __webpack_require__) {

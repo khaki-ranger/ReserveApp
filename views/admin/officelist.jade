@@ -28,4 +28,4 @@ block content
               td.action
                 .clearfix
                   a.ui-component.fl-left.update(href="/admin/office/update/#{office.officeId}") 編集
-                  a.ui-component.fl-right.delete(href="/admin/office/delete/#{office.officeId}") 削除
+                  a.ui-component.fl-right.delete.confirmation(href="/admin/office/delete/#{office.officeId}") 削除
