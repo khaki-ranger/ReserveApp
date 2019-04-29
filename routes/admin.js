@@ -210,7 +210,8 @@ router.post('/office/create', adminEnsurer, (req, res, next) => {
         officeId: uuidV1(),
         officename: req.body.officename,
         imgPath: imgPath,
-        createdBy: req.user.userId
+        createdBy: req.user.userId,
+        deleted: false
       }
       // DBへの登録処理
       Office.create(dataObject).then(() => {

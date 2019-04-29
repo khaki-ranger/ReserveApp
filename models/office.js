@@ -19,7 +19,11 @@ const Office = loader.database.define('offices', {
   createdBy: {
     type: Sequelize.UUID,
     allowNull: false
-  }
+  },
+  deleted: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
+  },
 }, {
     freezeTableName: true,
     timestamps: true
