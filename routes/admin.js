@@ -167,9 +167,12 @@ router.post('/user/register', superEnsurer, (req, res, next) => {
   }
 });
 
-router.get('/office', superEnsurer, (req, res, next) => {
+router.get('/office', adminEnsurer, (req, res, next) => {
   const title = 'オフィス一覧 | SERVICE NAME';
   Office.findAll({
+    where: {
+      deleted: false
+    },
     order: [['"createdAt"', 'ASC']]
   }).then((o) => {
     o.forEach((office) => {
@@ -260,13 +263,29 @@ router.post('/office/update', adminEnsurer, (req, res, next) => {
       }
       // DBの更新処理
       Office.update(dataObject, filter).then(() => {
-        res.redirect('/admin');
+        res.redirect('/admin/office');
       });
     }
   });
 });
 
-router.get('/space', superEnsurer, (req, res, next) => {
+router.get('/office/delete/:officeId', adminEnsurer, (req, res, next) => {
+  const dataObject = {
+    deleted: true
+  }
+  const filter = {
+    where: {
+      officeId: req.params.officeId
+    }
+  }
+  // DBの更新処理
+  Office.update(dataObject, filter).then(() => {
+    res.redirect('/admin/office');
+  });
+});
+
+
+router.get('/space', adminEnsurer, (req, res, next) => {
   const title = 'スペース一覧 | SERVICE NAME';
   Space.findAll({
     include: [

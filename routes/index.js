@@ -55,6 +55,9 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
     const currentDate = getCurrentDate(req.query);
     // データ取得
     Office.findAll({
+      where: {
+        deleted: false
+      },
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
       Space.findAll({
