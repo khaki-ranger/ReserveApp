@@ -23,7 +23,7 @@ const Office = loader.database.define('offices', {
   deleted: {
     type: Sequelize.BOOLEAN,
     allowNull: false
-  },
+  }
 }, {
     freezeTableName: true,
     timestamps: true

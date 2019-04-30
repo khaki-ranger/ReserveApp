@@ -61,6 +61,9 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
       order: [['"createdAt"', 'ASC']]
     }).then((offices) => {
       Space.findAll({
+        where: {
+          deleted: false
+        },
         include: [
           {
             model: Office,

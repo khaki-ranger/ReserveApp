@@ -23,6 +23,10 @@ const Space = loader.database.define('spaces', {
   createdBy: {
     type: Sequelize.UUID,
     allowNull: false
+  },
+  deleted: {
+    type: Sequelize.BOOLEAN,
+    allowNull: false
   }
 }, {
     freezeTableName: true,

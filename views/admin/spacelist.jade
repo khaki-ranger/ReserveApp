@@ -27,4 +27,4 @@ block content
               td.action
                 .clearfix
                   a.ui-component.fl-left.update(href="/admin/space/update/#{space.spaceId}") 編集
-                  a.ui-component.fl-right.delete(href="/admin/space/delete/#{space.spaceId}") 削除
+                  a.ui-component.fl-right.delete.confirmation(href="/admin/space/delete/#{space.spaceId}") 削除

@@ -284,10 +284,12 @@ router.get('/office/delete/:officeId', adminEnsurer, (req, res, next) => {
   });
 });
 
-
 router.get('/space', adminEnsurer, (req, res, next) => {
   const title = 'スペース一覧 | SERVICE NAME';
   Space.findAll({
+    where: {
+      deleted: false
+    },
     include: [
       {
         model: Office,
@@ -336,7 +338,8 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
     spacename: req.body.spacename,
     capacity: req.body.capacity,
     officeId: req.body.officeid,
-    createdBy: req.user.userId
+    createdBy: req.user.userId,
+    deleted: false
   }
   // サーバー側でも値のチェック
   if (!dataObject.spacename || !dataObject.capacity) {
@@ -363,7 +366,7 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
     // スペース名の重複は良しとする
     // DBへの登録処理
     Space.create(dataObject).then(() => {
-      res.redirect('/');
+      res.redirect('/admin/space');
     });
   }
 });
@@ -407,6 +410,21 @@ router.post('/space/update', adminEnsurer, (req, res, next) => {
   // DBの更新処理
   Space.update(dataObject, filter).then(() => {
     res.redirect('/admin');
+  });
+});
+
+router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
+  const dataObject = {
+    deleted: true
+  }
+  const filter = {
+    where: {
+      spaceId: req.params.spaceId
+    }
+  }
+  // DBの更新処理
+  Space.update(dataObject, filter).then(() => {
+    res.redirect('/admin/space');
   });
 });
 
