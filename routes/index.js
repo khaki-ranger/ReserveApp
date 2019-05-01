@@ -12,16 +12,20 @@ const Reservation = require('../models/reservation');
 
 const getCurrentDate = ((query) => {
   let current  = moment().tz('Asia/Tokyo');
+  let isToday = true; // 日付が本日であるかどうかを示す値を格納する変数
   if (query.year && query.month && query.day) {
     const currentDateObject = new Date(query.year, query.month - 1, query.day);
-    current = moment(currentDateObject).tz('Asia/Tokyo');
+    const currentDateMomentObject = moment(currentDateObject).tz('Asia/Tokyo');
+    isToday = current.isSame(currentDateMomentObject, 'day');
+    current = currentDateMomentObject;
   }
   const response = {
     year: current.year(),
     month: current.month() + 1,
     day: current.date(),
     dayOfWeekString: ['日', '月', '火', '水', '木', '金', '土'][current.day()],
-    startDate: new Date(current.year(), current.month(), current.date())
+    startDate: new Date(current.year(), current.month(), current.date()),
+    isToday: isToday
   }
   return response
 });

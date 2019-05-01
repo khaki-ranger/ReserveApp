@@ -615,6 +615,10 @@ section.date .present .text {
 section.date .present .nav {
   cursor: pointer;
 }
+section.date .present .nav.disabled {
+  cursor: not-allowed;
+  color: #ccc;
+}
 section.date .present .text {
   text-align: center;
 }
@@ -633,6 +637,9 @@ section.date .present .text .dayofweek {
 }
 section.date .present .nav:hover {
   color: gray;
+}
+section.date .present .nav.disabled:hover {
+  color: #ccc;
 }
 section.date .present .nav a {
   display: block;

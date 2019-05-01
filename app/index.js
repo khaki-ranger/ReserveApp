@@ -14,9 +14,16 @@ var dateComponent = Vue.extend({
                  </div>
                  <div class="block present">
                    <div class="holder">
-                     <div class="nav prev" v-on:click="changeDate(-1)"> 
-                       <i class="fas fa-chevron-left fa-lg"></i>
-                     </div>
+                     <template v-if="current_date.isToday">
+                       <div class="nav prev disabled"> 
+                         <i class="fas fa-chevron-left fa-lg"></i>
+                       </div>
+                     </template>
+                     <template v-else>
+                       <div class="nav prev" v-on:click="changeDate(-1)"> 
+                         <i class="fas fa-chevron-left fa-lg"></i>
+                       </div>
+                     </template>
                      <div class="text">
                        <span class="num">{{current_date.year}}</span>
                        <span class="unit">年</span>
