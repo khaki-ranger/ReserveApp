@@ -90,6 +90,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
       }
     }).then((already) => {
       if(already) {
+        console.log('既に重複する予約があるため予約ができません。');
         throw new Error('既に重複する予約があるため予約ができません。');
       } else {
         Reservation.create({
@@ -101,7 +102,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
           createdBy: req.user.userId,
           canceled: false
         }).then((r) => {
-          console.log('create reservation');
+          console.log('予約完了');
           const params = {
             spaceId: r.spaceId,
             periodnum: r.periodnum,
@@ -181,7 +182,7 @@ router.get('/complete', authenticationEnsurer, (req, res, next) => {
   const title = '予約完了 | SERVICE NAME';
   const message = {
     title: '予約を完了しました',
-    body: 'メールを送信しました。'
+    body: '入力されたアドレスにメールを送信しました。'
   };
   loginUser(req.user, (result) => {
     res.render('complete', {
@@ -197,7 +198,7 @@ router.get('/complete/cancel', authenticationEnsurer, (req, res, next) => {
   const title = '予約キャンセル完了 | SERVICE NAME';
   const message = {
     title: '予約のキャンセルを完了しました',
-    body: 'メールを送信しました。'
+    body: '予約時に入力されたアドレスにメールを送信しました。'
   };
   loginUser(req.user, (result) => {
     res.render('complete', {
