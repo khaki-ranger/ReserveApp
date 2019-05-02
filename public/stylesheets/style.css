@@ -604,7 +604,7 @@ section.date .holder .select {
   text-align: right;
   cursor: pointer;
 }
-section.date .holder .select:hover {
+section.date .holder .select i:hover {
   color: gray;
 }
 section.date .holder .present>.holder {
@@ -907,4 +907,15 @@ section.date .present .nav {
 .complete .container {
   width: 50%;
 }
+}
+/* datepicker */
+.vdp-datepicker.datepicker-wrapper {
+  text-align: right;
+}
+input.datepicker-input {
+  display: none;
+}
+.block.select .vdp-datepicker .vdp-datepicker__calendar {
+  right: -2px;
+  top: 40px;
 }

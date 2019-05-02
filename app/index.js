@@ -2,9 +2,33 @@
 
 var dateComponent = Vue.extend({
   props:['current_date'],
+  components: {
+    vuejsDatepicker
+  },
+  data: function() {
+    return {
+      defaultDate: new Date(),
+      DatePickerFormat: 'yyyy年MM月dd日(D)',
+      inputClassName: 'datepicker-input',
+      wrapperClassName: 'datepicker-wrapper',
+      calendarButtonIcon: 'fas fa-calendar-alt fa-2x',
+      language:{
+        language: 'Japanese',
+        months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        monthsAbbr: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
+        days: ['日', '月', '火', '水', '木', '金', '土'],
+        rtl: false,
+        ymd: 'yyyy-MM-dd',
+        yearSuffix: '年'
+      }
+    }
+  },
   methods: {
     changeDate: function(direction) {
       this.$emit('change-date', direction);
+    },
+    selected: function(selectValue){
+      console.log(selectValue);
     }
   },
   template: `<section class="date">
@@ -41,7 +65,17 @@ var dateComponent = Vue.extend({
                    </div>
                  </div>
                  <div class="block select">
-                   <i class="fas fa-calendar-alt fa-2x"></i>
+                   <vuejs-datepicker
+                     v-model="defaultDate"
+                     :value="this.defaultDate"
+                     :format="DatePickerFormat"
+                     :language="language"
+                     :monday-first=true
+                     :input-class="this.inputClassName"
+                     :wrapper-class="this.wrapperClassName"
+                     :calendar-button=true
+                     :calendar-button-icon="this.calendarButtonIcon"
+                     @selected="selected"></vuejs-datepicker>
                  </div>
                </div>
              </section>`,

@@ -7,10 +7,11 @@ html
     title= title
     link(rel='stylesheet', href='/stylesheets/style.css', type="text/css")
     link(rel='stylesheet', href='https://use.fontawesome.com/releases/v5.6.1/css/all.css', type="text/css")
-    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
-    script(src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js") 
     if configVars
       script(src="#{configVars.vuejs}")
+    script(src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/es6-promise@4/dist/es6-promise.auto.min.js") 
+    script(src="https://unpkg.com/vuejs-datepicker")
   body
     header
       .logo
