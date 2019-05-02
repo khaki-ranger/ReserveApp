@@ -283,6 +283,11 @@ select.ui-component {
 input[type="file"].ui-component {
   margin-top: .25rem;
 }
+input[type="text"].ui-component.error,
+input[type="email"].ui-component.error,
+input[type="password"].ui-component.error {
+  background-color: pink;
+}
 @media (max-width: 768px) {
 .ui-component {
   font-size: 16px;
@@ -342,7 +347,6 @@ button.ui-component {
   margin-bottom: .25rem;
 }
 .dialog .message {
-  margin-left: .5rem;
   font-size: .9rem;
 }
 @media (max-width: 576px) {

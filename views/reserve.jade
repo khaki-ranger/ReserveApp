@@ -3,7 +3,7 @@ extends layout
 block content
   section.reserve
     .dialog
-      form.ui-component(action="/reserve" method="post")
+      form.ui-component(id="app" @submit="checkForm" action="/reserve" method="post" novalidate="true")
         input(type="hidden" name="spaceId" id="spaceId" value="#{params.spaceId}")
         input(type="hidden" name="year" id="year" value="#{params.year}")
         input(type="hidden" name="month" id="month" value="#{params.month}")
@@ -17,17 +17,57 @@ block content
           .head 予約日
           .body #{params.year} 年 #{params.month} 月 #{params.day} 日 #{params.periodname} （#{params.dayofweekstring}）
         .guestname.ui-block
-          label.ui-component(for="guestname") お名前
-            if message.guestname
-              span.message.caution #{message.guestname}
-          input.ui-component(type="text" name="guestname" id="guestname" placeholder="guestname")
+          template(v-if="errors.guestname")
+            label.ui-component(for="guestname") お名前
+              span.message.caution {{errors.guestname}}
+            input.ui-component.error(type="text" name="guestname" id="guestname" v-model="guestname")
+          template(v-else)
+            label.ui-component(for="guestname") お名前
+            input.ui-component(type="text" name="guestname" id="guestname" v-model="guestname")
         .mailaddress.ui-block
-          label.ui-component(for="mailaddress") メールアドレス
-            if message.mailaddress
-              span.message.caution #{message.mailaddress}
-          input.ui-component(type="email" name="mailaddress" id="mailaddress" placeholder="mailaddress")
+          template(v-if="errors.mailaddress")
+            label.ui-component(for="mailaddress") メールアドレス
+              span.message.caution {{errors.mailaddress}}
+            input.ui-component.error(type="email" name="mailaddress" id="mailaddress" v-model="mailaddress")
+          template(v-else)
+            label.ui-component(for="mailaddress") メールアドレス
+            input.ui-component(type="email" name="mailaddress" id="mailaddress" v-model="mailaddress")
         .ui-block
           .btn-holder
             a.ui-component(href="/?year=#{params.year}&month=#{params.month}&day=#{params.day}") 戻る
           .btn-holder
             button.ui-component(type="submit") 予約
+
+block script
+  script.
+    'use strict';
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        errors: {guestname: null, mailaddress: null},
+        guestname: null,
+        mailaddress: null
+      },
+      methods: {
+        checkForm: function(e) {
+          this.errors = [];
+          if (!this.guestname) {
+            this.errors.guestname = 'お名前を入力してください';
+          }
+          if (!this.mailaddress) {
+            this.errors.mailaddress = 'メールアドレスを入力してください';
+          } else if (!this.validEmail(this.mailaddress)) {
+            this.errors.mailaddress = '入力されたメールアドレスは正しくありません';
+          }
+          if (!this.errors.mailaddress && !this.errors.mailaddress) {
+            return true;
+          }
+          e.preventDefault();
+        },
+        validEmail: function (email) {
+          var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          return re.test(email);
+        }
+      }
+    });
