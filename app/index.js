@@ -8,7 +8,6 @@ var dateComponent = Vue.extend({
   data: function() {
     return {
       defaultDate: new Date(),
-      DatePickerFormat: 'yyyy年MM月dd日(D)',
       inputClassName: 'datepicker-input',
       wrapperClassName: 'datepicker-wrapper',
       calendarButtonIcon: 'fas fa-calendar-alt fa-2x',
@@ -26,6 +25,8 @@ var dateComponent = Vue.extend({
   methods: {
     changeDate: function(direction) {
       this.$emit('change-date', direction);
+      // 1日づつの日付変更をカレンダーに反映させるための処理
+      this.defaultDate = new Date(this.current_date.year, this.current_date.month - 1, this.current_date.day + direction);
     },
     selected: function(selectValue){
       console.log(selectValue);
@@ -67,8 +68,6 @@ var dateComponent = Vue.extend({
                  <div class="block select">
                    <vuejs-datepicker
                      v-model="defaultDate"
-                     :value="this.defaultDate"
-                     :format="DatePickerFormat"
                      :language="language"
                      :monday-first=true
                      :input-class="this.inputClassName"

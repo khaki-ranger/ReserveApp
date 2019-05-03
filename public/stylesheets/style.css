@@ -41,7 +41,7 @@ table {
   opacity: 0;
 }
 /* colors */
-header {
+body>header {
   background: #d7092f;
   color: white;
 }
@@ -160,8 +160,8 @@ body {
   height: 50%;
 }
 }
-/* header */
-header {
+/* body>header */
+body>header {
   position: fixed;
   top: 0;
   left: 0;
@@ -170,29 +170,29 @@ header {
   z-index: 3;
   display: table;
 }
-header .logo,
-header .action {
+body>header .logo,
+body>header .action {
   display: table-cell;
   vertical-align: middle;
 }
-header .logo {
+body>header .logo {
   width: 150px;
   padding-left: 1rem;
   font-size: 1rem;
   font-weight: bold;
 }
-header .action {
+body>header .action {
   text-align: right;
 }
-header .action>div {
+body>header .action>div {
   margin-right: 1rem;
   display: inline-block;
 }
-header .action .icon i {
+body>header .action .icon i {
   font-size: 2rem;
 }
 @media (max-width: 576px) {
-header .action .mymenu {
+body>header .action .mymenu {
   display: none;
   position: absolute;
   top: 60px;
@@ -203,31 +203,31 @@ header .action .mymenu {
   color: #333;
   width: 40%;
 }
-header .action .mymenu>a,
-header .action .mymenu>span {
+body>header .action .mymenu>a,
+body>header .action .mymenu>span {
   text-align: center;
   display: block;
   padding: 1rem 0;
 }
-header .action .mymenu>a {
+body>header .action .mymenu>a {
   border-bottom: solid 1px #ddd;
 }
-header .action .mymenu>span {
+body>header .action .mymenu>span {
   border-bottom: solid 1px #ddd;
   background-color: #eee;
 }
 }
 @media (min-width: 576px) {
-header .action .icon {
+body>header .action .icon {
   display: none;
 }
-header .action .mymenu {
+body>header .action .mymenu {
   display: block;
 }
-header .action .mymenu a {
+body>header .action .mymenu a {
   padding-left: 1rem;
 }
-header .action .mymenu a:hover {
+body>header .action .mymenu a:hover {
   text-decoration: underline;
 }
 }
