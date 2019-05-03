@@ -97,7 +97,11 @@ var dateComponent = Vue.extend({
     changeDate: function changeDate(direction) {
       this.$emit('change-date', direction);
       // 1日づつの日付変更をカレンダーに反映させるための処理
-      this.defaultDate = new Date(this.current_date.year, this.current_date.month - 1, this.current_date.day + direction);
+      if (direction === 0) {
+        this.defaultDate = new Date();
+      } else {
+        this.defaultDate = new Date(this.current_date.year, this.current_date.month - 1, this.current_date.day + direction);
+      }
     },
     selected: function selected(selectValue) {
       console.log(selectValue);
