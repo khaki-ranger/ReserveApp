@@ -652,14 +652,14 @@ section.date .present .nav a {
 section.date .holder {
   position: relative;
 }
-section.date .holder .today {
-  width: 50%;
+section.date .holder>.today {
+  width: 25%;
   margin:0 0 1rem 1rem;
 }
 section.date .holder .select {
   position: absolute;
   right: 1rem;
-  top: .5rem;
+  top: 6px;
 }
 section.date .holder .present {
   padding: 0 1rem;
