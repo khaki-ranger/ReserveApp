@@ -909,7 +909,7 @@ section.date .present .nav {
 }
 }
 /* datepicker */
-.vdp-datepicker.datepicker-wrapper {
+.vdp-datepicker.datepicker-wrapper>div:first-child {
   text-align: right;
 }
 input.datepicker-input {
