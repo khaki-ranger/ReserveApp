@@ -115,6 +115,15 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
                 }
               });
             }
+            if (currentDate.isToday) {
+              for (let key of Object.keys(periods)) {
+                const now  = moment().tz('Asia/Tokyo');
+                const hour  = now.hours();
+                if (hour >= periods[key].startHour) {
+                  periods[key].availability = false;
+                }
+              }
+            }
             space.dataValues['periods'] = periods;
             if (!officeSpaceObject[space.officeId]) {
               officeSpaceObject[space.officeId] = [];
