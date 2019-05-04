@@ -11,6 +11,9 @@ var dateComponent = Vue.extend({
       inputClassName: 'datepicker-input',
       wrapperClassName: 'datepicker-wrapper',
       calendarButtonIcon: 'fas fa-calendar-alt fa-2x',
+      disabledDates: {
+        to: new Date(new Date().setDate(new Date().getDate()-1))
+      },
       language:{
         language: 'Japanese',
         months: ['1月', '2月', '3月', '4月', '5月', '6月', '7月', '8月', '9月', '10月', '11月', '12月'],
@@ -73,6 +76,7 @@ var dateComponent = Vue.extend({
                  <div class="block select">
                    <vuejs-datepicker
                      v-model="defaultDate"
+                     :disabledDates="disabledDates"
                      :language="language"
                      :monday-first=true
                      :input-class="this.inputClassName"
