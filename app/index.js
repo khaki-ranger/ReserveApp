@@ -39,7 +39,8 @@ var dateComponent = Vue.extend({
   template: `<section class="date">
                <div class="holder">
                  <div class="block today">
-                   <div class="ui-component" v-on:click="changeDate(0)">本日</div>
+                   <div v-if="current_date.isToday" class="ui-component disabled">本日</div>
+                   <div v-else class="ui-component" v-on:click="changeDate(0)">本日</div>
                  </div>
                  <div class="block present">
                    <div class="holder">

@@ -48,17 +48,6 @@ body>header {
 #nav-content .head {
   background: #d7092f;
 }
-a.ui-component:hover,
-div.ui-component:hover,
-button.ui-component {
-  background-color: #d7092f;
-  color: white;
-  cursor: pointer;
-}
-a.ui-component:hover,
-div.ui-component:hover {
-  border-color: #d7092f;
-}
 .caution {
   color: red;
 }
@@ -287,6 +276,30 @@ input[type="text"].ui-component.error,
 input[type="email"].ui-component.error,
 input[type="password"].ui-component.error {
   background-color: pink;
+}
+a.ui-component:hover,
+div.ui-component:hover,
+button.ui-component {
+  background-color: #d7092f;
+  color: white;
+  cursor: pointer;
+}
+a.ui-component:hover,
+div.ui-component:hover {
+  border-color: #d7092f;
+}
+button.ui-component.disabled,
+div.ui-component.disabled,
+a.ui-component.disabled {
+  color: #ccc;
+  cursor: not-allowed;
+}
+button.ui-component.disabled:hover,
+div.ui-component.disabled:hover,
+a.ui-component.disabled:hover {
+  background-color: inherit;
+  color: #ccc;
+  border-color: #ddd;
 }
 @media (max-width: 768px) {
 .ui-component {
@@ -599,6 +612,9 @@ section.date .holder .today div.ui-component {
 }
 section.date .holder .today div.ui-component:hover {
   background-color: #d7092f;
+}
+section.date .holder .today div.ui-component.disabled:hover {
+  background-color: inherit;
 }
 section.date .holder .select {
   text-align: right;
