@@ -620,9 +620,6 @@ section.date .holder .select {
   text-align: right;
   cursor: pointer;
 }
-section.date .holder .select i:hover {
-  color: gray;
-}
 section.date .holder .present>.holder {
   display: table;
   width: 100%;
@@ -728,6 +725,9 @@ section.date .present .next {
 }
 section.date .present .text .dayofweek {
   font-size: 1.25rem;
+}
+section.date .holder .select i:hover {
+  color: gray;
 }
 }
 @media (min-width: 576px) and (max-width: 768px) {
