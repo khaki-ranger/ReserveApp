@@ -27,7 +27,7 @@ var dateComponent = Vue.extend({
   },
   methods: {
     changeDate: function(direction) {
-      this.$emit('change-date', direction);
+      this.$emit('change-date', direction, null);
       // 1日づつの日付変更をカレンダーに反映させるための処理
       if(direction === 0) {
         this.defaultDate = new Date();
@@ -35,8 +35,8 @@ var dateComponent = Vue.extend({
         this.defaultDate = new Date(this.current_date.year, this.current_date.month - 1, this.current_date.day + direction);
       }
     },
-    selected: function(selectValue){
-      console.log(selectValue);
+    selected: function(selectDate){
+      this.$emit('change-date', null, selectDate);
     }
   },
   template: `<section class="date">
@@ -260,11 +260,17 @@ var app = new Vue({
     clearModal: function() {
       this.modal_visibility = false;
     },
-    changeDate: function(direction) {
+    changeDate: function(direction, selectDate) {
       var url = '/dateOfCurrentDay';
-      if (direction !== 0) {
+      if (direction && direction !== 0) {
         var day = Number(this.currentDate.day) + direction;
         var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
+        url += parameter;
+      } else if (selectDate) {
+        var year = selectDate.getFullYear();
+        var month = selectDate.getMonth() + 1;
+        var day = selectDate.getDate();
+        var parameter = '?year=' + year + '&month=' + month + '&day=' + day;
         url += parameter;
       }
       axios

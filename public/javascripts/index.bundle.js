@@ -98,7 +98,7 @@ var dateComponent = Vue.extend({
   },
   methods: {
     changeDate: function changeDate(direction) {
-      this.$emit('change-date', direction);
+      this.$emit('change-date', direction, null);
       // 1日づつの日付変更をカレンダーに反映させるための処理
       if (direction === 0) {
         this.defaultDate = new Date();
@@ -106,8 +106,8 @@ var dateComponent = Vue.extend({
         this.defaultDate = new Date(this.current_date.year, this.current_date.month - 1, this.current_date.day + direction);
       }
     },
-    selected: function selected(selectValue) {
-      console.log(selectValue);
+    selected: function selected(selectDate) {
+      this.$emit('change-date', null, selectDate);
     }
   },
   template: '<section class="date">\n               <div class="holder">\n                 <div class="block today">\n                   <div v-if="current_date.isToday" class="ui-component disabled">\u672C\u65E5</div>\n                   <div v-else class="ui-component" v-on:click="changeDate(0)">\u672C\u65E5</div>\n                 </div>\n                 <div class="block present">\n                   <div class="holder">\n                     <template v-if="current_date.isToday">\n                       <div class="nav prev disabled"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <template v-else>\n                       <div class="nav prev" v-on:click="changeDate(-1)"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <div class="text">\n                       <span class="num">{{current_date.year}}</span>\n                       <span class="unit">\u5E74</span>\n                       <span class="num">{{current_date.month}}</span>\n                       <span class="unit">\u6708</span>\n                       <span class="num">{{current_date.day}}</span>\n                       <span class="unit">\u65E5</span>\n                       <span class="unit">(</span>\n                       <span class="dayofweek">{{current_date.dayOfWeekString}}</span>\n                       <span class="unit">)</span>\n                     </div>\n                     <div class="nav next" v-on:click="changeDate(1)">\n                       <i class="fas fa-chevron-right fa-lg"></i>\n                     </div>\n                   </div>\n                 </div>\n                 <div class="block select">\n                   <vuejs-datepicker\n                     v-model="defaultDate"\n                     :disabledDates="disabledDates"\n                     :language="language"\n                     :monday-first=true\n                     :input-class="this.inputClassName"\n                     :wrapper-class="this.wrapperClassName"\n                     :calendar-button=true\n                     :calendar-button-icon="this.calendarButtonIcon"\n                     @selected="selected"></vuejs-datepicker>\n                 </div>\n               </div>\n             </section>'
@@ -203,13 +203,19 @@ var app = new Vue({
     clearModal: function clearModal() {
       this.modal_visibility = false;
     },
-    changeDate: function changeDate(direction) {
+    changeDate: function changeDate(direction, selectDate) {
       var _this2 = this;
 
       var url = '/dateOfCurrentDay';
-      if (direction !== 0) {
+      if (direction && direction !== 0) {
         var day = Number(this.currentDate.day) + direction;
         var parameter = '?year=' + this.currentDate.year + '&month=' + this.currentDate.month + '&day=' + day;
+        url += parameter;
+      } else if (selectDate) {
+        var year = selectDate.getFullYear();
+        var month = selectDate.getMonth() + 1;
+        var day = selectDate.getDate();
+        var parameter = '?year=' + year + '&month=' + month + '&day=' + day;
         url += parameter;
       }
       axios.get(url).then(function (response) {
