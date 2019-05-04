@@ -71,6 +71,10 @@
 "use strict";
 
 
+var searchComponent = Vue.extend({
+  template: '<section class="search-box">\n               <div class="holder clearfix">\n                 <a href="#" class="search-btn">\n                   <i class="fas fa-search fa-lg"></i>\n                 </a>\n                 <input class="search-txt" type="text" name="" placeholder="Type to search">\n               </div>\n             </section>'
+});
+
 var dateComponent = Vue.extend({
   props: ['current_date'],
   components: {
@@ -156,7 +160,8 @@ var app = new Vue({
   components: {
     'office-component': officeComponent,
     'date-component': dateComponent,
-    'modal-component': modalComponent
+    'modal-component': modalComponent,
+    'search-component': searchComponent
   },
   data: {
     currentDate: {},

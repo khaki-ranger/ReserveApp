@@ -428,12 +428,12 @@ button.ui-component {
   font-weight: bold;
 }
 @media (max-width: 576px) {
-section.office {
+section.search-box {
   margin-top: 120px;
 }
 }
 @media (min-width: 576px) {
-section.office {
+section.search-box {
   margin-top: 74px;
 }
 }
@@ -934,4 +934,35 @@ input.datepicker-input {
 .block.select .vdp-datepicker .vdp-datepicker__calendar {
   right: -2px;
   top: 40px;
+}
+/* search-box */
+.search-box {
+  padding: 0 1rem;
+} 
+.search-box .holder {
+  margin: 1rem 0;
+  background: white;
+  height: 2rem;
+  border: solid 1px #ddd;
+  border-radius: 2rem;
+  padding: .5rem;
+}
+.search-btn {
+  float: left;
+  width: 2rem;
+  height: 2rem;
+  color: #F4511E;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.search-txt {
+  float: left;
+  width: 80%;
+  border: none;
+  background: none;
+  outline: none;
+  font-size: 16px;
+  line-height: 2rem;
+  padding: 0 6px;
 }
