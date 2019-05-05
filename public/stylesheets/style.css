@@ -952,7 +952,7 @@ input.datepicker-input {
 }
 .search-btn {
   color: #F4511E;
-  padding: 0 8px 0 6px;
+  padding: 0 6px 0 12px;
 }
 .search-btn i {
   font-size: 1rem;
@@ -970,10 +970,18 @@ input.datepicker-input {
 .search-box .holder {
   padding: 2px;
 }
+.search-btn {
+  padding: 0 6px 0 12px;
+}
 }
 @media (min-width: 768px) and (max-width: 992px) {
 .search-txt {
   width: 70%;
+}
+}
+@media (min-width: 768px) {
+.search-btn {
+  padding: 0 10px 0 6px;
 }
 }
 @media (min-width: 992px) {
