@@ -3,10 +3,10 @@
 var searchComponent = Vue.extend({
   template: `<section class="search-box">
                <div class="holder clearfix">
-                 <a href="#" class="search-btn">
-                   <i class="fas fa-search fa-lg"></i>
-                 </a>
-                 <input class="search-txt" type="text" name="" placeholder="Type to search">
+                 <span class="search-btn">
+                   <i class="fas fa-search"></i>
+                 </span>
+                 <input class="search-txt" type="text" name="" placeholder="search">
                </div>
              </section>`,
 });
@@ -14,7 +14,8 @@ var searchComponent = Vue.extend({
 var dateComponent = Vue.extend({
   props:['current_date'],
   components: {
-    vuejsDatepicker
+    vuejsDatepicker,
+    'search-component': searchComponent
   },
   data: function() {
     return {
@@ -52,9 +53,8 @@ var dateComponent = Vue.extend({
   },
   template: `<section class="date">
                <div class="holder">
-                 <div class="block today">
-                   <div v-if="current_date.isToday" class="ui-component disabled">本日</div>
-                   <div v-else class="ui-component" v-on:click="changeDate(0)">本日</div>
+                 <div class="block search">
+                   <search-component></search-component>
                  </div>
                  <div class="block present">
                    <div class="holder">
@@ -85,16 +85,24 @@ var dateComponent = Vue.extend({
                    </div>
                  </div>
                  <div class="block select">
-                   <vuejs-datepicker
-                     v-model="defaultDate"
-                     :disabledDates="disabledDates"
-                     :language="language"
-                     :monday-first=true
-                     :input-class="this.inputClassName"
-                     :wrapper-class="this.wrapperClassName"
-                     :calendar-button=true
-                     :calendar-button-icon="this.calendarButtonIcon"
-                     @selected="selected"></vuejs-datepicker>
+                   <div class="holder">
+                     <div class="btn-today">
+                       <div v-if="current_date.isToday" class="ui-component disabled">本日</div>
+                       <div v-else class="ui-component" v-on:click="changeDate(0)">本日</div>
+                     </div>
+                     <div class="pick">
+                       <vuejs-datepicker
+                         v-model="defaultDate"
+                         :disabledDates="disabledDates"
+                         :language="language"
+                         :monday-first=true
+                         :input-class="this.inputClassName"
+                         :wrapper-class="this.wrapperClassName"
+                         :calendar-button=true
+                         :calendar-button-icon="this.calendarButtonIcon"
+                         @selected="selected"></vuejs-datepicker>
+                     </div>
+                   </div>
                  </div>
                </div>
              </section>`,
@@ -225,7 +233,6 @@ var app = new Vue({
     'office-component': officeComponent,
     'date-component': dateComponent,
     'modal-component': modalComponent,
-    'search-component': searchComponent
   },
   data: {
     currentDate: {},

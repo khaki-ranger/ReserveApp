@@ -72,13 +72,14 @@
 
 
 var searchComponent = Vue.extend({
-  template: '<section class="search-box">\n               <div class="holder clearfix">\n                 <a href="#" class="search-btn">\n                   <i class="fas fa-search fa-lg"></i>\n                 </a>\n                 <input class="search-txt" type="text" name="" placeholder="Type to search">\n               </div>\n             </section>'
+  template: '<section class="search-box">\n               <div class="holder clearfix">\n                 <span class="search-btn">\n                   <i class="fas fa-search"></i>\n                 </span>\n                 <input class="search-txt" type="text" name="" placeholder="search">\n               </div>\n             </section>'
 });
 
 var dateComponent = Vue.extend({
   props: ['current_date'],
   components: {
-    vuejsDatepicker: vuejsDatepicker
+    vuejsDatepicker: vuejsDatepicker,
+    'search-component': searchComponent
   },
   data: function data() {
     return {
@@ -114,7 +115,7 @@ var dateComponent = Vue.extend({
       this.$emit('change-date', null, selectDate);
     }
   },
-  template: '<section class="date">\n               <div class="holder">\n                 <div class="block today">\n                   <div v-if="current_date.isToday" class="ui-component disabled">\u672C\u65E5</div>\n                   <div v-else class="ui-component" v-on:click="changeDate(0)">\u672C\u65E5</div>\n                 </div>\n                 <div class="block present">\n                   <div class="holder">\n                     <template v-if="current_date.isToday">\n                       <div class="nav prev disabled"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <template v-else>\n                       <div class="nav prev" v-on:click="changeDate(-1)"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <div class="text">\n                       <span class="num">{{current_date.year}}</span>\n                       <span class="unit">\u5E74</span>\n                       <span class="num">{{current_date.month}}</span>\n                       <span class="unit">\u6708</span>\n                       <span class="num">{{current_date.day}}</span>\n                       <span class="unit">\u65E5</span>\n                       <span class="unit">(</span>\n                       <span class="dayofweek">{{current_date.dayOfWeekString}}</span>\n                       <span class="unit">)</span>\n                     </div>\n                     <div class="nav next" v-on:click="changeDate(1)">\n                       <i class="fas fa-chevron-right fa-lg"></i>\n                     </div>\n                   </div>\n                 </div>\n                 <div class="block select">\n                   <vuejs-datepicker\n                     v-model="defaultDate"\n                     :disabledDates="disabledDates"\n                     :language="language"\n                     :monday-first=true\n                     :input-class="this.inputClassName"\n                     :wrapper-class="this.wrapperClassName"\n                     :calendar-button=true\n                     :calendar-button-icon="this.calendarButtonIcon"\n                     @selected="selected"></vuejs-datepicker>\n                 </div>\n               </div>\n             </section>'
+  template: '<section class="date">\n               <div class="holder">\n                 <div class="block search">\n                   <search-component></search-component>\n                 </div>\n                 <div class="block present">\n                   <div class="holder">\n                     <template v-if="current_date.isToday">\n                       <div class="nav prev disabled"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <template v-else>\n                       <div class="nav prev" v-on:click="changeDate(-1)"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <div class="text">\n                       <span class="num">{{current_date.year}}</span>\n                       <span class="unit">\u5E74</span>\n                       <span class="num">{{current_date.month}}</span>\n                       <span class="unit">\u6708</span>\n                       <span class="num">{{current_date.day}}</span>\n                       <span class="unit">\u65E5</span>\n                       <span class="unit">(</span>\n                       <span class="dayofweek">{{current_date.dayOfWeekString}}</span>\n                       <span class="unit">)</span>\n                     </div>\n                     <div class="nav next" v-on:click="changeDate(1)">\n                       <i class="fas fa-chevron-right fa-lg"></i>\n                     </div>\n                   </div>\n                 </div>\n                 <div class="block select">\n                   <div class="holder">\n                     <div class="btn-today">\n                       <div v-if="current_date.isToday" class="ui-component disabled">\u672C\u65E5</div>\n                       <div v-else class="ui-component" v-on:click="changeDate(0)">\u672C\u65E5</div>\n                     </div>\n                     <div class="pick">\n                       <vuejs-datepicker\n                         v-model="defaultDate"\n                         :disabledDates="disabledDates"\n                         :language="language"\n                         :monday-first=true\n                         :input-class="this.inputClassName"\n                         :wrapper-class="this.wrapperClassName"\n                         :calendar-button=true\n                         :calendar-button-icon="this.calendarButtonIcon"\n                         @selected="selected"></vuejs-datepicker>\n                     </div>\n                   </div>\n                 </div>\n               </div>\n             </section>'
 });
 
 var modalComponent = Vue.extend({
@@ -160,8 +161,7 @@ var app = new Vue({
   components: {
     'office-component': officeComponent,
     'date-component': dateComponent,
-    'modal-component': modalComponent,
-    'search-component': searchComponent
+    'modal-component': modalComponent
   },
   data: {
     currentDate: {},
