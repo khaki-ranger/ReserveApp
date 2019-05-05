@@ -25,13 +25,14 @@ block content
     else
       date-component(
         v-bind:current_date="currentDate",
-        v-on:change-date="changeDate"
+        v-on:change-date="changeDate",
+        v-on:input-search="inputSearch"
       )
       section.office
         .container
           .office-list
             office-component(
-               v-for="office in offices",
+               v-for="office in matched",
                v-bind:key="office.officeId",
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",

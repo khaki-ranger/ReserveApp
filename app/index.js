@@ -1,12 +1,17 @@
 'use strict';
 
 var searchComponent = Vue.extend({
+  methods: {
+    inputSearch: function(event) {
+      this.$emit('input-search', event.target.value);
+    }
+  },
   template: `<section class="search-box">
                <div class="holder clearfix">
                  <span class="search-btn">
                    <i class="fas fa-search"></i>
                  </span>
-                 <input class="search-txt" type="text" name="" placeholder="search">
+                 <input class="search-txt" type="text" name="" placeholder="search" v-on:input="inputSearch">
                </div>
              </section>`,
 });
@@ -49,12 +54,15 @@ var dateComponent = Vue.extend({
     },
     selected: function(selectDate){
       this.$emit('change-date', null, selectDate);
+    },
+    inputSearch: function(value){
+      this.$emit('input-search', value);
     }
   },
   template: `<section class="date">
                <div class="holder">
                  <div class="block search">
-                   <search-component></search-component>
+                   <search-component v-on:input-search="inputSearch"></search-component>
                  </div>
                  <div class="block present">
                    <div class="holder">
@@ -239,7 +247,8 @@ var app = new Vue({
     offices: [],
     officeSpaceObject: {},
     periodData: {},
-    modal_visibility: false
+    modal_visibility: false,
+    pattern: ''
   },
   created() {
     var uri = window.location.href.split('?');
@@ -272,6 +281,9 @@ var app = new Vue({
       })
   },
   methods: {
+    inputSearch: function(value) {
+      this.pattern = value
+    },
     showModal: function(period) {
       this.modal_visibility = true;
       this.periodData = period
@@ -300,5 +312,13 @@ var app = new Vue({
           this.officeSpaceObject = response.data.officeSpaceObject;
         })
     }
+  },
+  computed: {
+    matched: function() {
+      return this.offices.filter(function (office) {
+        var pattern = new RegExp(this.pattern, 'i');
+        return pattern.test(office.officename)
+      }, this)
+    },
   }
 })
