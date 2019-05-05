@@ -968,7 +968,7 @@ input.datepicker-input {
   width: 80%;
 }
 .search-box .holder {
-  padding: 8px;
+  padding: 2px;
 }
 }
 @media (min-width: 768px) and (max-width: 992px) {
