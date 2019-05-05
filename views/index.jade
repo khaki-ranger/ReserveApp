@@ -30,7 +30,7 @@ block content
       )
       section.office
         .container
-          .office-list
+          transition-group.office-list(tag="div")
             office-component(
                v-for="office in matched",
                v-bind:key="office.officeId",
