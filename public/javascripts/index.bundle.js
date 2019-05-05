@@ -77,7 +77,7 @@ var searchComponent = Vue.extend({
       this.$emit('input-search', event.target.value);
     }
   },
-  template: '<section class="search-box">\n               <div class="holder clearfix">\n                 <span class="search-btn">\n                   <i class="fas fa-search"></i>\n                 </span>\n                 <input class="search-txt" type="text" name="" placeholder="search" v-on:input="inputSearch">\n               </div>\n             </section>'
+  template: '<section class="search-box">\n               <div class="holder">\n                 <span class="search-btn">\n                   <i class="fas fa-search"></i>\n                 </span>\n                 <input class="search-txt" type="text" name="" placeholder="search" v-on:input="inputSearch">\n               </div>\n             </section>'
 });
 
 var dateComponent = Vue.extend({

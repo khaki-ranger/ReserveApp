@@ -7,7 +7,7 @@ var searchComponent = Vue.extend({
     }
   },
   template: `<section class="search-box">
-               <div class="holder clearfix">
+               <div class="holder">
                  <span class="search-btn">
                    <i class="fas fa-search"></i>
                  </span>
