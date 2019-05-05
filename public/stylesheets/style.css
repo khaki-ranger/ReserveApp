@@ -967,12 +967,15 @@ input.datepicker-input {
   background: none;
   outline: none;
   font-size: 16px;
-  line-height: 24px;
+  line-height: 22px;
   padding-left: 6px;
 }
 @media (max-width: 768px) {
 .search-txt {
   width: 70%;
+}
+.search-box .holder {
+  padding: 6px;
 }
 }
 @media (min-width: 768px) and (max-width: 992px) {
