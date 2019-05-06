@@ -626,18 +626,13 @@ section.date .holder .present .nav.disabled {
 section.date .holder .present .text {
   text-align: center;
 }
-section.date .holder .present .text .num {
-  font-weight: bold;
-  padding-left: .25rem;
-  padding-right: .25rem;
-}
-section.date .holder .present .text .unit:nth-of-type(7) {
-  padding-left: .25rem;
-}
+section.date .holder .present .text .num,
 section.date .holder .present .text .dayofweek {
   font-weight: bold;
-  padding-left: .25rem;
-  padding-right: .25rem;
+  padding: 0 2px;
+}
+section.date .holder .present .text .unit:nth-of-type(7) {
+  padding-left: 2px;
 }
 section.date .holder .present .nav:hover {
   color: gray;
@@ -683,7 +678,7 @@ section.date .holder .present {
   padding: 0 1rem;
 }
 section.date .holder .present .nav {
-  width: 3rem;
+  width: 2rem;
   padding-top: 4px;
 }
 section.date .holder .present .prev {
@@ -691,9 +686,6 @@ section.date .holder .present .prev {
 }
 section.date .holder .present .next {
   text-align: right;
-}
-section.date .holder .present .text .num {
-  font-size: 1.75rem;
 }
 section.date .holder .present .text .dayofweek {
   font-size: 1rem;
@@ -736,17 +728,19 @@ section.date .holder .select .pick i:hover {
   color: gray;
 }
 }
+@media (max-width: 992px) {
+section.date .present .text .num {
+  font-size: 1.75rem;
+}
+}
 @media (min-width: 768px) and (max-width: 992px) {
 section.date .present .nav {
-  width: 25%;
-}
-section.date .present .text .num {
-  font-size: 1.5rem;
+  width: 22%;
 }
 }
 @media (min-width: 992px) and (max-width: 1200px) {
 section.date .present .nav {
-  width: 28%;
+  width: 27%;
 }
 }
 @media (min-width: 992px) {
