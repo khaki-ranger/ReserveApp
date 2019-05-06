@@ -118,9 +118,6 @@ body {
   padding: 16px 1rem;
   cursor: pointer;
 }
-.overlay .modal .close:hover {
-  color: gray;
-}
 .overlay .modal .close:before {
   font-family: "Font Awesome 5 Free";
   content: '\f057';
@@ -129,6 +126,11 @@ body {
 .overlay .modal {
   width: 80%;
   height: 80%;
+}
+}
+@media (min-width: 576px) {
+.overlay .modal .close:hover {
+  color: gray;
 }
 }
 @media (min-width: 576px) and (max-width: 768px) {
@@ -277,16 +279,19 @@ input[type="email"].ui-component.error,
 input[type="password"].ui-component.error {
   background-color: pink;
 }
-a.ui-component:hover,
-div.ui-component:hover,
 button.ui-component {
   background-color: #d7092f;
   color: white;
   cursor: pointer;
 }
+@media (min-width: 576px) {
 a.ui-component:hover,
 div.ui-component:hover {
+  background-color: #d7092f;
   border-color: #d7092f;
+  color: white;
+  cursor: pointer;
+}
 }
 button.ui-component.disabled,
 div.ui-component.disabled,
@@ -507,11 +512,6 @@ section.office {
   font-weight: bold;
   cursor: pointer;
 }
-.space-list .space .reservation .period .status.nav-detail:hover,
-.space-list .space .reservation .period .status.available:hover {
-  background-color: #d7092f;
-  color: white;
-}
 .space-list .space .reservation .period .status.unavailable {
   font-size: .75rem;
 }
@@ -552,6 +552,11 @@ section.office {
 .space-list .space .reservation .period:last-child .time,
 .space-list .space .reservation .period:last-child .status {
   border-right: none;
+}
+.space-list .space .reservation .period .status.nav-detail:hover,
+.space-list .space .reservation .period .status.available:hover {
+  background-color: #d7092f;
+  color: white;
 }
 }
 /* admin */
@@ -634,12 +639,6 @@ section.date .holder .present .text .dayofweek {
 section.date .holder .present .text .unit:nth-of-type(7) {
   padding-left: 2px;
 }
-section.date .holder .present .nav:hover {
-  color: gray;
-}
-section.date .holder .present .nav.disabled:hover {
-  color: #ccc;
-}
 section.date .holder .present .nav a {
   display: block;
 }
@@ -655,11 +654,13 @@ section.date .holder .select .btn-today div.ui-component {
   background-color: white;
   padding: .5rem 1rem;
 }
+@media (min-width: 576px) {
 section.date .holder .select .btn-today div.ui-component:hover {
   background-color: #d7092f;
 }
 section.date .holder .select .btn-today div.ui-component.disabled:hover {
   background-color: inherit;
+}
 }
 @media (max-width: 768px) {
 section.date>.holder {
@@ -727,6 +728,12 @@ section.date .present .text .dayofweek {
 section.date .holder .select .pick i:hover {
   color: gray;
 }
+section.date .holder .present .nav:hover {
+  color: gray;
+}
+section.date .holder .present .nav.disabled:hover {
+  color: #ccc;
+}
 }
 @media (max-width: 992px) {
 section.date .present .text .num {
@@ -765,11 +772,13 @@ section.date .present .nav {
   cursor: pointer;
   color: red;
 }
+.my-reservation-list .block .action span {
+  color: gray;
+}
+@media (min-width: 576px) {
 .my-reservation-list .block .action .btn-cancel:hover {
   text-decoration: underline;
 }
-.my-reservation-list .block .action span {
-  color: gray;
 }
 @media (max-width: 991px) {
 .my-reservation-list .block {
