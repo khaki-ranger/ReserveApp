@@ -116,15 +116,15 @@ var dateComponent = Vue.extend({
              </section>`,
 });
 
-var modalComponent = Vue.extend({
-  props:['period_data', 'modal_visibility'],
+var cancelModalComponent = Vue.extend({
+  props:['period_data', 'cancel_modal_visibility'],
   methods: {
     clearModal: function() {
       this.$emit('clear-modal');
     }
   },
   template: `<transition>
-               <div class="overlay" v-show="modal_visibility" v-on:click.self="clearModal">
+               <div class="overlay" v-show="cancel_modal_visibility" v-on:click.self="clearModal">
                  <div class="modal">
                    <div class="panel">
                      <div class="section cancel">
@@ -168,8 +168,8 @@ var modalComponent = Vue.extend({
 var spaceComponent = Vue.extend({
   props:['space', 'current_date'],
   methods: {
-    showModal: function(period) {
-      this.$emit('show-modal', period)
+    cancel: function(period) {
+      this.$emit('cancel', period)
     }
   },
   template: `<li class="space clearfix">
@@ -192,7 +192,7 @@ var spaceComponent = Vue.extend({
                         <div v-else-if="period.isSelf"
                           class="status unavailable nav-detail"
                           key="reserve-is-self"
-                          v-on:click="showModal(period)"
+                          v-on:click="cancel(period)"
                         >
                           予約済
                         </div>
@@ -218,8 +218,8 @@ var officeComponent = Vue.extend({
     'space-component': spaceComponent
   },
   methods: {
-    showModal: function(period) {
-      this.$emit('show-modal', period)
+    cancel: function(period) {
+      this.$emit('cancel', period)
     }
   },
   template: `<div class="box">
@@ -229,7 +229,7 @@ var officeComponent = Vue.extend({
               </div>
               <div class="data">
                 <ul class="space-list">
-                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:show-modal="showModal"></space-component>
+                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:cancel="cancel"></space-component>
                 </ul>
               </div>
             </div>`,
@@ -240,14 +240,14 @@ var app = new Vue({
   components: {
     'office-component': officeComponent,
     'date-component': dateComponent,
-    'modal-component': modalComponent,
+    'cancel-modal-component': cancelModalComponent,
   },
   data: {
     currentDate: {},
     offices: [],
     officeSpaceObject: {},
     periodData: {},
-    modal_visibility: false,
+    cancel_modal_visibility: false,
     pattern: ''
   },
   created() {
@@ -284,12 +284,12 @@ var app = new Vue({
     inputSearch: function(value) {
       this.pattern = value
     },
-    showModal: function(period) {
-      this.modal_visibility = true;
+    cancel: function(period) {
+      this.cancel_modal_visibility = true;
       this.periodData = period
     },
     clearModal: function() {
-      this.modal_visibility = false;
+      this.cancel_modal_visibility = false;
     },
     changeDate: function(direction, selectDate) {
       var url = '/dateOfCurrentDay';

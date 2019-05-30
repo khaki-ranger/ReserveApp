@@ -37,11 +37,11 @@ block content
                v-bind:office="office",
                v-bind:spaces="officeSpaceObject[office.officeId]",
                v-bind:current_date="currentDate",
-               v-on:show-modal="showModal"
+               v-on:cancel="cancel"
             )
-      modal-component(
+      cancel-modal-component(
         v-bind:period_data="periodData",
-        v-bind:modal_visibility="modal_visibility",
+        v-bind:cancel_modal_visibility="cancel_modal_visibility",
         v-on:clear-modal="clearModal"
       )
 

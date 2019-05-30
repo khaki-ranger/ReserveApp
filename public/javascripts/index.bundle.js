@@ -126,24 +126,24 @@ var dateComponent = Vue.extend({
   template: '<section class="date">\n               <div class="holder">\n                 <div class="block search">\n                   <search-component v-on:input-search="inputSearch"></search-component>\n                 </div>\n                 <div class="block present">\n                   <div class="holder">\n                     <template v-if="current_date.isToday">\n                       <div class="nav prev disabled"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <template v-else>\n                       <div class="nav prev" v-on:click="changeDate(-1)"> \n                         <i class="fas fa-chevron-left fa-lg"></i>\n                       </div>\n                     </template>\n                     <div class="text">\n                       <span class="num">{{current_date.year}}</span>\n                       <span class="unit">\u5E74</span>\n                       <span class="num">{{current_date.month}}</span>\n                       <span class="unit">\u6708</span>\n                       <span class="num">{{current_date.day}}</span>\n                       <span class="unit">\u65E5</span>\n                       <span class="unit">(</span>\n                       <span class="dayofweek">{{current_date.dayOfWeekString}}</span>\n                       <span class="unit">)</span>\n                     </div>\n                     <div class="nav next" v-on:click="changeDate(1)">\n                       <i class="fas fa-chevron-right fa-lg"></i>\n                     </div>\n                   </div>\n                 </div>\n                 <div class="block select">\n                   <div class="holder">\n                     <div class="btn-today">\n                       <div v-if="current_date.isToday" class="ui-component disabled">\u672C\u65E5</div>\n                       <div v-else class="ui-component" v-on:click="changeDate(0)">\u672C\u65E5</div>\n                     </div>\n                     <div class="pick">\n                       <vuejs-datepicker\n                         v-model="defaultDate"\n                         :disabledDates="disabledDates"\n                         :language="language"\n                         :monday-first=true\n                         :input-class="this.inputClassName"\n                         :wrapper-class="this.wrapperClassName"\n                         :calendar-button=true\n                         :calendar-button-icon="this.calendarButtonIcon"\n                         @selected="selected"></vuejs-datepicker>\n                     </div>\n                   </div>\n                 </div>\n               </div>\n             </section>'
 });
 
-var modalComponent = Vue.extend({
-  props: ['period_data', 'modal_visibility'],
+var cancelModalComponent = Vue.extend({
+  props: ['period_data', 'cancel_modal_visibility'],
   methods: {
     clearModal: function clearModal() {
       this.$emit('clear-modal');
     }
   },
-  template: '<transition>\n               <div class="overlay" v-show="modal_visibility" v-on:click.self="clearModal">\n                 <div class="modal">\n                   <div class="panel">\n                     <div class="section cancel">\n                       <div class="message">\n                         <h1>\u4E88\u7D04\u5185\u5BB9</h1>\n                         <div class="information">\n                           <div class="office">\n                             <div class="head">\u65BD\u8A2D\u540D</div>\n                             <div class="body">{{period_data.officename}}</div>\n                           </div>\n                           <div class="space">\n                             <div class="head">\u90E8\u5C4B</div>\n                             <div class="body">{{period_data.spacename}}</div>\n                           </div>\n                           <div class="date">\n                             <div class="head">\u65E5\u6642</div>\n                             <div class="body">{{period_data.year}}\u5E74 {{period_data.month}}\u6708 {{period_data.day}}\u65E5({{period_data.dayofweek}}) {{period_data.periodname}}</div>\n                           </div>\n                           <div class="name">\n                             <div class="head">\u304A\u540D\u524D</div>\n                             <div class="body">{{period_data.guestname}}</div>\n                           </div>\n                         </div>\n                       </div>\n                       <div class="nav-holder">\n                         <div class="btn-holder">\n                           <div class="btn-close ui-component" v-on:click="clearModal">\u9589\u3058\u308B</div>\n                         </div>\n                         <div class="btn-holder">\n                           <a class="ui-component confirm" v-bind:href="\'/reserve/cancel/\' + period_data.reservationId">\u4E88\u7D04\u3092\u30AD\u30E3\u30F3\u30BB\u30EB\u3059\u308B</a>\n                         </div>\n                       </div>\n                     </div>\n                   </div>\n                   <div class="close" v-on:click="clearModal"></div>\n                 </div>\n               </div>\n             </transition>'
+  template: '<transition>\n               <div class="overlay" v-show="cancel_modal_visibility" v-on:click.self="clearModal">\n                 <div class="modal">\n                   <div class="panel">\n                     <div class="section cancel">\n                       <div class="message">\n                         <h1>\u4E88\u7D04\u5185\u5BB9</h1>\n                         <div class="information">\n                           <div class="office">\n                             <div class="head">\u65BD\u8A2D\u540D</div>\n                             <div class="body">{{period_data.officename}}</div>\n                           </div>\n                           <div class="space">\n                             <div class="head">\u90E8\u5C4B</div>\n                             <div class="body">{{period_data.spacename}}</div>\n                           </div>\n                           <div class="date">\n                             <div class="head">\u65E5\u6642</div>\n                             <div class="body">{{period_data.year}}\u5E74 {{period_data.month}}\u6708 {{period_data.day}}\u65E5({{period_data.dayofweek}}) {{period_data.periodname}}</div>\n                           </div>\n                           <div class="name">\n                             <div class="head">\u304A\u540D\u524D</div>\n                             <div class="body">{{period_data.guestname}}</div>\n                           </div>\n                         </div>\n                       </div>\n                       <div class="nav-holder">\n                         <div class="btn-holder">\n                           <div class="btn-close ui-component" v-on:click="clearModal">\u9589\u3058\u308B</div>\n                         </div>\n                         <div class="btn-holder">\n                           <a class="ui-component confirm" v-bind:href="\'/reserve/cancel/\' + period_data.reservationId">\u4E88\u7D04\u3092\u30AD\u30E3\u30F3\u30BB\u30EB\u3059\u308B</a>\n                         </div>\n                       </div>\n                     </div>\n                   </div>\n                   <div class="close" v-on:click="clearModal"></div>\n                 </div>\n               </div>\n             </transition>'
 });
 
 var spaceComponent = Vue.extend({
   props: ['space', 'current_date'],
   methods: {
-    showModal: function showModal(period) {
-      this.$emit('show-modal', period);
+    cancel: function cancel(period) {
+      this.$emit('cancel', period);
     }
   },
-  template: '<li class="space clearfix">\n                    <div class="information clearfix">\n                      <div class="name">{{space.spacename}}</div>\n                      <div class="capacity">\n                        \u6700\u5927<span>{{space.capacity}}</span>\u540D\n                      </div>\n                    </div>\n                    <div class="reservation">\n                      <div class="period" v-for="period in space.periods" v-bind:key="period.num">\n                        <div class="time">{{period.periodname}}</div>\n                        <a v-if="period.availability"\n                           class="status available"\n                           key="reserve-available"\n                           v-bind:href="\'/reserve/space/\' + space.spaceId + \'/period/\' + period.num + \'/year/\' + current_date.year + \'/month/\' + current_date.month + \'/day/\' + current_date.day"\n                        >\n                           &#9675;\n                        </a>\n                        <div v-else-if="period.isSelf"\n                          class="status unavailable nav-detail"\n                          key="reserve-is-self"\n                          v-on:click="showModal(period)"\n                        >\n                          \u4E88\u7D04\u6E08\n                        </div>\n                        <div v-else\n                          class="status unavailable"\n                          key="reserve-not-available"\n                        >\n                          &#10005;\n                        </div>\n                      </div>\n                    </div>\n                  </li>'
+  template: '<li class="space clearfix">\n                    <div class="information clearfix">\n                      <div class="name">{{space.spacename}}</div>\n                      <div class="capacity">\n                        \u6700\u5927<span>{{space.capacity}}</span>\u540D\n                      </div>\n                    </div>\n                    <div class="reservation">\n                      <div class="period" v-for="period in space.periods" v-bind:key="period.num">\n                        <div class="time">{{period.periodname}}</div>\n                        <a v-if="period.availability"\n                           class="status available"\n                           key="reserve-available"\n                           v-bind:href="\'/reserve/space/\' + space.spaceId + \'/period/\' + period.num + \'/year/\' + current_date.year + \'/month/\' + current_date.month + \'/day/\' + current_date.day"\n                        >\n                           &#9675;\n                        </a>\n                        <div v-else-if="period.isSelf"\n                          class="status unavailable nav-detail"\n                          key="reserve-is-self"\n                          v-on:click="cancel(period)"\n                        >\n                          \u4E88\u7D04\u6E08\n                        </div>\n                        <div v-else\n                          class="status unavailable"\n                          key="reserve-not-available"\n                        >\n                          &#10005;\n                        </div>\n                      </div>\n                    </div>\n                  </li>'
 });
 
 var officeComponent = Vue.extend({
@@ -157,11 +157,11 @@ var officeComponent = Vue.extend({
     'space-component': spaceComponent
   },
   methods: {
-    showModal: function showModal(period) {
-      this.$emit('show-modal', period);
+    cancel: function cancel(period) {
+      this.$emit('cancel', period);
     }
   },
-  template: '<div class="box">\n              <div class="information">\n                <div class="photo"><img v-bind:src="office.imgPath" v-on:load="showImg=true" v-bind:class="{hide: !showImg}" class="responsive-img"></div>\n                <div class="name">{{office.officename}}</div>\n              </div>\n              <div class="data">\n                <ul class="space-list">\n                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:show-modal="showModal"></space-component>\n                </ul>\n              </div>\n            </div>'
+  template: '<div class="box">\n              <div class="information">\n                <div class="photo"><img v-bind:src="office.imgPath" v-on:load="showImg=true" v-bind:class="{hide: !showImg}" class="responsive-img"></div>\n                <div class="name">{{office.officename}}</div>\n              </div>\n              <div class="data">\n                <ul class="space-list">\n                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:cancel="cancel"></space-component>\n                </ul>\n              </div>\n            </div>'
 });
 
 var app = new Vue({
@@ -169,14 +169,14 @@ var app = new Vue({
   components: {
     'office-component': officeComponent,
     'date-component': dateComponent,
-    'modal-component': modalComponent
+    'cancel-modal-component': cancelModalComponent
   },
   data: {
     currentDate: {},
     offices: [],
     officeSpaceObject: {},
     periodData: {},
-    modal_visibility: false,
+    cancel_modal_visibility: false,
     pattern: ''
   },
   created: function created() {
@@ -213,12 +213,12 @@ var app = new Vue({
     inputSearch: function inputSearch(value) {
       this.pattern = value;
     },
-    showModal: function showModal(period) {
-      this.modal_visibility = true;
+    cancel: function cancel(period) {
+      this.cancel_modal_visibility = true;
       this.periodData = period;
     },
     clearModal: function clearModal() {
-      this.modal_visibility = false;
+      this.cancel_modal_visibility = false;
     },
     changeDate: function changeDate(direction, selectDate) {
       var _this2 = this;
