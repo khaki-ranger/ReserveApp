@@ -116,6 +116,55 @@ var dateComponent = Vue.extend({
              </section>`,
 });
 
+var reserveModalComponent = Vue.extend({
+  props:['period_data', 'reserve_modal_visibility'],
+  methods: {
+    clearModal: function() {
+      this.$emit('clear-modal');
+    }
+  },
+  template: `<transition>
+               <div class="overlay" v-show="reserve_modal_visibility" v-on:click.self="clearModal">
+                 <div class="modal">
+                   <div class="panel">
+                     <div class="section cancel">
+                       <div class="message">
+                         <h1>予約内容</h1>
+                         <div class="information">
+                           <div class="office">
+                             <div class="head">施設名</div>
+                             <div class="body">{{period_data.officename}}</div>
+                           </div>
+                           <div class="space">
+                             <div class="head">部屋</div>
+                             <div class="body">{{period_data.spacename}}</div>
+                           </div>
+                           <div class="date">
+                             <div class="head">日時</div>
+                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodname}}</div>
+                           </div>
+                           <div class="name">
+                             <div class="head">お名前</div>
+                             <div class="body"></div>
+                           </div>
+                         </div>
+                       </div>
+                       <div class="nav-holder">
+                         <div class="btn-holder">
+                           <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
+                         </div>
+                         <div class="btn-holder">
+                           <a class="ui-component confirm">予約する</a>
+                         </div>
+                       </div>
+                     </div>
+                   </div>
+                   <div class="close" v-on:click="clearModal"></div>
+                 </div>
+               </div>
+             </transition>`,
+});
+
 var cancelModalComponent = Vue.extend({
   props:['period_data', 'cancel_modal_visibility'],
   methods: {
@@ -170,41 +219,44 @@ var spaceComponent = Vue.extend({
   methods: {
     cancel: function(period) {
       this.$emit('cancel', period)
+    },
+    reserve: function(period) {
+      this.$emit('reserve', period)
     }
   },
   template: `<li class="space clearfix">
-                    <div class="information clearfix">
-                      <div class="name">{{space.spacename}}</div>
-                      <div class="capacity">
-                        最大<span>{{space.capacity}}</span>名
-                      </div>
-                    </div>
-                    <div class="reservation">
-                      <div class="period" v-for="period in space.periods" v-bind:key="period.num">
-                        <div class="time">{{period.periodname}}</div>
-                        <a v-if="period.availability"
-                           class="status available"
-                           key="reserve-available"
-                           v-bind:href="'/reserve/space/' + space.spaceId + '/period/' + period.num + '/year/' + current_date.year + '/month/' + current_date.month + '/day/' + current_date.day"
-                        >
-                           &#9675;
-                        </a>
-                        <div v-else-if="period.isSelf"
-                          class="status unavailable nav-detail"
-                          key="reserve-is-self"
-                          v-on:click="cancel(period)"
-                        >
-                          予約済
-                        </div>
-                        <div v-else
-                          class="status unavailable"
-                          key="reserve-not-available"
-                        >
-                          &#10005;
-                        </div>
-                      </div>
-                    </div>
-                  </li>`,
+               <div class="information clearfix">
+                 <div class="name">{{space.spacename}}</div>
+                 <div class="capacity">
+                   最大<span>{{space.capacity}}</span>名
+                 </div>
+               </div>
+               <div class="reservation">
+                 <div class="period" v-for="period in space.periods" v-bind:key="period.num">
+                   <div class="time">{{period.periodname}}</div>
+                   <div v-if="period.availability"
+                     class="status available"
+                     key="reserve-available"
+                     v-on:click="reserve(period)"
+                   >
+                     &#9675;
+                   </div>
+                   <div v-else-if="period.isSelf"
+                     class="status unavailable nav-detail"
+                     key="reserve-is-self"
+                     v-on:click="cancel(period)"
+                   >
+                     予約済
+                   </div>
+                   <div v-else
+                     class="status unavailable"
+                     key="reserve-not-available"
+                   >
+                     &#10005;
+                   </div>
+                 </div>
+               </div>
+             </li>`,
 });
 
 var officeComponent = Vue.extend({
@@ -220,6 +272,9 @@ var officeComponent = Vue.extend({
   methods: {
     cancel: function(period) {
       this.$emit('cancel', period)
+    },
+    reserve: function(period) {
+      this.$emit('reserve', period)
     }
   },
   template: `<div class="box">
@@ -229,7 +284,7 @@ var officeComponent = Vue.extend({
               </div>
               <div class="data">
                 <ul class="space-list">
-                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:cancel="cancel"></space-component>
+                  <space-component v-for="space in spaces" v-bind:key="space.spaceId" v-bind:space="space" v-bind:current_date="current_date" v-on:cancel="cancel" v-on:reserve="reserve"></space-component>
                 </ul>
               </div>
             </div>`,
@@ -241,6 +296,7 @@ var app = new Vue({
     'office-component': officeComponent,
     'date-component': dateComponent,
     'cancel-modal-component': cancelModalComponent,
+    'reserve-modal-component': reserveModalComponent,
   },
   data: {
     currentDate: {},
@@ -248,6 +304,7 @@ var app = new Vue({
     officeSpaceObject: {},
     periodData: {},
     cancel_modal_visibility: false,
+    reserve_modal_visibility: false,
     pattern: ''
   },
   created() {
@@ -288,8 +345,13 @@ var app = new Vue({
       this.cancel_modal_visibility = true;
       this.periodData = period
     },
+    reserve: function(period) {
+      this.reserve_modal_visibility = true;
+      this.periodData = period
+    },
     clearModal: function() {
       this.cancel_modal_visibility = false;
+      this.reserve_modal_visibility = false;
     },
     changeDate: function(direction, selectDate) {
       var url = '/dateOfCurrentDay';
