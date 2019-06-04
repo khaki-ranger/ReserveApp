@@ -125,7 +125,7 @@ body {
 @media (max-width: 576px) {
 .overlay .modal {
   width: 80%;
-  height: 80%;
+  height: 90%;
 }
 }
 @media (min-width: 576px) {
@@ -136,19 +136,19 @@ body {
 @media (min-width: 576px) and (max-width: 768px) {
 .overlay .modal {
   width: 70%;
-  height: 70%;
+  height: 90%;
 }
 }
 @media (min-width: 768px) and (max-width: 992px) {
 .overlay .modal {
   width: 60%;
-  height: 60%;
+  height: 90%;
 }
 }
 @media (min-width: 992px) {
 .overlay .modal {
   width: 50%;
-  height: 50%;
+  height: 90%;
 }
 }
 /* body>header */
@@ -858,6 +858,7 @@ section.date .present .nav {
 .cancel .message h1 {
   text-align: center;
   margin: 0 0 1rem 0;
+  font-size: 1.25rem;
 }
 .cancel .nav-holder {
   position: absolute;

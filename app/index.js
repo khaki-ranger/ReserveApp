@@ -117,7 +117,7 @@ var dateComponent = Vue.extend({
 });
 
 var reserveModalComponent = Vue.extend({
-  props:['period_data', 'reserve_modal_visibility'],
+  props:['current_date', 'period_data', 'reserve_modal_visibility'],
   methods: {
     clearModal: function() {
       this.$emit('clear-modal');
@@ -130,31 +130,45 @@ var reserveModalComponent = Vue.extend({
                      <div class="section cancel">
                        <div class="message">
                          <h1>予約内容</h1>
-                         <div class="information">
-                           <div class="office">
-                             <div class="head">施設名</div>
-                             <div class="body">{{period_data.officename}}</div>
+                         <form>
+                           <div class="information">
+                             <div class="office">
+                               <div class="head">施設名</div>
+                               <div class="body">{{period_data.officename}}</div>
+                             </div>
+                             <div class="space">
+                               <div class="head">部屋</div>
+                               <div class="body">{{period_data.spacename}}</div>
+                             </div>
+                             <div class="date">
+                               <div class="head">利用日</div>
+                               <div class="body">{{current_date.year}}年 {{current_date.month}}月 {{current_date.day}}日({{current_date.dayOfWeekString}})</div>
+                             </div>
+                             <div class="start-time">
+                               <div class="head">開始時刻</div>
+                               <div class="body">{{period_data.periodname}}</div>
+                             </div>
+                             <div class="end-time">
+                               <div class="head">終了時刻</div>
+                               <div class="body">{{period_data.periodname}}</div>
+                             </div>
+                             <div class="guestname ui-block">
+                               <label class="ui-component" for="guestname">お名前</label>
+                               <input class="ui-component" type="text" name="guestname" id="guestname" >
+                             </div>
+                             <div class="mailaddress ui-block">
+                               <label class="ui-component" for="mailaddress">メールアドレス</label>
+                               <input class="ui-component" type="email" name="mailaddress" id="mailaddress" >
+                             </div>
                            </div>
-                           <div class="space">
-                             <div class="head">部屋</div>
-                             <div class="body">{{period_data.spacename}}</div>
-                           </div>
-                           <div class="date">
-                             <div class="head">日時</div>
-                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodname}}</div>
-                           </div>
-                           <div class="name">
-                             <div class="head">お名前</div>
-                             <div class="body"></div>
-                           </div>
-                         </div>
+                         </form>
                        </div>
                        <div class="nav-holder">
                          <div class="btn-holder">
                            <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
                          </div>
                          <div class="btn-holder">
-                           <a class="ui-component confirm">予約する</a>
+                           <a class="ui-component confirm">確認する</a>
                          </div>
                        </div>
                      </div>

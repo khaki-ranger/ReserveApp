@@ -46,6 +46,7 @@ block content
         v-on:clear-modal="clearModal"
       )
       reserve-modal-component(
+        v-bind:current_date="currentDate",
         v-bind:period_data="periodData",
         v-bind:reserve_modal_visibility="reserve_modal_visibility",
         v-on:clear-modal="clearModal"
