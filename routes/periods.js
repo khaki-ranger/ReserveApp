@@ -5,65 +5,73 @@ module.exports = class Periods {
     const periods = {
       1: {
         num: 1,
-        periodname: '9:00 - 10:00',
-        startHour: 9,
-        endHour: 10,
+        startTime: 9,
+        periodLabelString: '9:00 - 10:00',
+        startTimeString: '9:00',
+        endTimeString: '10:00',
         availability: true,
         isSelf: false
       },
       2: {
         num: 2,
-        periodname: '10:00 - 11:00',
-        startHour: 10,
-        endHour: 11,
+        startTime: 10,
+        periodLabelString: '10:00 - 11:00',
+        startTimeString: '10:00',
+        endTimeString: '11:00',
         availability: true,
         isSelf: false
       },
       3: {
         num: 3,
-        periodname: '11:00 - 12:00',
-        startHour: 11,
-        endHour: 12,
+        startTime: 11,
+        periodLabelString: '11:00 - 12:00',
+        startTimeString: '11:00',
+        endTimeString: '12:00',
         availability: true,
         isSelf: false
       },
       4: {
         num: 4,
-        periodname: '12:00 - 13:00',
-        startHour: 12,
-        endHour: 13,
+        startTime: 12,
+        periodLabelString: '12:00 - 13:00',
+        startTimeString: '12:00',
+        endTimeString: '13:00',
         availability: true,
         isSelf: false
       },
       5: {
         num: 5,
-        periodname: '13:00 - 14:00',
-        startHour: 13,
-        endHour: 14,
+        startTime: 13,
+        periodLabelString: '13:00 - 14:00',
+        startTimeString: '13:00',
+        endTimeString: '14:00',
         availability: true,
         isSelf: false
       },
       6: {
         num: 6,
-        periodname: '14:00 - 15:00',
-        startHour: 14,
-        endHour: 15,
+        startTime: 14,
+        periodLabelString: '14:00 - 15:00',
+        startTimeString: '14:00',
+        endTimeString: '15:00',
         availability: true,
         isSelf: false
       },
       7: {
         num: 7,
-        periodname: '15:00 - 16:00',
-        startHour: 15,
-        endHour: 16,
+        startTime: 15,
+        periodLabelString: '15:00 - 16:00',
+        startTimeString: '15:00',
+        endTimeString: '16:00',
         availability: true,
         isSelf: false
       },
       8: {
         num: 8,
-        periodname: '16:00 - 17:30',
-        startHour: 16,
-        endHour: 17.5,
+        startTime: 16,
+        periodLabelString: '16:00 - 17:30',
+        startTimeString: '16:00',
+        endTimeString: '17:30',
         availability: true,
         isSelf: false
       }

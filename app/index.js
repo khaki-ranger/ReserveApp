@@ -146,14 +146,12 @@ var reserveModalComponent = Vue.extend({
                              </div>
                              <div class="start-period">
                                <div class="head">開始時刻</div>
-                               <div class="body">{{period_data.startHour}}:00</div>
+                               <div class="body">{{period_data.startTimeString}}</div>
                              </div>
                              <div class="end-period">
                                <label class="ui-component" for="end-period">終了時刻</label>
                                <select class="ui-component" name="end-period" id="end-period">
-                                 <option value="1">11:00</option>
-                                 <option value="2">12:00</option>
-                                 <option value="3">13:00</option>
+                                 <option v-for="reservablePeriod in period_data.reservablePeriods " v-bind:key="reservablePeriod.num" value="reservablePeriod.num">{{reservablePeriod.endTimeString}}</option>
                                </select>
                              </div>
                              <div class="guestname ui-block">
@@ -208,7 +206,7 @@ var cancelModalComponent = Vue.extend({
                            </div>
                            <div class="date">
                              <div class="head">日時</div>
-                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodname}}</div>
+                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodLabelString}}</div>
                            </div>
                            <div class="name">
                              <div class="head">お名前</div>
@@ -251,7 +249,7 @@ var spaceComponent = Vue.extend({
                </div>
                <div class="reservation">
                  <div class="period" v-for="period in space.periods" v-bind:key="period.num">
-                   <div class="time">{{period.periodname}}</div>
+                   <div class="time">{{period.periodLabelString}}</div>
                    <div v-if="period.availability"
                      class="status available"
                      key="reserve-available"

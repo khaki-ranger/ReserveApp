@@ -95,11 +95,21 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
           // key = officeId, value = [スペース]
           const officeSpaceObject = {};
           s.forEach((space) => {
-            // 個々のオフィスの予定を表現するインスタンスを作成
+            // 個々のスペースの予定を表現するインスタンスを作成
             const periods = new Periods();
             for (let key of Object.keys(periods)) {
               periods[key].officename = space.office.officename;
               periods[key].spacename = space.spacename;
+              // 予約が可能な範囲のデータを格納
+              const reservablePeriods = [];
+              for (let i = key; i <= Object.keys(periods).length; i++) {
+                const reservablePeriodObject = {
+                  num: periods[i].num,
+                  endTimeString: periods[i].endTimeString
+                };
+                reservablePeriods.push(reservablePeriodObject);
+              }
+              periods[key].reservablePeriods = reservablePeriods;
             }
             const reservations = reservationObject[space.spaceId];
             if (reservations && reservations.length > 0) {
@@ -121,7 +131,7 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
               for (let key of Object.keys(periods)) {
                 const now  = moment().tz('Asia/Tokyo');
                 const hour  = now.hours();
-                if (hour >= periods[key].startHour) {
+                if (hour >= periods[key].startTime) {
                   periods[key].availability = false;
                 }
               }
