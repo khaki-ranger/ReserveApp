@@ -100,6 +100,7 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
             for (let key of Object.keys(periods)) {
               periods[key].officename = space.office.officename;
               periods[key].spacename = space.spacename;
+              periods[key].spaceId = space.spaceId;
               // 予約が可能な範囲のデータを格納
               const reservablePeriods = [];
               for (let i = key; i <= Object.keys(periods).length; i++) {

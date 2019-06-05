@@ -65,6 +65,19 @@ router.get('/space/:spaceId/period/:periodnum/year/:year/month/:month/day/:day',
   });
 });
 
+router.post('/confirm', authenticationEnsurer, (req, res, next) => {
+  const title = '予約確認 | SERVICE NAME';
+  const date = new Date(req.body.year, req.body.month - 1, req.body.day);
+  const params = {
+    spaceId: req.body.spaceId,
+    date: date,
+    periodnum: req.body.periodnum,
+    guestname: req.body.guestname,
+    mailaddress: req.body.mailaddress
+  };
+  res.json(params);
+});
+
 router.post('/', authenticationEnsurer, (req, res, next) => {
   const title = '予約 | SERVICE NAME';
   const message = {};
