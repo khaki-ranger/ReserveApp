@@ -144,13 +144,17 @@ var reserveModalComponent = Vue.extend({
                                <div class="head">利用日</div>
                                <div class="body">{{current_date.year}}年 {{current_date.month}}月 {{current_date.day}}日({{current_date.dayOfWeekString}})</div>
                              </div>
-                             <div class="start-time">
+                             <div class="start-period">
                                <div class="head">開始時刻</div>
-                               <div class="body">{{period_data.periodname}}</div>
+                               <div class="body">{{period_data.startHour}}:00</div>
                              </div>
-                             <div class="end-time">
-                               <div class="head">終了時刻</div>
-                               <div class="body">{{period_data.periodname}}</div>
+                             <div class="end-period">
+                               <label class="ui-component" for="end-period">終了時刻</label>
+                               <select class="ui-component" name="end-period" id="end-period">
+                                 <option value="1">11:00</option>
+                                 <option value="2">12:00</option>
+                                 <option value="3">13:00</option>
+                               </select>
                              </div>
                              <div class="guestname ui-block">
                                <label class="ui-component" for="guestname">お名前</label>

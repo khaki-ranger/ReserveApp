@@ -97,6 +97,10 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
           s.forEach((space) => {
             // 個々のオフィスの予定を表現するインスタンスを作成
             const periods = new Periods();
+            for (let key of Object.keys(periods)) {
+              periods[key].officename = space.office.officename;
+              periods[key].spacename = space.spacename;
+            }
             const reservations = reservationObject[space.spaceId];
             if (reservations && reservations.length > 0) {
               reservations.forEach((reservation) => {
@@ -106,8 +110,6 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
                   periods[reservation.periodnum].isSelf = true;
                   periods[reservation.periodnum].reservationId = reservation.reservationId;
                   periods[reservation.periodnum].guestname = reservation.guestname;
-                  periods[reservation.periodnum].officename = space.office.officename;
-                  periods[reservation.periodnum].spacename = space.spacename;
                   periods[reservation.periodnum].year = m.year();;
                   periods[reservation.periodnum].month = m.month() + 1;
                   periods[reservation.periodnum].day = m.date();
