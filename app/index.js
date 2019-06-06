@@ -118,9 +118,35 @@ var dateComponent = Vue.extend({
 
 var reserveModalComponent = Vue.extend({
   props:['current_date', 'period_data', 'reserve_modal_visibility'],
+  data: function() {
+    return {
+      errors: {guestname: null, mailaddress: null},
+      guestname: null,
+      mailaddress: null
+    }
+  },
   methods: {
     clearModal: function() {
       this.$emit('clear-modal');
+    },
+    checkForm: function(e) {
+      this.errors = [];
+      if (!this.guestname) {
+        this.errors.guestname = 'お名前を入力してください';
+      }
+      if (!this.mailaddress) {
+        this.errors.mailaddress = 'メールアドレスを入力してください';
+      } else if (!this.validEmail(this.mailaddress)) {
+        this.errors.mailaddress = '入力されたメールアドレスは正しくありません';
+      }
+      if (!this.errors.guestname && !this.errors.mailaddress) {
+        return true;
+      }
+      e.preventDefault();
+    },
+    validEmail: function (email) {
+      var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
     }
   },
   template: `<transition>
@@ -128,7 +154,7 @@ var reserveModalComponent = Vue.extend({
                  <div class="modal">
                    <div class="panel">
                      <div class="section cancel">
-                       <form action="/reserve/confirm" method="post" class="ui-component">
+                       <form @submit="checkForm" novalidate="true" action="/reserve/confirm" method="post" class="ui-component">
                          <input type="hidden" name="spaceId" id="spaceId" v-bind:value="period_data.spaceId">
                          <input type="hidden" name="year" id="year" v-bind:value="current_date.year">
                          <input type="hidden" name="month" id="month" v-bind:value="current_date.month">
@@ -160,12 +186,28 @@ var reserveModalComponent = Vue.extend({
                                </select>
                              </div>
                              <div class="guestname ui-block">
-                               <label class="ui-component" for="guestname">お名前</label>
-                               <input class="ui-component" type="text" name="guestname" id="guestname">
+                               <template v-if="errors.guestname">
+                                 <label class="ui-component" for="guestname">お名前
+                                   <span class="message.caution">{{errors.guestname}}</span>
+                                 </label>
+                                 <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
+                               </template>
+                               <template v-else>
+                                 <label class="ui-component" for="guestname">お名前</label>
+                                 <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
+                               </template>
                              </div>
                              <div class="mailaddress ui-block">
-                               <label class="ui-component" for="mailaddress">メールアドレス</label>
-                               <input class="ui-component" type="email" name="mailaddress" id="mailaddress">
+                               <template v-if="errors.mailaddress">
+                                 <label class="ui-component" for="mailaddress">メールアドレス
+                                   <span class="message.caution">{{errors.mailaddress}}</span>
+                                 </label>
+                                 <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
+                               </template>
+                               <template v-else>
+                                 <label class="ui-component" for="mailaddress">メールアドレス</label>
+                                 <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
+                               </template>
                              </div>
                            </div>
                          </div>
