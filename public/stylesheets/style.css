@@ -367,6 +367,9 @@ button.ui-component {
 .dialog .message {
   font-size: .9rem;
 }
+.reserve .dialog h1 {
+  text-align: center;
+}
 @media (max-width: 576px) {
 .signin {
   padding: 1rem;

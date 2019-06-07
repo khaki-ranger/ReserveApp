@@ -1,0 +1,33 @@
+extends layout
+
+block content
+  section.reserve
+    .dialog
+      h1 予約確認
+      form.ui-component(action="/reserve" method="post")
+        input(type="hidden" name="spaceId" value="#{params.spaceId}")
+        input(type="hidden" name="year" value="#{params.year}")
+        input(type="hidden" name="month" value="#{params.month}")
+        input(type="hidden" name="day" value="#{params.day}")
+        input(type="hidden" name="periodnum" value="#{params.periodnum}")
+        input(type="hidden" name="guestname" value="#{guestname}")
+        input(type="hidden" name="mailaddress" value="#{mailaddress}")
+        .block.office 
+          .head 施設名
+          .body #{params.officename}
+          .body #{params.spacename}
+        .block.date
+          .head 予約日
+          .body #{params.year} 年 #{params.month} 月 #{params.day} 日（#{params.dayofweekstring}）
+          .body #{params.periodname}
+        .block.guestname
+          .head お名前
+          .body #{guestname}
+        .block.mailaddress
+          .head メールアドレス
+          .body #{mailaddress}
+        .ui-block
+          .btn-holder
+            a.ui-component(href="/?year=#{params.year}&month=#{params.month}&day=#{params.day}") 戻る
+          .btn-holder
+            button.ui-component(type="submit") 予約

@@ -32,7 +32,7 @@ const getParams = ((params, callback) => {
         spaceId: params.spaceId,
         spacename: s.spacename,
         periodnum: params.periodnum,
-        periodname: periods[params.periodnum].periodname,
+        periodname: periods[params.periodnum].periodLabelString,
         year: params.year,
         month: params.month,
         day: params.day,
@@ -67,15 +67,29 @@ router.get('/space/:spaceId/period/:periodnum/year/:year/month/:month/day/:day',
 
 router.post('/confirm', authenticationEnsurer, (req, res, next) => {
   const title = '予約確認 | SERVICE NAME';
-  const date = new Date(req.body.year, req.body.month - 1, req.body.day);
-  const params = {
+  const dataObject = {
     spaceId: req.body.spaceId,
-    date: date,
-    periodnum: req.body.periodnum,
-    guestname: req.body.guestname,
-    mailaddress: req.body.mailaddress
+    year: req.body.year,
+    month: req.body.month,
+    day: req.body.day,
+    periodnum: req.body.periodnum
   };
-  res.json(params);
+  getParams(dataObject, (err, params) => {
+    if (err) {
+      console.log(err);
+    } else {
+      loginUser(req.user, (result) => {
+        res.render('confirm', {
+          title: title,
+          configVars: configVars,
+          loginUser: result,
+          params: params,
+          guestname: req.body.guestname,
+          mailaddress: req.body.mailaddress
+        });
+      });
+    }
+  });
 });
 
 router.post('/', authenticationEnsurer, (req, res, next) => {
