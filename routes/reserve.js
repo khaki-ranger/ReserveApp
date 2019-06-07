@@ -31,8 +31,10 @@ const getParams = ((params, callback) => {
         officename: s.office.officename, 
         spaceId: params.spaceId,
         spacename: s.spacename,
-        periodnum: params.periodnum,
-        periodname: periods[params.periodnum].periodLabelString,
+        startperiodnum: params.startperiodnum,
+        endperiodnum: params.endperiodnum,
+        startiimestring: periods[params.startperiodnum].startTimeString,
+        endtimestring: periods[params.endperiodnum].endTimeString,
         year: params.year,
         month: params.month,
         day: params.day,
@@ -45,26 +47,6 @@ const getParams = ((params, callback) => {
   });
 });
 
-router.get('/space/:spaceId/period/:periodnum/year/:year/month/:month/day/:day', authenticationEnsurer, (req, res, next) => {
-  const title = '予約 | SERVICE NAME';
-  const message = {};
-  getParams(req.params, (err, params) => {
-    if (err) {
-      console.log(err);
-    } else {
-      loginUser(req.user, (result) => {
-        res.render('reserve', {
-          title: title,
-          configVars: configVars,
-          loginUser: result,
-          message: message,
-          params: params
-        });
-      });
-    }
-  });
-});
-
 router.post('/confirm', authenticationEnsurer, (req, res, next) => {
   const title = '予約確認 | SERVICE NAME';
   const dataObject = {
@@ -72,7 +54,8 @@ router.post('/confirm', authenticationEnsurer, (req, res, next) => {
     year: req.body.year,
     month: req.body.month,
     day: req.body.day,
-    periodnum: req.body.periodnum
+    startperiodnum: req.body.startperiodnum,
+    endperiodnum: req.body.endperiodnum
   };
   getParams(dataObject, (err, params) => {
     if (err) {

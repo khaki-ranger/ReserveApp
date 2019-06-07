@@ -159,7 +159,7 @@ var reserveModalComponent = Vue.extend({
                          <input type="hidden" name="year" id="year" v-bind:value="current_date.year">
                          <input type="hidden" name="month" id="month" v-bind:value="current_date.month">
                          <input type="hidden" name="day" id="day" v-bind:value="current_date.day">
-                         <input type="hidden" name="periodnum" id="periodnum" v-bind:value="period_data.num">
+                         <input type="hidden" name="startperiodnum" id="startperiodnum" v-bind:value="period_data.num">
                          <div class="message">
                            <h1>予約内容</h1>
                            <div class="information">
@@ -179,9 +179,9 @@ var reserveModalComponent = Vue.extend({
                                <div class="head">開始時刻</div>
                                <div class="body">{{period_data.startTimeString}}</div>
                              </div>
-                             <div class="end-period">
-                               <label class="ui-component" for="end-period">終了時刻</label>
-                               <select class="ui-component" name="end-period" id="end-period">
+                             <div class="endperiodnum">
+                               <label class="ui-component" for="endperiodnum">終了時刻</label>
+                               <select class="ui-component" name="endperiodnum" id="endperiodnum">
                                  <option v-for="reservablePeriod in period_data.reservablePeriods " v-bind:key="reservablePeriod.num" v-bind:value="reservablePeriod.num">{{reservablePeriod.endTimeString}}</option>
                                </select>
                              </div>

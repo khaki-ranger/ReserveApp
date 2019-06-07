@@ -9,7 +9,8 @@ block content
         input(type="hidden" name="year" value="#{params.year}")
         input(type="hidden" name="month" value="#{params.month}")
         input(type="hidden" name="day" value="#{params.day}")
-        input(type="hidden" name="periodnum" value="#{params.periodnum}")
+        input(type="hidden" name="startperiodnum" value="#{params.startperiodnum}")
+        input(type="hidden" name="endperiodnum" value="#{params.endperiodnum}")
         input(type="hidden" name="guestname" value="#{guestname}")
         input(type="hidden" name="mailaddress" value="#{mailaddress}")
         .block.office 
@@ -19,7 +20,9 @@ block content
         .block.date
           .head 予約日
           .body #{params.year} 年 #{params.month} 月 #{params.day} 日（#{params.dayofweekstring}）
-          .body #{params.periodname}
+        .block.date
+          .head 予約時間
+          .body #{params.startiimestring} - #{params.endtimestring}
         .block.guestname
           .head お名前
           .body #{guestname}
