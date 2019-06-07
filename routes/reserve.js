@@ -93,8 +93,6 @@ router.post('/confirm', authenticationEnsurer, (req, res, next) => {
 });
 
 router.post('/', authenticationEnsurer, (req, res, next) => {
-  const title = '予約 | SERVICE NAME';
-  const message = {};
   const guestname = req.body.guestname;
   const mailaddress = req.body.mailaddress;
   // サーバー側でも値のチェック
