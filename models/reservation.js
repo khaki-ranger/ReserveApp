@@ -17,7 +17,11 @@ const Reservation = loader.database.define('reservations', {
     type: Sequelize.DATE,
     allowNull: false
   },
-  periodnum: {
+  startperiodnum: {
+    type: Sequelize.INTEGER,
+    allowNull: false
+  },
+  endperiodnum: {
     type: Sequelize.INTEGER,
     allowNull: false
   },
