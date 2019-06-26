@@ -97,36 +97,47 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
           s.forEach((space) => {
             // 個々のスペースの予定を表現するインスタンスを作成
             const periods = new Periods();
+            // 予約状況の情報を格納するための処理
+            const reservations = reservationObject[space.spaceId];
+            if (reservations && reservations.length > 0) {
+              reservations.forEach((reservation) => {
+                // 開始のコマから終了のコマまでを予約不可にするための処理
+                for (let j = reservation.startperiodnum; j <= reservation.endperiodnum; j++) {
+                  periods[j].availability = false;
+                  if(reservation.createdBy === req.user.userId){
+                    const m = moment(reservation.date);
+                    periods[j].isSelf = true;
+                    periods[j].reservationId = reservation.reservationId;
+                    periods[j].guestname = reservation.guestname;
+                    periods[j].year = m.year();;
+                    periods[j].month = m.month() + 1;
+                    periods[j].day = m.date();
+                    periods[j].dayofweek = ['日', '月', '火', '水', '木', '金', '土'][m.day()];
+                  }
+                }
+              });
+            }
+            // コマ毎にデータを格納するための処理
             for (let key of Object.keys(periods)) {
               periods[key].officename = space.office.officename;
               periods[key].spacename = space.spacename;
               periods[key].spaceId = space.spaceId;
               // 予約が可能な範囲のデータを格納
+              // 以降のコマを予約可能にする
               const reservablePeriods = [];
               for (let i = key; i <= Object.keys(periods).length; i++) {
-                const reservablePeriodObject = {
-                  num: periods[i].num,
-                  endTimeString: periods[i].endTimeString
-                };
-                reservablePeriods.push(reservablePeriodObject);
+                // 予約が重複しているかどうかの判定処理
+                if(periods[i].availability === false) {
+                  break;
+                } else {
+                  const reservablePeriodObject = {
+                    num: periods[i].num,
+                    endTimeString: periods[i].endTimeString
+                  };
+                  reservablePeriods.push(reservablePeriodObject);
+                }
               }
               periods[key].reservablePeriods = reservablePeriods;
-            }
-            const reservations = reservationObject[space.spaceId];
-            if (reservations && reservations.length > 0) {
-              reservations.forEach((reservation) => {
-                periods[reservation.periodnum].availability = false;
-                if(reservation.createdBy === req.user.userId){
-                  const m = moment(reservation.date);
-                  periods[reservation.periodnum].isSelf = true;
-                  periods[reservation.periodnum].reservationId = reservation.reservationId;
-                  periods[reservation.periodnum].guestname = reservation.guestname;
-                  periods[reservation.periodnum].year = m.year();;
-                  periods[reservation.periodnum].month = m.month() + 1;
-                  periods[reservation.periodnum].day = m.date();
-                  periods[reservation.periodnum].dayofweek = ['日', '月', '火', '水', '木', '金', '土'][m.day()];
-                }
-              });
             }
             if (currentDate.isToday) {
               for (let key of Object.keys(periods)) {

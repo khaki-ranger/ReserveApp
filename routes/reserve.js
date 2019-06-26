@@ -49,33 +49,6 @@ const getParams = ((params, callback) => {
 
 router.post('/confirm', authenticationEnsurer, (req, res, next) => {
   const title = '予約確認 | SERVICE NAME';
-  const dataObject = {
-    spaceId: req.body.spaceId,
-    year: req.body.year,
-    month: req.body.month,
-    day: req.body.day,
-    startperiodnum: req.body.startperiodnum,
-    endperiodnum: req.body.endperiodnum
-  };
-  getParams(dataObject, (err, params) => {
-    if (err) {
-      console.log(err);
-    } else {
-      loginUser(req.user, (result) => {
-        res.render('confirm', {
-          title: title,
-          configVars: configVars,
-          loginUser: result,
-          params: params,
-          guestname: req.body.guestname,
-          mailaddress: req.body.mailaddress
-        });
-      });
-    }
-  });
-});
-
-router.post('/', authenticationEnsurer, (req, res, next) => {
   const guestname = req.body.guestname;
   const mailaddress = req.body.mailaddress;
   // サーバー側でも値のチェック
@@ -88,55 +61,94 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     }
     throw new Error('お名前とメールアドレスを入力してください。');
   } else {
-    const date = new Date(req.body.year, req.body.month - 1, req.body.day);
-    Reservation.findOne({
-      where: {
-        spaceId: req.body.spaceId,
-        date: date,
-        periodnum: req.body.periodnum,
-        canceled: false
-      }
-    }).then((already) => {
-      if(already) {
-        console.log('既に重複する予約があるため予約ができません。');
-        throw new Error('既に重複する予約があるため予約ができません。');
+    const dataObject = {
+      spaceId: req.body.spaceId,
+      year: req.body.year,
+      month: req.body.month,
+      day: req.body.day,
+      startperiodnum: req.body.startperiodnum,
+      endperiodnum: req.body.endperiodnum
+    };
+    getParams(dataObject, (err, params) => {
+      if (err) {
+        console.log(err);
       } else {
-        Reservation.create({
-          spaceId: req.body.spaceId,
-          date: date,
-          periodnum: req.body.periodnum,
-          guestname: guestname,
-          mailaddress: mailaddress,
-          createdBy: req.user.userId,
-          canceled: false
-        }).then((r) => {
-          console.log('予約完了');
-          const params = {
-            spaceId: r.spaceId,
-            periodnum: r.periodnum,
-            year: req.body.year,
-            month: req.body.month,
-            day: req.body.day
-          };
-          getParams(params, (error, response) => {
-            if (error) {
-              throw new Error(error);
-            } else {
-              response.canceled = false;
-              response.guestname = r.guestname;
-              response.to = r.mailaddress;
-              response.createdAt = r.createdAt;
-              const sendmail = new Sendmail(response);
-              sendmail.send();
-            }
+        loginUser(req.user, (result) => {
+          res.render('confirm', {
+            title: title,
+            configVars: configVars,
+            loginUser: result,
+            guestname: req.body.guestname,
+            mailaddress: req.body.mailaddress,
+            params: params
           });
-          res.redirect('/reserve/complete');
-        }).catch((error) => {
-          throw new Error(error);
         });
       }
     });
   }
+});
+
+router.post('/', authenticationEnsurer, (req, res, next) => {
+  const date = new Date(req.body.year, req.body.month - 1, req.body.day);
+  const dataObject = {
+    spaceId: req.body.spaceId,
+    date: date,
+    startperiodnum: req.body.startperiodnum,
+    endperiodnum: req.body.endperiodnum,
+    guestname: req.body.guestname,
+    mailaddress: req.body.mailaddress,
+    createdBy: req.user.userId,
+    canceled: false
+  };
+  Reservation.findOne({
+    where: {
+      spaceId: req.body.spaceId,
+      date: date,
+      canceled: false
+    }
+  }).then((overlappings) => {
+    let flag = false;
+    if(overlappings && overlappings.length > 0) {
+      // 予約時間が重複しているかどうかのチェックをする
+      overlappings.forEach((overlapping) => {
+        console.log(overlapping);
+      });
+    }
+    if (flag) {
+      // console.log('既に重複する予約があるため予約ができません。');
+      // throw new Error('既に重複する予約があるため予約ができません。');
+    } else {
+      Reservation.create(dataObject).then((r) => {
+        /*
+        // 自動返信メールを送信する処理
+        const params = {
+          spaceId: r.spaceId,
+          startperiodnum: r.startperiodnum,
+          endperiodnum: r.endperiodnum,
+          year: req.body.year,
+          month: req.body.month,
+          day: req.body.day
+        };
+        getParams(params, (error, response) => {
+          if (error) {
+            throw new Error(error);
+          } else {
+            response.canceled = false;
+            response.guestname = r.guestname;
+            response.to = r.mailaddress;
+            response.createdAt = r.createdAt;
+            const sendmail = new Sendmail(response);
+            sendmail.send();
+          }
+        });
+        */
+        res.redirect('/reserve/complete');
+      }).catch((error) => {
+        // 予約データの作成に失敗
+        throw new Error(error);
+      });
+    }
+  });
 });
 
 router.get('/cancel/:reservationId', authenticationEnsurer, (req, res, next) => {
