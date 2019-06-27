@@ -100,7 +100,7 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     createdBy: req.user.userId,
     canceled: false
   };
-  Reservation.findOne({
+  Reservation.findAll({
     where: {
       spaceId: req.body.spaceId,
       date: date,
@@ -111,12 +111,17 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
     if(overlappings && overlappings.length > 0) {
       // 予約時間が重複しているかどうかのチェックをする
       overlappings.forEach((overlapping) => {
-        console.log(overlapping);
+         if(dataObject.startperiodnum <= overlapping.startperiodnum) {
+           flag = dataObject.endperiodnum >= overlapping.startperiodnum ? true : false;
+         } else {
+           flag = dataObject.startperiodnum <= overlapping.endperiodnum ? true : false;
+         }
       });
     }
+    console.log('flag = ' + flag);
     if (flag) {
-      // console.log('既に重複する予約があるため予約ができません。');
-      // throw new Error('既に重複する予約があるため予約ができません。');
+      console.log('既に重複する予約があるため予約ができません。');
+      throw new Error('既に重複する予約があるため予約ができません。');
     } else {
       Reservation.create(dataObject).then((r) => {
         /*
