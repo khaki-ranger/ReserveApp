@@ -24,7 +24,7 @@ ${params.officename}
 ${params.spacename}
 
 【ご予約日時】
-${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}) ${params.periodname}
+${params.year}年 ${params.month}月 ${params.day}日 (${params.dayofweekstring}) ${params.startiimestring}-${params.endtimestring}
 
 `;
 

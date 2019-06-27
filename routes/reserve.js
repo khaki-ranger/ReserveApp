@@ -124,7 +124,6 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
       throw new Error('既に重複する予約があるため予約ができません。');
     } else {
       Reservation.create(dataObject).then((r) => {
-        /*
         // 自動返信メールを送信する処理
         const params = {
           spaceId: r.spaceId,
@@ -146,7 +145,6 @@ router.post('/', authenticationEnsurer, (req, res, next) => {
             sendmail.send();
           }
         });
-        */
         res.redirect('/reserve/complete');
       }).catch((error) => {
         // 予約データの作成に失敗
@@ -175,7 +173,8 @@ router.get('/cancel/:reservationId', authenticationEnsurer, (req, res, next) => 
         console.log('cancel reservation');
         const params = {
           spaceId: r.spaceId,
-          periodnum: r.periodnum,
+          startperiodnum: r.startperiodnum,
+          endperiodnum: r.endperiodnum,
           year: r.date.getFullYear(),
           month: r.date.getMonth() + 1,
           day: r.date.getDate()

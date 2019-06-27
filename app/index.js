@@ -253,7 +253,7 @@ var cancelModalComponent = Vue.extend({
                            </div>
                            <div class="date">
                              <div class="head">日時</div>
-                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.periodLabelString}}</div>
+                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.reservationStartTimeString}}-{{period_data.reservationEndTimeString}}</div>
                            </div>
                            <div class="name">
                              <div class="head">お名前</div>
