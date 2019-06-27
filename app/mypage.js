@@ -36,7 +36,7 @@ var mainComponent = Vue.extend({
                      <div class="line date">
                        <div class="head">予定日時</div>
                        <div class="body">{{reservation.formattedDate}}
-                         <span>{{reservation.periodname}}</span>
+                         <span>{{reservation.startTimeString}}-{{reservation.endTimeString}}</span>
                        </div>
                      </div>
                      <div class="line officename">
@@ -89,7 +89,7 @@ var mainComponent = Vue.extend({
                                </div>
                                <div class="date">
                                  <div class="head">日時</div>
-                                 <div class="body">{{period_data.formattedDate}} {{period_data.periodname}}</div>
+                                 <div class="body">{{period_data.formattedDate}} {{period_data.startTimeString}}-{{period_data.endTimeString}}</div>
                                </div>
                                <div class="name">
                                  <div class="head">お名前</div>

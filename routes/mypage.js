@@ -54,7 +54,8 @@ router.get('/myReservations', authenticationEnsurer, (req, res, next) => {
       });
       r.forEach((reservation) => {
         reservation.dataValues.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
-        reservation.dataValues.periodname = periods[reservation.periodnum].periodname;
+        reservation.dataValues.startTimeString = periods[reservation.startperiodnum].startTimeString;
+        reservation.dataValues.endTimeString = periods[reservation.endperiodnum].endTimeString;
         reservation.dataValues.officename = spaceOfficeObject[reservation.spaceId].officename;
         reservation.dataValues.spacename = reservation.space.spacename;
       });
