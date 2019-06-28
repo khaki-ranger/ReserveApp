@@ -307,7 +307,8 @@ a.ui-component.disabled:hover {
   border-color: #ddd;
 }
 @media (max-width: 768px) {
-.ui-component {
+.ui-component,
+.overlay .modal .panel .cancel {
   font-size: 16px;
 }
 .ui-block>.btn-holder {
@@ -315,7 +316,8 @@ a.ui-component.disabled:hover {
 }
 }
 @media (min-width: 768px) {
-.ui-component {
+.ui-component,
+.overlay .modal .panel .cancel {
   font-size: 1rem;
 }
 button.ui-component {
