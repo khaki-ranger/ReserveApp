@@ -16,8 +16,7 @@ block content
             th 部屋
             th 予約者
             th メールアドレス
-            th 予約日
-            th 時間帯
+            th 予約日時
             th 作成日時
             th キャンセル
         tbody
@@ -29,8 +28,10 @@ block content
               td.spacename #{reservation.space.spacename}
               td.guestname #{reservation.guestname}
               td.mailaddress #{reservation.mailaddress}
-              td.date #{reservation.formattedDate}
-              td.period #{reservation.periodnum}（#{reservation.periodname}）
+              td.date #{reservation.formattedDate} #{reservation.startTimeString}-#{reservation.endTimeString}
               td.createdAt #{reservation.formattedCreatedAt}
-              td.canceled #{reservation.canceled}
+              if reservation.canceled
+                td.canceled 済
+              else
+                td.canceled 未
         

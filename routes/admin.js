@@ -63,7 +63,8 @@ router.get('/reservation', adminEnsurer, (req, res, next) => {
       r.forEach((reservation) => {
         reservation.formattedDate = moment(reservation.date).tz('Asia/Tokyo').format('YYYY年MM月DD日');
         reservation.formattedCreatedAt = moment(reservation.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
-        reservation.periodname = periods[reservation.periodnum].periodname;
+        reservation.startTimeString = periods[reservation.startperiodnum].startTimeString;
+        reservation.endTimeString = periods[reservation.endperiodnum].endTimeString;
         reservation.officename = spaceOfficeObject[reservation.spaceId].officename;
       });
       loginUser(req.user, (result) => {

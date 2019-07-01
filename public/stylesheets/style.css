@@ -607,6 +607,9 @@ section.office {
 .admin-list table td.action>div .ui-component {
   width: 4rem;
 }
+.admin-list table td.canceled {
+  text-align: center;
+}
 /* date */
 section.date {
   position: fixed;
