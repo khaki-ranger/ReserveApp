@@ -883,7 +883,7 @@ section.date .present .nav {
   color: white;
 }
 .wrapper .information>div{
-  margin-bottom: 1rem;
+  margin-bottom: .5rem;
   display: table;
   width: 100%;
 }

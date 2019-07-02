@@ -132,10 +132,10 @@ var reserveModalComponent = Vue.extend({
     checkForm: function(e) {
       this.errors = [];
       if (!this.guestname) {
-        this.errors.guestname = 'お名前を入力してください';
+        this.errors.guestname = '入力してください';
       }
       if (!this.mailaddress) {
-        this.errors.mailaddress = 'メールアドレスを入力してください';
+        this.errors.mailaddress = '入力してください';
       } else if (!this.validEmail(this.mailaddress)) {
         this.errors.mailaddress = '入力されたメールアドレスは正しくありません';
       }
