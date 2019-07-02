@@ -153,7 +153,7 @@ var reserveModalComponent = Vue.extend({
                <div class="overlay" v-show="reserve_modal_visibility" v-on:click.self="clearModal">
                  <div class="modal">
                    <div class="panel">
-                     <div class="section cancel">
+                     <div class="wrapper">
                        <form @submit="checkForm" novalidate="true" action="/reserve/confirm" method="post" class="ui-component">
                          <input type="hidden" name="spaceId" id="spaceId" v-bind:value="period_data.spaceId">
                          <input type="hidden" name="year" id="year" v-bind:value="current_date.year">
@@ -161,7 +161,6 @@ var reserveModalComponent = Vue.extend({
                          <input type="hidden" name="day" id="day" v-bind:value="current_date.day">
                          <input type="hidden" name="startperiodnum" id="startperiodnum" v-bind:value="period_data.num">
                          <div class="message">
-                           <h1>予約内容</h1>
                            <div class="information">
                              <div class="office">
                                <div class="head">施設名</div>
@@ -239,9 +238,8 @@ var cancelModalComponent = Vue.extend({
                <div class="overlay" v-show="cancel_modal_visibility" v-on:click.self="clearModal">
                  <div class="modal">
                    <div class="panel">
-                     <div class="section cancel">
+                     <div class="wrapper">
                        <div class="message">
-                         <h1>予約内容</h1>
                          <div class="information">
                            <div class="office">
                              <div class="head">施設名</div>
@@ -252,8 +250,12 @@ var cancelModalComponent = Vue.extend({
                              <div class="body">{{period_data.spacename}}</div>
                            </div>
                            <div class="date">
-                             <div class="head">日時</div>
-                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}}) {{period_data.reservationStartTimeString}}-{{period_data.reservationEndTimeString}}</div>
+                             <div class="head">利用日</div>
+                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}})</div>
+                           </div>
+                           <div class="time">
+                             <div class="head">利用時間</div>
+                             <div class="body">{{period_data.reservationStartTimeString}}-{{period_data.reservationEndTimeString}}</div>
                            </div>
                            <div class="name">
                              <div class="head">お名前</div>

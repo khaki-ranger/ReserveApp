@@ -112,10 +112,13 @@ body {
 }
 .overlay .modal .close {
   position: absolute;
-  right: 0;
-  top: 0;
+  right: -14px;
+  top: -20px;
   font-size: 2rem;
-  padding: 16px 1rem;
+  line-height: 2rem;
+  background-color: white;
+  border-radius: 24px;
+  padding: 6px;
   cursor: pointer;
 }
 .overlay .modal .close:before {
@@ -124,7 +127,7 @@ body {
 }
 @media (max-width: 576px) {
 .overlay .modal {
-  width: 80%;
+  width: 90%;
   height: 90%;
 }
 }
@@ -308,7 +311,7 @@ a.ui-component.disabled:hover {
 }
 @media (max-width: 768px) {
 .ui-component,
-.overlay .modal .panel .cancel {
+.overlay .modal .panel .wrapper {
   font-size: 16px;
 }
 .ui-block>.btn-holder {
@@ -317,7 +320,7 @@ a.ui-component.disabled:hover {
 }
 @media (min-width: 768px) {
 .ui-component,
-.overlay .modal .panel .cancel {
+.overlay .modal .panel .wrapper {
   font-size: 1rem;
 }
 button.ui-component {
@@ -859,60 +862,56 @@ section.date .present .nav {
   text-align: center;
 }
 }
-/* cancel */
-.cancel {
+/* wrapper */
+.wrapper {
   padding: 1rem;
 }
-.cancel .message h1 {
+.wrapper .message h1 {
   text-align: center;
   margin: 0 0 1rem 0;
   font-size: 1.25rem;
 }
-.cancel .nav-holder {
+.wrapper .nav-holder {
   position: absolute;
   bottom: 1rem;
   left: 0;
   width: 100%;
 }
-.cancel .nav-holder .confirm {
+.wrapper .nav-holder .confirm {
   border: none;
   background: #d7092f;
   color: white;
 }
-.cancel .information>div{
+.wrapper .information>div{
   margin-bottom: 1rem;
+  display: table;
+  width: 100%;
 }
-.cancel .information>div>.head{
+.wrapper .information>div>div{
+  display: table-cell;
+}
+.wrapper .information>div>.head{
   font-weight: bold;
+  width: 30%;
 }
 @media (max-width: 576px) {
-.cancel .nav-holder .btn-holder {
+.wrapper .nav-holder .btn-holder {
   padding: 1rem 1rem 0 1rem;
 }
 }
 @media (min-width: 576px) {
-.cancel .nav-holder {
+.wrapper .nav-holder {
   display: table;
 }
-.cancel .nav-holder .btn-holder {
+.wrapper .nav-holder .btn-holder {
   display: table-cell;
   width: 50%;
 }
-.cancel .nav-holder .btn-holder:first-child {
+.wrapper .nav-holder .btn-holder:first-child {
   padding: 0 .5rem 0 1rem;
 }
-.cancel .nav-holder .btn-holder:last-child {
+.wrapper .nav-holder .btn-holder:last-child {
   padding: 0 1rem 0 .5rem;
-}
-.cancel .information>div{
-  display: table;
-  width: 100%;
-}
-.cancel .information>div>div{
-  display: table-cell;
-}
-.cancel .information>div>.head{
-  width: 25%;
 }
 }
 /* complete */
