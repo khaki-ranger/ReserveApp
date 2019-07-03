@@ -149,9 +149,12 @@ var reserveModalComponent = Vue.extend({
       return re.test(email);
     }
   },
-  template: `<transition>
-               <div class="overlay" v-show="reserve_modal_visibility" v-on:click.self="clearModal">
-                 <div class="modal">
+  template: `<div>
+               <transition>
+                 <div class="overlay" v-show="reserve_modal_visibility" v-on:click.self="clearModal"></div>
+               </transition>
+               <transition>
+                 <div class="modal" v-show="reserve_modal_visibility">
                    <div class="panel">
                      <div class="wrapper">
                        <form @submit="checkForm" novalidate="true" action="/reserve/confirm" method="post" class="ui-component">
@@ -160,54 +163,52 @@ var reserveModalComponent = Vue.extend({
                          <input type="hidden" name="month" id="month" v-bind:value="current_date.month">
                          <input type="hidden" name="day" id="day" v-bind:value="current_date.day">
                          <input type="hidden" name="startperiodnum" id="startperiodnum" v-bind:value="period_data.num">
-                         <div class="message">
-                           <div class="information">
-                             <div class="office">
-                               <div class="head">施設名</div>
-                               <div class="body">{{period_data.officename}}</div>
-                             </div>
-                             <div class="space">
-                               <div class="head">部屋</div>
-                               <div class="body">{{period_data.spacename}}</div>
-                             </div>
-                             <div class="date">
-                               <div class="head">利用日</div>
-                               <div class="body">{{current_date.year}}年 {{current_date.month}}月 {{current_date.day}}日({{current_date.dayOfWeekString}})</div>
-                             </div>
-                             <div class="start-period">
-                               <div class="head">開始時刻</div>
-                               <div class="body">{{period_data.startTimeString}}</div>
-                             </div>
-                             <div class="endperiodnum">
-                               <label class="ui-component" for="endperiodnum">終了時刻</label>
-                               <select class="ui-component" name="endperiodnum" id="endperiodnum">
-                                 <option v-for="reservablePeriod in period_data.reservablePeriods " v-bind:key="reservablePeriod.num" v-bind:value="reservablePeriod.num">{{reservablePeriod.endTimeString}}</option>
-                               </select>
-                             </div>
-                             <div class="guestname ui-block">
-                               <template v-if="errors.guestname">
-                                 <label class="ui-component" for="guestname">お名前
-                                   <span class="message.caution">{{errors.guestname}}</span>
-                                 </label>
-                                 <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
-                               </template>
-                               <template v-else>
-                                 <label class="ui-component" for="guestname">お名前</label>
-                                 <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
-                               </template>
-                             </div>
-                             <div class="mailaddress ui-block">
-                               <template v-if="errors.mailaddress">
-                                 <label class="ui-component" for="mailaddress">メールアドレス
-                                   <span class="message.caution">{{errors.mailaddress}}</span>
-                                 </label>
-                                 <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
-                               </template>
-                               <template v-else>
-                                 <label class="ui-component" for="mailaddress">メールアドレス</label>
-                                 <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
-                               </template>
-                             </div>
+                         <div class="information">
+                           <div class="office">
+                             <div class="head">施設名</div>
+                             <div class="body">{{period_data.officename}}</div>
+                           </div>
+                           <div class="space">
+                             <div class="head">部屋</div>
+                             <div class="body">{{period_data.spacename}}</div>
+                           </div>
+                           <div class="date">
+                             <div class="head">利用日</div>
+                             <div class="body">{{current_date.year}}年 {{current_date.month}}月 {{current_date.day}}日({{current_date.dayOfWeekString}})</div>
+                           </div>
+                           <div class="start-period">
+                             <div class="head">開始時刻</div>
+                             <div class="body">{{period_data.startTimeString}}</div>
+                           </div>
+                           <div class="endperiodnum">
+                             <label class="ui-component" for="endperiodnum">終了時刻</label>
+                             <select class="ui-component" name="endperiodnum" id="endperiodnum">
+                               <option v-for="reservablePeriod in period_data.reservablePeriods " v-bind:key="reservablePeriod.num" v-bind:value="reservablePeriod.num">{{reservablePeriod.endTimeString}}</option>
+                             </select>
+                           </div>
+                           <div class="guestname ui-block">
+                             <template v-if="errors.guestname">
+                               <label class="ui-component" for="guestname">お名前
+                                 <span class="message.caution">{{errors.guestname}}</span>
+                               </label>
+                               <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
+                             </template>
+                             <template v-else>
+                               <label class="ui-component" for="guestname">お名前</label>
+                               <input class="ui-component" type="text" name="guestname" id="guestname" v-model="guestname">
+                             </template>
+                           </div>
+                           <div class="mailaddress ui-block">
+                             <template v-if="errors.mailaddress">
+                               <label class="ui-component" for="mailaddress">メールアドレス
+                                 <span class="message.caution">{{errors.mailaddress}}</span>
+                               </label>
+                               <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
+                             </template>
+                             <template v-else>
+                               <label class="ui-component" for="mailaddress">メールアドレス</label>
+                               <input class="ui-component" type="email" name="mailaddress" id="mailaddress" v-model="mailaddress">
+                             </template>
                            </div>
                          </div>
                          <div class="nav-holder">
@@ -220,11 +221,11 @@ var reserveModalComponent = Vue.extend({
                          </div>
                        </form>
                      </div>
+                     <div class="close" v-on:click="clearModal"></div>
                    </div>
-                   <div class="close" v-on:click="clearModal"></div>
                  </div>
-               </div>
-             </transition>`,
+               </transition>
+             </div>`,
 });
 
 var cancelModalComponent = Vue.extend({
@@ -234,33 +235,34 @@ var cancelModalComponent = Vue.extend({
       this.$emit('clear-modal');
     }
   },
-  template: `<transition>
-               <div class="overlay" v-show="cancel_modal_visibility" v-on:click.self="clearModal">
-                 <div class="modal">
+  template: `<div>
+               <transition>
+                 <div class="overlay" v-show="cancel_modal_visibility" v-on:click.self="clearModal"></div>
+               </transition>
+               <transition>
+                 <div class="modal" v-show="cancel_modal_visibility">
                    <div class="panel">
                      <div class="wrapper">
-                       <div class="message">
-                         <div class="information">
-                           <div class="office">
-                             <div class="head">施設名</div>
-                             <div class="body">{{period_data.officename}}</div>
-                           </div>
-                           <div class="space">
-                             <div class="head">部屋</div>
-                             <div class="body">{{period_data.spacename}}</div>
-                           </div>
-                           <div class="date">
-                             <div class="head">利用日</div>
-                             <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}})</div>
-                           </div>
-                           <div class="time">
-                             <div class="head">利用時間</div>
-                             <div class="body">{{period_data.reservationStartTimeString}}-{{period_data.reservationEndTimeString}}</div>
-                           </div>
-                           <div class="name">
-                             <div class="head">お名前</div>
-                             <div class="body">{{period_data.guestname}}</div>
-                           </div>
+                       <div class="information">
+                         <div class="office">
+                           <div class="head">施設名</div>
+                           <div class="body">{{period_data.officename}}</div>
+                         </div>
+                         <div class="space">
+                           <div class="head">部屋</div>
+                           <div class="body">{{period_data.spacename}}</div>
+                         </div>
+                         <div class="date">
+                           <div class="head">利用日</div>
+                           <div class="body">{{period_data.year}}年 {{period_data.month}}月 {{period_data.day}}日({{period_data.dayofweek}})</div>
+                         </div>
+                         <div class="time">
+                           <div class="head">利用時間</div>
+                           <div class="body">{{period_data.reservationStartTimeString}}-{{period_data.reservationEndTimeString}}</div>
+                         </div>
+                         <div class="name">
+                           <div class="head">お名前</div>
+                           <div class="body">{{period_data.guestname}}</div>
                          </div>
                        </div>
                        <div class="nav-holder">
@@ -272,11 +274,11 @@ var cancelModalComponent = Vue.extend({
                          </div>
                        </div>
                      </div>
+                     <div class="close" v-on:click="clearModal"></div>
                    </div>
-                   <div class="close" v-on:click="clearModal"></div>
                  </div>
-               </div>
-             </transition>`,
+               </transition>
+             </div>`,
 });
 
 var spaceComponent = Vue.extend({
