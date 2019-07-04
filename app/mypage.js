@@ -64,80 +64,80 @@ var mainComponent = Vue.extend({
              </section>`,
 });
 
-    var modalComponent = Vue.extend({
-      props:['period_data', 'modal_visibility'],
-      methods: {
-        clearModal: function() {
-          this.$emit('clear-modal');
-        }
-      },
-      template: `<transition>
-                   <div class="overlay" v-show="modal_visibility" v-on:click.self="clearModal">
-                     <div class="modal">
-                       <div class="panel">
-                         <div class="section cancel">
-                           <div class="message">
-                             <h1>予約内容</h1>
-                             <div class="information">
-                               <div class="office">
-                                 <div class="head">施設名</div>
-                                 <div class="body">{{period_data.officename}}</div>
-                               </div>
-                               <div class="space">
-                                 <div class="head">部屋</div>
-                                 <div class="body">{{period_data.spacename}}</div>
-                               </div>
-                               <div class="date">
-                                 <div class="head">日時</div>
-                                 <div class="body">{{period_data.formattedDate}} {{period_data.startTimeString}}-{{period_data.endTimeString}}</div>
-                               </div>
-                               <div class="name">
-                                 <div class="head">お名前</div>
-                                 <div class="body">{{period_data.guestname}}</div>
-                               </div>
-                             </div>
-                           </div>
-                           <div class="nav-holder">
-                             <div class="btn-holder">
-                               <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
-                             </div>
-                             <div class="btn-holder">
-                               <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + period_data.reservationId">予約をキャンセルする</a>
-                             </div>
-                           </div>
+var modalComponent = Vue.extend({
+  props:['period_data', 'modal_visibility'],
+  methods: {
+    clearModal: function() {
+      this.$emit('clear-modal');
+    }
+  },
+  template: `<div>
+               <transition>
+                 <div class="overlay" v-show="modal_visibility" v-on:click.self="clearModal"></div>
+               </transition>
+               <transition>
+                 <div class="modal" v-show="modal_visibility">
+                   <div class="panel">
+                     <div class="wrapper">
+                       <div class="information">
+                         <div class="office">
+                           <div class="head">施設名</div>
+                           <div class="body">{{period_data.officename}}</div>
+                         </div>
+                         <div class="space">
+                           <div class="head">部屋</div>
+                           <div class="body">{{period_data.spacename}}</div>
+                         </div>
+                         <div class="date">
+                           <div class="head">日時</div>
+                           <div class="body">{{period_data.formattedDate}} {{period_data.startTimeString}}-{{period_data.endTimeString}}</div>
+                         </div>
+                         <div class="name">
+                           <div class="head">お名前</div>
+                           <div class="body">{{period_data.guestname}}</div>
                          </div>
                        </div>
-                       <div class="close" v-on:click="clearModal"></div>
+                       <div class="nav-holder">
+                         <div class="btn-holder">
+                           <div class="btn-close ui-component" v-on:click="clearModal">閉じる</div>
+                         </div>
+                         <div class="btn-holder">
+                           <a class="ui-component confirm" v-bind:href="'/reserve/cancel/' + period_data.reservationId">予約をキャンセルする</a>
+                         </div>
+                       </div>
                      </div>
+                     <div class="close" v-on:click="clearModal"></div>
                    </div>
-                 </transition>`,
-    });
+                 </div>
+               </transition>
+             </div>`,
+});
 
-    var app = new Vue({
-      el: '#app',
-      components: {
-        'main-component': mainComponent,
-        'modal-component': modalComponent
-      },
-      data: {
-        modal_visibility: false,
-        periodData: {},
-        reservations: []
-      },
-      mounted() {
-        axios
-          .get('/mypage/myReservations')
-          .then(response => {
-            this.reservations = response.data;
-          })
-      },
-      methods: {
-        showModal: function(period) {
-          this.modal_visibility = true;
-          this.periodData = period;
-        },
-        clearModal: function() {
-          this.modal_visibility = false;
-        }
-      }
-    })
+var app = new Vue({
+  el: '#app',
+  components: {
+    'main-component': mainComponent,
+    'modal-component': modalComponent
+  },
+  data: {
+    modal_visibility: false,
+    periodData: {},
+    reservations: []
+  },
+  mounted() {
+    axios
+      .get('/mypage/myReservations')
+      .then(response => {
+        this.reservations = response.data;
+      })
+  },
+  methods: {
+    showModal: function(period) {
+      this.modal_visibility = true;
+      this.periodData = period;
+    },
+    clearModal: function() {
+      this.modal_visibility = false;
+    }
+  }
+})
