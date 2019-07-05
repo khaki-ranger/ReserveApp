@@ -1,6 +1,15 @@
 extends ../layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      a(href="/admin") 管理者メニュー
+      span.hyphen &rang;
+      a(href="/admin/space") スペース一覧
+      span.hyphen &rang;
+      span スペース編集
   section.register
     .dialog
       form.ui-component(action="/admin/space/update" method="post")
@@ -24,4 +33,4 @@ block content
               else
                 option(value="#{office.officeId}") #{office.officename}
         div.ui-block
-          button.ui-component(type="submit") 編集
+          button.ui-component(type="submit") 更新

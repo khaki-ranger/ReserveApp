@@ -33,6 +33,21 @@ table {
   border-spacing: 0;
   width: 100%;
 }
+/* breadcrumbs */
+.breadcrumbs {
+  padding-top: 1rem;
+  color: #999;
+}
+.breadcrumbs a {
+  text-decoration: underline;
+  color: black;
+}
+.breadcrumbs a:hover {
+  text-decoration: none;
+}
+.breadcrumbs .hyphen {
+  padding: 0 .5rem;
+}
 /* transition */
 .v-enter-active, .v-leave-active {
   transition: opacity .5s;
@@ -597,8 +612,11 @@ section.office {
 .admin-list table td {
   padding: .5rem 1rem;
 }
-.admin-list table td.num {
+.admin-list table td.num,
+.admin-list table td.no,
+.admin-list table td.id {
   width: 1rem;
+  text-align: center;
 }
 .admin-list table td.image {
   padding: 0;

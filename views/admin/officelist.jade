@@ -1,6 +1,13 @@
 extends ../layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      a(href="/admin") 管理者メニュー
+      span.hyphen &rang;
+      span オフィス一覧
   section.admin-list
     .container
       .head-component
@@ -10,7 +17,7 @@ block content
       table
         thead
           tr
-            th Num
+            th No
             th 画像
             th ID
             th 名前
