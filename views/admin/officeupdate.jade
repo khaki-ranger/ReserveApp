@@ -1,6 +1,15 @@
 extends ../layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      a(href="/admin") 管理者メニュー
+      span.hyphen &rang;
+      a(href="/admin/office") オフィス一覧
+      span.hyphen &rang;
+      span オフィス編集
   section.register
     .dialog
       form.ui-component(action="/admin/office/update" method="post" enctype="multipart/form-data")
@@ -18,4 +27,4 @@ block content
         div.officeimage.ui-block
           img.responsive-img(src="#{office.imgPath}")
         div.ui-block
-          button.ui-component(type="submit") 登録
+          button.ui-component(type="submit") 更新

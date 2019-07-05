@@ -1,6 +1,11 @@
 extends ../layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      span 管理者メニュー
   if loginUser
     if loginUser.role === 1
       section.admin-index.admin-user

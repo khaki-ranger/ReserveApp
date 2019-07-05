@@ -1,6 +1,11 @@
 extends layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      span マイページ
   #app
     main-component(
       v-bind:reservations="reservations",

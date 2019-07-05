@@ -1,6 +1,13 @@
 extends ../layout
 
 block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      a(href="/admin") 管理者メニュー
+      span.hyphen &rang;
+      span 新規オフィス登録
   section.register
     .dialog
       form.ui-component(action="/admin/office/create" method="post" enctype="multipart/form-data")
