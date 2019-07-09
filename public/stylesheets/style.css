@@ -631,6 +631,12 @@ section.office {
 .admin-list table td.canceled {
   text-align: center;
 }
+.flex-container {
+  display: flex;
+}
+.flex-container a+a {
+  margin-left: .5rem;
+}
 /* date */
 section.date {
   position: fixed;
