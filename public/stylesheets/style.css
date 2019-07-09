@@ -91,6 +91,12 @@ body {
   width: 100%;
   height: auto;
 }
+.flex-container {
+  display: flex;
+}
+.flex-container a+a {
+  margin-left: .5rem;
+}
 @media (max-width: 768px) {
 .sp-none {
   display: none !important;
@@ -630,12 +636,6 @@ section.office {
 }
 .admin-list table td.canceled {
   text-align: center;
-}
-.flex-container {
-  display: flex;
-}
-.flex-container a+a {
-  margin-left: .5rem;
 }
 /* date */
 section.date {
