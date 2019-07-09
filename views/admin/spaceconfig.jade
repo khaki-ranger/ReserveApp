@@ -1,0 +1,17 @@
+extends ../layout
+
+block content
+  section.breadcrumbs
+    .container
+      a(href="/") トップページ
+      span.hyphen &rang;
+      a(href="/admin") 管理者メニュー
+      span.hyphen &rang;
+      a(href="/admin/space") スペース一覧
+      span.hyphen &rang;
+      span #{space.spacename}の設定
+  section.add
+    .container
+      .head-component
+        h1 Close
+          span お休み設定

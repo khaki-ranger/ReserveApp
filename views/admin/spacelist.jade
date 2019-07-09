@@ -32,6 +32,7 @@ block content
               td.office #{space.office.officename}
               td.createdAt #{space.formattedCreatedAt}
               td.action
-                .clearfix
-                  a.ui-component.fl-left.update(href="/admin/space/update/#{space.spaceId}") 編集
-                  a.ui-component.fl-right.delete.confirmation(href="/admin/space/delete/#{space.spaceId}") 削除
+                .flex-container
+                  a.ui-component.config(href="/admin/space/config/#{space.spaceId}") 設定
+                  a.ui-component.update(href="/admin/space/update/#{space.spaceId}") 編集
+                  a.ui-component.delete.confirmation(href="/admin/space/delete/#{space.spaceId}") 削除

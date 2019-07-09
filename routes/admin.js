@@ -372,6 +372,23 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
   }
 });
 
+router.get('/space/config/:spaceId', adminEnsurer, (req, res, next) => {
+  Space.findOne({
+    where: {
+      spaceId: req.params.spaceId
+    }
+  }).then((space) => {
+    loginUser(req.user, (result) => {
+      res.render('admin/spaceconfig', {
+        title: space.spacename + 'の設定 | SERVICE NAME',
+        configVars: configVars,
+        loginUser: result,
+        space: space
+      });
+    });
+  });
+});
+
 router.get('/space/update/:spaceId', adminEnsurer, (req, res, next) => {
   const title = 'スペース編集 | SERVICE NAME';
   const message = {};
