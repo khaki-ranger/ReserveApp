@@ -3,7 +3,8 @@ module.exports = {
   entry: {
     common: './common',
     index: './index',
-    mypage: './mypage'
+    mypage: './mypage',
+    admin: './admin'
   },
   output: {
     path: __dirname + '/public/javascripts',
