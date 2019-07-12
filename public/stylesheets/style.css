@@ -637,6 +637,27 @@ section.office {
 .admin-list table td.canceled {
   text-align: center;
 }
+/* close-config */
+.close-config  {
+  margin-bottom: 1rem;
+}
+.close-config th {
+  text-align: left;
+  width: 10%;
+}
+.close-config td {
+  text-align: center;
+}
+.close-config td:last-child {
+  padding-left: 1rem;
+  width: 10%;
+}
+.close-config td .ui-component {
+  margin: 0;
+}
+.close-config td button {
+  padding: 5px;
+}
 /* date */
 section.date {
   position: fixed;

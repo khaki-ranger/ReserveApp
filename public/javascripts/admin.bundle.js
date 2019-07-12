@@ -77,10 +77,11 @@ var mainComponent = Vue.extend({
   },
   data: function data() {
     return {
-      defaultDate: new Date(),
-      inputClassName: 'datepicker-input',
+      datePickerStart: new Date(),
+      datePickerEnd: new Date(),
+      datePickerFormrt: 'yyyy年MMMdd日（D）',
+      inputClassName: 'ui-component',
       wrapperClassName: 'datepicker-wrapper',
-      calendarButtonIcon: 'fas fa-calendar-alt fa-2x',
       disabledDates: {
         to: new Date(new Date().setDate(new Date().getDate() - 1))
       },
@@ -100,7 +101,7 @@ var mainComponent = Vue.extend({
       console.log(selectDate);
     }
   },
-  template: '<section>\n               <div class="container">\n                 <div class="head-component">\n                   <h1>Close<span>\u304A\u4F11\u307F\u8A2D\u5B9A</span></h1>\n                 </div>\n                 <div class="pick">\n                   <vuejs-datepicker\n                     v-model="defaultDate"\n                     :disabledDates="disabledDates"\n                     :language="language"\n                     :monday-first=true\n                     :input-class="this.inputClassName"\n                     :wrapper-class="this.wrapperClassName"\n                     :calendar-button=true\n                     :calendar-button-icon="this.calendarButtonIcon"\n                     @selected="selected"></vuejs-datepicker>\n                 </div>\n               </div>\n             </section>'
+  template: '<section>\n               <div class="container">\n                 <div class="head-component">\n                   <h1>Close<span>\u304A\u4F11\u307F\u8A2D\u5B9A</span></h1>\n                 </div>\n                 <div class="add">\n                   <h2>\u65B0\u898F\u8FFD\u52A0</h2>\n                   <table class="close-config date">\n                     <tr>\n                       <th>\u65E5\u4ED8\u3067\u8A2D\u5B9A</th>\n                       <td>\n                         <div class="pick">\n                           <vuejs-datepicker\n                             v-model="datePickerStart"\n                             name="datePickerStart"\n                             :format="this.datePickerFormrt"\n                             :disabledDates="disabledDates"\n                             :language="language"\n                             :monday-first=true\n                             :input-class="this.inputClassName"\n                             :wrapper-class="this.wrapperClassName"\n                             @selected="selected"></vuejs-datepicker>\n                         </div>\n                       </td>\n                       <td>\u301C</td>\n                       <td>\n                         <div class="pick">\n                           <vuejs-datepicker\n                             v-model="datePickerEnd"\n                             name="datePickerEnd"\n                             :format="this.datePickerFormrt"\n                             :disabledDates="disabledDates"\n                             :language="language"\n                             :monday-first=true\n                             :input-class="this.inputClassName"\n                             :wrapper-class="this.wrapperClassName"\n                             @selected="selected"></vuejs-datepicker>\n                         </div>\n                       </td>\n                       <td>\n                         <button type="submit" class="ui-component">\u8FFD\u52A0</button>\n                       </td>\n                     </tr>\n                   </table>\n                   <table class="close-config day">\n                     <tr>\n                       <th>\u66DC\u65E5\u3067\u8A2D\u5B9A</th>\n                       <td></td>\n                       <td>\n                         <button type="submit" class="ui-component">\u8FFD\u52A0</button>\n                       </td>\n                     </tr>\n                   </table>\n                 </div>\n                 <div class="list">\n                   <h2>\u4E00\u89A7</h2>\n                 </div>\n               </div>\n             </section>'
 });
 
 var app = new Vue({

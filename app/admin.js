@@ -6,10 +6,11 @@ var mainComponent = Vue.extend({
   },
   data: function() {
     return {
-      defaultDate: new Date(),
-      inputClassName: 'datepicker-input',
+      datePickerStart: new Date(),
+      datePickerEnd: new Date(),
+      datePickerFormrt: 'yyyy年MMMdd日（D）',
+      inputClassName: 'ui-component',
       wrapperClassName: 'datepicker-wrapper',
-      calendarButtonIcon: 'fas fa-calendar-alt fa-2x',
       disabledDates: {
         to: new Date(new Date().setDate(new Date().getDate()-1))
       },
@@ -34,17 +35,57 @@ var mainComponent = Vue.extend({
                  <div class="head-component">
                    <h1>Close<span>お休み設定</span></h1>
                  </div>
-                 <div class="pick">
-                   <vuejs-datepicker
-                     v-model="defaultDate"
-                     :disabledDates="disabledDates"
-                     :language="language"
-                     :monday-first=true
-                     :input-class="this.inputClassName"
-                     :wrapper-class="this.wrapperClassName"
-                     :calendar-button=true
-                     :calendar-button-icon="this.calendarButtonIcon"
-                     @selected="selected"></vuejs-datepicker>
+                 <div class="add">
+                   <h2>新規追加</h2>
+                   <table class="close-config date">
+                     <tr>
+                       <th>日付で設定</th>
+                       <td>
+                         <div class="pick">
+                           <vuejs-datepicker
+                             v-model="datePickerStart"
+                             name="datePickerStart"
+                             :format="this.datePickerFormrt"
+                             :disabledDates="disabledDates"
+                             :language="language"
+                             :monday-first=true
+                             :input-class="this.inputClassName"
+                             :wrapper-class="this.wrapperClassName"
+                             @selected="selected"></vuejs-datepicker>
+                         </div>
+                       </td>
+                       <td>〜</td>
+                       <td>
+                         <div class="pick">
+                           <vuejs-datepicker
+                             v-model="datePickerEnd"
+                             name="datePickerEnd"
+                             :format="this.datePickerFormrt"
+                             :disabledDates="disabledDates"
+                             :language="language"
+                             :monday-first=true
+                             :input-class="this.inputClassName"
+                             :wrapper-class="this.wrapperClassName"
+                             @selected="selected"></vuejs-datepicker>
+                         </div>
+                       </td>
+                       <td>
+                         <button type="submit" class="ui-component">追加</button>
+                       </td>
+                     </tr>
+                   </table>
+                   <table class="close-config day">
+                     <tr>
+                       <th>曜日で設定</th>
+                       <td></td>
+                       <td>
+                         <button type="submit" class="ui-component">追加</button>
+                       </td>
+                     </tr>
+                   </table>
+                 </div>
+                 <div class="list">
+                   <h2>一覧</h2>
                  </div>
                </div>
              </section>`
