@@ -446,4 +446,17 @@ router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
   });
 });
 
+router.post('/space/config', adminEnsurer, (req, res, next) => {
+  const datePickerStart = req.body.datePickerStart;
+  const datePickerEnd = req.body.datePickerEnd;
+  const resultArrayStart = datePickerStart.match(/^(\d+)年(\d+)月(\d+)日/); 
+  const resultArrayEnd = datePickerEnd.match(/^(\d+)年(\d+)月(\d+)日/); 
+  const dataObject = {
+    dateObjectStart: new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]),
+    dateObjectEnd: new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3])
+  }
+  console.log(dataObject);
+  res.send(dataObject);
+});
+
 module.exports = router;

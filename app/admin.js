@@ -25,11 +25,6 @@ var mainComponent = Vue.extend({
       }
     }
   },
-  methods: {
-    selected: function(selectDate){
-      console.log(selectDate);
-    }
-  },
   template: `<section>
                <div class="container">
                  <div class="head-component">
@@ -37,43 +32,43 @@ var mainComponent = Vue.extend({
                  </div>
                  <div class="add">
                    <h2>新規追加</h2>
-                   <table class="close-config date">
-                     <tr>
-                       <th>日付で設定</th>
-                       <td>
-                         <div class="pick">
-                           <vuejs-datepicker
-                             v-model="datePickerStart"
-                             name="datePickerStart"
-                             :format="this.datePickerFormrt"
-                             :disabledDates="disabledDates"
-                             :language="language"
-                             :monday-first=true
-                             :input-class="this.inputClassName"
-                             :wrapper-class="this.wrapperClassName"
-                             @selected="selected"></vuejs-datepicker>
-                         </div>
-                       </td>
-                       <td>〜</td>
-                       <td>
-                         <div class="pick">
-                           <vuejs-datepicker
-                             v-model="datePickerEnd"
-                             name="datePickerEnd"
-                             :format="this.datePickerFormrt"
-                             :disabledDates="disabledDates"
-                             :language="language"
-                             :monday-first=true
-                             :input-class="this.inputClassName"
-                             :wrapper-class="this.wrapperClassName"
-                             @selected="selected"></vuejs-datepicker>
-                         </div>
-                       </td>
-                       <td>
-                         <button type="submit" class="ui-component">追加</button>
-                       </td>
-                     </tr>
-                   </table>
+                   <form action="/admin/space/config" method="post" class="ui-component">
+                     <table class="close-config date">
+                       <tr>
+                         <th>日付で設定</th>
+                         <td>
+                           <div class="pick">
+                             <vuejs-datepicker
+                               v-model="datePickerStart"
+                               name="datePickerStart"
+                               :format="this.datePickerFormrt"
+                               :disabledDates="disabledDates"
+                               :language="language"
+                               :monday-first=true
+                               :input-class="this.inputClassName"
+                               :wrapper-class="this.wrapperClassName"></vuejs-datepicker>
+                           </div>
+                         </td>
+                         <td>〜</td>
+                         <td>
+                           <div class="pick">
+                             <vuejs-datepicker
+                               v-model="datePickerEnd"
+                               name="datePickerEnd"
+                               :format="this.datePickerFormrt"
+                               :disabledDates="disabledDates"
+                               :language="language"
+                               :monday-first=true
+                               :input-class="this.inputClassName"
+                               :wrapper-class="this.wrapperClassName"></vuejs-datepicker>
+                           </div>
+                         </td>
+                         <td>
+                           <button type="submit" class="ui-component">追加</button>
+                         </td>
+                       </tr>
+                     </table>
+                   </form>
                    <table class="close-config day">
                      <tr>
                        <th>曜日で設定</th>
