@@ -27,11 +27,11 @@ const Close = loader.database.define('close', {
   },
   enddate: {
     type: Sequelize.DATE,
-    allowNull: false
+    allowNull: true
   },
   dayofweek: {
     type: Sequelize.INTEGER,
-    allowNull: false
+    allowNull: true
   },
   createdBy: {
     type: Sequelize.UUID,

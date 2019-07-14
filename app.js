@@ -14,6 +14,7 @@ var User = require('./models/user');
 var Office = require('./models/office');
 var Space = require('./models/space');
 var Reservation = require('./models/reservation');
+var Close = require('./models/close');
 User.sync({
     force: false,
     alter:true
@@ -29,6 +30,8 @@ User.sync({
       }).then(() => {
         Reservation.belongsTo(Space, {foreignKey: 'spaceId' });
         Reservation.sync();
+        Close.belongsTo(Space, {foreignKey: 'spaceId' });
+        Close.sync();
     });
   });
 });
