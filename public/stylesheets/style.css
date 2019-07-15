@@ -254,10 +254,28 @@ label.ui-component {
   font-weight: bold;
   display: block;
 }
+.ui-component:disabled {
+  color: #999;
+  cursor: not-allowed;
+}
 label.ui-component span {
   font-weight: normal;
   font-size: .9rem;
   padding: 1rem;
+}
+label.ui-component.checkbox-wrapper {
+  border: solid 1px #ddd;
+  border-radius: 4px;
+  padding: 6px;
+  cursor: pointer;
+}
+input[type="checkbox"].ui-component {
+  display: none;
+}
+input[type="checkbox"]:checked.ui-component + label {
+  background-color: #d7092f;
+  border-color: #d7092f;
+  color: white;
 }
 a.ui-component,
 div.ui-component {
@@ -647,6 +665,9 @@ section.office {
 }
 .close-config td {
   text-align: center;
+}
+.close-config td.permanent {
+  padding-left: 1rem;
 }
 .close-config td:last-child {
   padding-left: 1rem;
