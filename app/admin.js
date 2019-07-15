@@ -6,6 +6,7 @@ var mainComponent = Vue.extend({
   },
   data: function() {
     return {
+      permanent: false,
       datePickerStart: new Date(),
       datePickerEnd: new Date(),
       datePickerFormrt: 'yyyy年MMMdd日（D）',
@@ -49,10 +50,15 @@ var mainComponent = Vue.extend({
                                :wrapper-class="this.wrapperClassName"></vuejs-datepicker>
                            </div>
                          </td>
+                         <td class="permanent">
+                           <input type="checkbox" v-model="permanent" id="permanent" name="permanent" class="ui-component">
+                           <label for="permanent" class="ui-component checkbox-wrapper">以降ずっと</label>
+                         </td>
                          <td>〜</td>
                          <td>
                            <div class="pick">
                              <vuejs-datepicker
+                               :disabled="permanent"
                                v-model="datePickerEnd"
                                name="datePickerEnd"
                                :format="this.datePickerFormrt"
