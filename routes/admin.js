@@ -449,11 +449,12 @@ router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
 router.post('/space/config', adminEnsurer, (req, res, next) => {
   const datePickerStart = req.body.datePickerStart;
   const datePickerEnd = req.body.datePickerEnd;
-  const resultArrayStart = datePickerStart.match(/^(\d+)年(\d+)月(\d+)日/); 
-  const resultArrayEnd = datePickerEnd.match(/^(\d+)年(\d+)月(\d+)日/); 
+  const resultArrayStart = datePickerStart ? datePickerStart.match(/^(\d+)年(\d+)月(\d+)日/) : null;
+  const resultArrayEnd = datePickerEnd ? datePickerEnd.match(/^(\d+)年(\d+)月(\d+)日/) : null;
   const dataObject = {
-    dateObjectStart: new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]),
-    dateObjectEnd: new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3])
+    dateObjectStart: resultArrayStart ? new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]) : new Date(),
+    dateObjectEnd: resultArrayEnd ? new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3]) : null,
+    permanent: req.body.permanent ? true : false
   }
   console.log(dataObject);
   res.send(dataObject);
