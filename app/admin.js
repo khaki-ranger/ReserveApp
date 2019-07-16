@@ -26,6 +26,14 @@ var mainComponent = Vue.extend({
       }
     }
   },
+  methods: {
+    selected: function(selectDate){
+      this.disabledDates.to = selectDate;
+      if (selectDate.getTime() > this.datePickerEnd.getTime()) {
+        this.datePickerEnd = selectDate;
+      }
+    },
+  },
   template: `<section>
                <div class="container">
                  <div class="head-component">
@@ -47,7 +55,8 @@ var mainComponent = Vue.extend({
                                :language="language"
                                :monday-first=true
                                :input-class="this.inputClassName"
-                               :wrapper-class="this.wrapperClassName"></vuejs-datepicker>
+                               :wrapper-class="this.wrapperClassName"
+                               @selected="selected"></vuejs-datepicker>
                            </div>
                          </td>
                          <td class="permanent">
@@ -58,9 +67,9 @@ var mainComponent = Vue.extend({
                          <td>
                            <div class="pick">
                              <vuejs-datepicker
-                               :disabled="permanent"
                                v-model="datePickerEnd"
                                name="datePickerEnd"
+                               :disabled="permanent"
                                :format="this.datePickerFormrt"
                                :disabledDates="disabledDates"
                                :language="language"
