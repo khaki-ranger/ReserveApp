@@ -263,16 +263,42 @@ label.ui-component span {
   font-size: .9rem;
   padding: 1rem;
 }
-label.ui-component.checkbox-wrapper {
-  border: solid 1px #ddd;
-  border-radius: 4px;
-  padding: 6px;
-  cursor: pointer;
+.checkbox-wrapper,
+.radio-wrapper {
+  display: flex;
 }
-input[type="checkbox"].ui-component {
+input[type="checkbox"].ui-component,
+input[type="radio"].ui-component {
   display: none;
 }
-input[type="checkbox"]:checked.ui-component + label {
+label.ui-component.checkbox-label,
+label.ui-component.radio-label {
+  padding: 5px;
+  cursor: pointer;
+  width: 100%;
+}
+label.ui-component.checkbox-label,
+label.ui-component.radio-label {
+  border-bottom: solid 1px #ddd;
+  border-top: solid 1px #ddd;
+  border-left: solid 1px #ddd;
+}
+label.ui-component.checkbox-label:first-of-type,
+label.ui-component.radio-label:first-of-type {
+  border-radius: 4px 0 0 4px;
+}
+label.ui-component.checkbox-label:last-of-type,
+label.ui-component.radio-label:last-of-type {
+  border-right: solid 1px #ddd;
+  border-radius: 0 4px 4px 0;
+}
+label.ui-component.single-label {
+  border: solid 1px #ddd;
+  border-radius: 4px !important;
+  box-sizing: border-box;
+}
+input[type="checkbox"]:checked.ui-component + label,
+input[type="radio"]:checked.ui-component + label {
   background-color: #d7092f;
   border-color: #d7092f;
   color: white;
@@ -661,17 +687,21 @@ section.office {
 }
 .close-config th {
   text-align: left;
-  width: 10%;
+  width: 8rem;
 }
 .close-config td {
   text-align: center;
+  padding-right: 1rem;
 }
-.close-config td.permanent {
-  padding-left: 1rem;
+.close-config.day td:first-of-type {
+  width: 25%;
 }
-.close-config td:last-child {
-  padding-left: 1rem;
+.close-config td:last-of-type {
   width: 10%;
+  padding-right: 0;
+}
+.close-config td.or {
+  width: 1rem;
 }
 .close-config td .ui-component {
   margin: 0;

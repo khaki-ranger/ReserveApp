@@ -26,6 +26,14 @@ var mainComponent = Vue.extend({
       }
     }
   },
+  methods: {
+    selected: function(selectDate){
+      this.disabledDates.to = selectDate;
+      if (selectDate.getTime() > this.datePickerEnd.getTime()) {
+        this.datePickerEnd = selectDate;
+      }
+    },
+  },
   template: `<section>
                <div class="container">
                  <div class="head-component">
@@ -47,20 +55,21 @@ var mainComponent = Vue.extend({
                                :language="language"
                                :monday-first=true
                                :input-class="this.inputClassName"
-                               :wrapper-class="this.wrapperClassName"></vuejs-datepicker>
+                               :wrapper-class="this.wrapperClassName"
+                               @selected="selected"></vuejs-datepicker>
                            </div>
                          </td>
-                         <td class="permanent">
+                         <td>
                            <input type="checkbox" v-model="permanent" id="permanent" name="permanent" class="ui-component">
-                           <label for="permanent" class="ui-component checkbox-wrapper">以降ずっと</label>
+                           <label for="permanent" class="ui-component checkbox-label single-label">以降ずっと</label>
                          </td>
-                         <td>〜</td>
+                         <td class="or">〜</td>
                          <td>
                            <div class="pick">
                              <vuejs-datepicker
-                               :disabled="permanent"
                                v-model="datePickerEnd"
                                name="datePickerEnd"
+                               :disabled="permanent"
                                :format="this.datePickerFormrt"
                                :disabledDates="disabledDates"
                                :language="language"
@@ -75,15 +84,42 @@ var mainComponent = Vue.extend({
                        </tr>
                      </table>
                    </form>
-                   <table class="close-config day">
-                     <tr>
-                       <th>曜日で設定</th>
-                       <td></td>
-                       <td>
-                         <button type="submit" class="ui-component">追加</button>
-                       </td>
-                     </tr>
-                   </table>
+                   <form action="/admin/space/config" method="post" class="ui-component">
+                     <table class="close-config day">
+                       <tr>
+                         <th>曜日で設定</th>
+                         <td>
+                           <div class="radio-wrapper">
+                             <input type="radio" name="weeks" id="everyweek" value="everyweek" class="ui-component">
+                             <label for="everyweek" class="ui-component radio-label">毎週</label>
+                             <input type="radio" name="weeks" id="everytwoweeks" value="everytwoweeks" class="ui-component">
+                             <label for="everytwoweeks" class="ui-component radio-label">隔週</label>
+                           </div>
+                         </td>
+                         <td>
+                           <div class="checkbox-wrapper">
+                             <input type="checkbox" name="dayofweek" id="monday" value="monday" class="ui-component">
+                             <label for="monday" class="ui-component checkbox-label">月</label>
+                             <input type="checkbox" name="dayofweek" id="tuesday" value="tuesday" class="ui-component">
+                             <label for="tuesday" class="ui-component checkbox-label">火</label>
+                             <input type="checkbox" name="dayofweek" id="wednesday" value="wednesday" class="ui-component">
+                             <label for="wednesday" class="ui-component checkbox-label">水</label>
+                             <input type="checkbox" name="dayofweek" id="thursday" value="thursday" class="ui-component">
+                             <label for="thursday" class="ui-component checkbox-label">木</label>
+                             <input type="checkbox" name="dayofweek" id="friday" value="friday" class="ui-component">
+                             <label for="friday" class="ui-component checkbox-label">金</label>
+                             <input type="checkbox" name="dayofweek" id="saturday" value="saturday" class="ui-component">
+                             <label for="saturday" class="ui-component checkbox-label">土</label>
+                             <input type="checkbox" name="dayofweek" id="sunday" value="sunday" class="ui-component">
+                             <label for="sunday" class="ui-component checkbox-label">日</label>
+                           </div>
+                         </td>
+                         <td>
+                           <button type="submit" class="ui-component">追加</button>
+                         </td>
+                       </tr>
+                     </table>
+                   </form>
                  </div>
                  <div class="list">
                    <h2>一覧</h2>
