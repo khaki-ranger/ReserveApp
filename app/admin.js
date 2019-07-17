@@ -90,7 +90,7 @@ var mainComponent = Vue.extend({
                          <th>曜日で設定</th>
                          <td>
                            <div class="radio-wrapper">
-                             <input type="radio" name="weeks" id="everyweek" value="everyweek" class="ui-component">
+                             <input type="radio" name="weeks" id="everyweek" value="everyweek" checked="checked" class="ui-component">
                              <label for="everyweek" class="ui-component radio-label">毎週</label>
                              <input type="radio" name="weeks" id="everytwoweeks" value="everytwoweeks" class="ui-component">
                              <label for="everytwoweeks" class="ui-component radio-label">隔週</label>
