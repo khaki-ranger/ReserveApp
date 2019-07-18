@@ -693,9 +693,6 @@ section.office {
   text-align: center;
   padding-right: 1rem;
 }
-.close-config.day td:first-of-type {
-  width: 25%;
-}
 .close-config td:last-of-type {
   width: 10%;
   padding-right: 0;
