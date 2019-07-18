@@ -6,6 +6,8 @@ var mainComponent = Vue.extend({
   },
   data: function() {
     return {
+      dayofweek: [],
+      isButtonDisabled: true,
       permanent: false,
       datePickerStart: new Date(),
       datePickerEnd: new Date(),
@@ -33,6 +35,13 @@ var mainComponent = Vue.extend({
         this.datePickerEnd = selectDate;
       }
     },
+    changedayofweek: function(e) {
+      if(this.dayofweek.length === 0) {
+        this.isButtonDisabled = true;
+      } else {
+        this.isButtonDisabled = false;
+      }
+    }
   },
   template: `<section>
                <div class="container">
@@ -89,33 +98,25 @@ var mainComponent = Vue.extend({
                        <tr>
                          <th>曜日で設定</th>
                          <td>
-                           <div class="radio-wrapper">
-                             <input type="radio" name="weeks" id="everyweek" value="everyweek" class="ui-component">
-                             <label for="everyweek" class="ui-component radio-label">毎週</label>
-                             <input type="radio" name="weeks" id="everytwoweeks" value="everytwoweeks" class="ui-component">
-                             <label for="everytwoweeks" class="ui-component radio-label">隔週</label>
-                           </div>
-                         </td>
-                         <td>
                            <div class="checkbox-wrapper">
-                             <input type="checkbox" name="dayofweek" id="monday" value="monday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="monday" value="1" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="monday" class="ui-component checkbox-label">月</label>
-                             <input type="checkbox" name="dayofweek" id="tuesday" value="tuesday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="tuesday" value="2" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="tuesday" class="ui-component checkbox-label">火</label>
-                             <input type="checkbox" name="dayofweek" id="wednesday" value="wednesday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="wednesday" value="3" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="wednesday" class="ui-component checkbox-label">水</label>
-                             <input type="checkbox" name="dayofweek" id="thursday" value="thursday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="thursday" value="4" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="thursday" class="ui-component checkbox-label">木</label>
-                             <input type="checkbox" name="dayofweek" id="friday" value="friday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="friday" value="5" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="friday" class="ui-component checkbox-label">金</label>
-                             <input type="checkbox" name="dayofweek" id="saturday" value="saturday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="saturday" value="6" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="saturday" class="ui-component checkbox-label">土</label>
-                             <input type="checkbox" name="dayofweek" id="sunday" value="sunday" class="ui-component">
+                             <input type="checkbox" name="dayofweek" id="sunday" value="0" v-model="dayofweek" @change="changedayofweek($event)" class="ui-component">
                              <label for="sunday" class="ui-component checkbox-label">日</label>
                            </div>
                          </td>
                          <td>
-                           <button type="submit" class="ui-component">追加</button>
+                           <button type="submit" v-bind:disabled="isButtonDisabled" class="ui-component">追加</button>
                          </td>
                        </tr>
                      </table>

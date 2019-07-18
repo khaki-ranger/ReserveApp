@@ -451,10 +451,13 @@ router.post('/space/config', adminEnsurer, (req, res, next) => {
   const datePickerEnd = req.body.datePickerEnd;
   const resultArrayStart = datePickerStart ? datePickerStart.match(/^(\d+)年(\d+)月(\d+)日/) : null;
   const resultArrayEnd = datePickerEnd ? datePickerEnd.match(/^(\d+)年(\d+)月(\d+)日/) : null;
+  const dayofweekArray = req.body.dayofweek ? req.body.dayofweek : [];
+  const dayofweekString = Array.isArray(dayofweekArray) ? dayofweekArray.join(',') : dayofweekArray; 
   const dataObject = {
     dateObjectStart: resultArrayStart ? new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]) : new Date(),
     dateObjectEnd: resultArrayEnd ? new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3]) : null,
-    permanent: req.body.permanent ? true : false
+    permanent: req.body.permanent ? true : false,
+    dayofweek: dayofweekString !== '' ? dayofweekString : null
   }
   console.log(dataObject);
   res.send(dataObject);
