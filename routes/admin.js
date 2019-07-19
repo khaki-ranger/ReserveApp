@@ -372,23 +372,6 @@ router.post('/space/create', adminEnsurer, (req, res, next) => {
   }
 });
 
-router.get('/space/config/:spaceId', adminEnsurer, (req, res, next) => {
-  Space.findOne({
-    where: {
-      spaceId: req.params.spaceId
-    }
-  }).then((space) => {
-    loginUser(req.user, (result) => {
-      res.render('admin/spaceconfig', {
-        title: space.spacename + 'の設定 | SERVICE NAME',
-        configVars: configVars,
-        loginUser: result,
-        space: space
-      });
-    });
-  });
-});
-
 router.get('/space/update/:spaceId', adminEnsurer, (req, res, next) => {
   const title = 'スペース編集 | SERVICE NAME';
   const message = {};
@@ -446,6 +429,23 @@ router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
   });
 });
 
+router.get('/space/config/:spaceId', adminEnsurer, (req, res, next) => {
+  Space.findOne({
+    where: {
+      spaceId: req.params.spaceId
+    }
+  }).then((space) => {
+    loginUser(req.user, (result) => {
+      res.render('admin/spaceconfig', {
+        title: space.spacename + 'の設定 | SERVICE NAME',
+        configVars: configVars,
+        loginUser: result,
+        space: space
+      });
+    });
+  });
+});
+
 router.post('/space/config', adminEnsurer, (req, res, next) => {
   const datePickerStart = req.body.datePickerStart;
   const datePickerEnd = req.body.datePickerEnd;
@@ -454,10 +454,14 @@ router.post('/space/config', adminEnsurer, (req, res, next) => {
   const dayofweekArray = req.body.dayofweek ? req.body.dayofweek : [];
   const dayofweekString = Array.isArray(dayofweekArray) ? dayofweekArray.join(',') : dayofweekArray; 
   const dataObject = {
-    dateObjectStart: resultArrayStart ? new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]) : new Date(),
-    dateObjectEnd: resultArrayEnd ? new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3]) : null,
+    closeId: uuidV1(),
+    spaceId: req.body.spaceId,
+    valid: true,
+    startdate: resultArrayStart ? new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]) : new Date(),
+    enddate: resultArrayEnd ? new Date(resultArrayEnd[1], resultArrayEnd[2] - 1, resultArrayEnd[3]) : null,
+    dayofweek: dayofweekString !== '' ? dayofweekString : null,
     permanent: req.body.permanent ? true : false,
-    dayofweek: dayofweekString !== '' ? dayofweekString : null
+    createdBy: req.user.userId
   }
   console.log(dataObject);
   res.send(dataObject);
