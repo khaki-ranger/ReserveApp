@@ -8,31 +8,16 @@ block content
       a(href="/admin") 管理者メニュー
       span.hyphen &rang;
       span スペース一覧
-  section.admin-list
-    .container
-      .head-component
-        h1 OfficeList
-          span スペース一覧
-    .container
-      table
-        thead
-          tr
-            th No
-            th ID
-            th 名前
-            th 所属オフィス
-            th 作成日時
-            th 操作
-        tbody
-          each space, index in spaces
-            tr
-              td.num #{index + 1}
-              td.id #{space.spaceId}
-              td.name #{space.spacename}
-              td.office #{space.office.officename}
-              td.createdAt #{space.formattedCreatedAt}
-              td.action
-                .flex-container
-                  a.ui-component.config(href="/admin/space/config/#{space.spaceId}") 設定
-                  a.ui-component.update(href="/admin/space/update/#{space.spaceId}") 編集
-                  a.ui-component.delete.confirmation(href="/admin/space/delete/#{space.spaceId}") 削除
+  #app
+    main-component(
+      v-bind:spaces="spaces",
+      v-on:show-modal="showModal"
+    )
+    modal-component(
+      v-bind:space_data="spaceData",
+      v-bind:modal_visibility="modal_visibility",
+      v-on:clear-modal="clearModal"
+    )
+    
+block script
+  script(src="/javascripts/admin.bundle.js")
