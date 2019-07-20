@@ -72,7 +72,17 @@
 
 
 var mainComponent = Vue.extend({
-  props: ['reservations'],
+  props: ['spaces'],
+  methods: {
+    showModal: function showModal(space) {
+      this.$emit('show-modal', space);
+    }
+  },
+  template: '\n  '
+});
+
+var modalComponent = Vue.extend({
+  props: ['space_data', 'modal_visibility'],
   methods: {
     showModal: function showModal(reservation) {
       this.$emit('show-modal', reservation);

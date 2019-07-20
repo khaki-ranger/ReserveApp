@@ -287,6 +287,16 @@ router.get('/office/delete/:officeId', adminEnsurer, (req, res, next) => {
 
 router.get('/space', adminEnsurer, (req, res, next) => {
   const title = 'スペース一覧 | SERVICE NAME';
+  loginUser(req.user, (result) => {
+    res.render('admin/spacelist', {
+      title: title,
+      configVars: configVars,
+      loginUser: result
+    });
+  });
+});
+
+router.get('/space/list', adminEnsurer, (req, res, next) => {
   Space.findAll({
     where: {
       deleted: false
@@ -302,14 +312,7 @@ router.get('/space', adminEnsurer, (req, res, next) => {
     s.forEach((space) => {
       space.formattedCreatedAt = moment(space.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
     });
-    loginUser(req.user, (result) => {
-      res.render('admin/spacelist', {
-        title: title,
-        configVars: configVars,
-        loginUser: result,
-        spaces: s
-      });
-    });
+    res.json(s);
   });
 });
 
@@ -429,23 +432,6 @@ router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.get('/space/config/:spaceId', adminEnsurer, (req, res, next) => {
-  Space.findOne({
-    where: {
-      spaceId: req.params.spaceId
-    }
-  }).then((space) => {
-    loginUser(req.user, (result) => {
-      res.render('admin/spaceconfig', {
-        title: space.spacename + 'の設定 | SERVICE NAME',
-        configVars: configVars,
-        loginUser: result,
-        space: space
-      });
-    });
-  });
-});
-
 router.post('/space/config', adminEnsurer, (req, res, next) => {
   const datePickerStart = req.body.datePickerStart;
   const datePickerEnd = req.body.datePickerEnd;
@@ -454,7 +440,6 @@ router.post('/space/config', adminEnsurer, (req, res, next) => {
   const dayofweekArray = req.body.dayofweek ? req.body.dayofweek : [];
   const dayofweekString = Array.isArray(dayofweekArray) ? dayofweekArray.join(',') : dayofweekArray; 
   const dataObject = {
-    closeId: uuidV1(),
     spaceId: req.body.spaceId,
     valid: true,
     startdate: resultArrayStart ? new Date(resultArrayStart[1], resultArrayStart[2] - 1, resultArrayStart[3]) : new Date(),
