@@ -13,6 +13,7 @@ const User = require('../models/user');
 const Office = require('../models/office');
 const Space = require('../models/space');
 const Reservation = require('../models/reservation');
+const Close = require('../models/close');
 
 const roles = [
   {num: 3, name: 'ユーザー'},
@@ -448,8 +449,13 @@ router.post('/space/config', adminEnsurer, (req, res, next) => {
     permanent: req.body.permanent ? true : false,
     createdBy: req.user.userId
   }
-  console.log(dataObject);
-  res.send(dataObject);
+  Close.create(dataObject).then((c) => {
+    // お休み設定データの作成に成功
+    res.redirect('/admin/space');
+  }).catch((error) => {
+    // お休み設定データの作成に失敗
+    throw new Error(error);
+  });
 });
 
 module.exports = router;

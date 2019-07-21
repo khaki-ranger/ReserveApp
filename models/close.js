@@ -17,7 +17,7 @@ const Close = loader.database.define('close', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  parmanent: {
+  permanent: {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
@@ -30,7 +30,7 @@ const Close = loader.database.define('close', {
     allowNull: true
   },
   dayofweek: {
-    type: Sequelize.INTEGER,
+    type: Sequelize.STRING,
     allowNull: true
   },
   createdBy: {
