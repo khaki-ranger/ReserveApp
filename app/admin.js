@@ -18,7 +18,6 @@ var mainComponent = Vue.extend({
                        <th>No</th>
                        <th>名前</th>
                        <th>所属オフィス</th>
-                       <th>作成日時</th>
                        <th>操作</th>
                      </tr>
                    </thead>
@@ -27,7 +26,6 @@ var mainComponent = Vue.extend({
                        <td class="num">{{index + 1}}</td>
                        <td class="name">{{space.spacename}}</td>
                        <td class="office">{{space.office.officename}}</td>
-                       <td class="createdAt">{{space.formattedCreatedAt}}</td>
                        <td class="action">
                          <div class="flex-container">
                            <div class="ui-component config" v-on:click="showModal(space)">お休み設定</div>

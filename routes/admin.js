@@ -310,9 +310,6 @@ router.get('/space/list', adminEnsurer, (req, res, next) => {
     ],
     order: [['"createdAt"', 'ASC']]
   }).then((s) => {
-    s.forEach((space) => {
-      space.formattedCreatedAt = moment(space.createdAt).tz('Asia/Tokyo').format('YYYY年MM月DD日 HH時mm分ss秒');
-    });
     res.json(s);
   });
 });
