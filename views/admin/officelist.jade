@@ -19,7 +19,6 @@ block content
           tr
             th No
             th 画像
-            th ID
             th 名前
             th 作成日時
             th 操作
@@ -29,10 +28,9 @@ block content
               td.num #{index + 1}
               td.image
                 img.responsive-img(src="#{office.imgPath}")
-              td.id #{office.officeId}
               td.name #{office.officename}
               td.createdAt #{office.formattedCreatedAt}
               td.action
-                .clearfix
-                  a.ui-component.fl-left.update(href="/admin/office/update/#{office.officeId}") 編集
-                  a.ui-component.fl-right.delete.confirmation(href="/admin/office/delete/#{office.officeId}") 削除
+                .flex-container
+                  a.ui-component.update(href="/admin/office/update/#{office.officeId}") 編集
+                  a.ui-component.delete.confirmation(href="/admin/office/delete/#{office.officeId}") 削除

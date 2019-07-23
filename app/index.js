@@ -298,7 +298,7 @@ var spaceComponent = Vue.extend({
                    最大<span>{{space.capacity}}</span>名
                  </div>
                </div>
-               <div class="reservation">
+               <div v-if="space.periods" key="space-open" class="reservation">
                  <div class="period" v-for="period in space.periods" v-bind:key="period.num">
                    <div class="time">{{period.periodLabelString}}</div>
                    <div v-if="period.availability"
@@ -322,6 +322,9 @@ var spaceComponent = Vue.extend({
                      &#10005;
                    </div>
                  </div>
+               </div>
+               <div v-else key="space-close" class="close">
+                 <p>お休み</p>
                </div>
              </li>`,
 });

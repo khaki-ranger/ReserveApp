@@ -94,9 +94,6 @@ body {
 .flex-container {
   display: flex;
 }
-.flex-container a {
-  margin-left: .5rem;
-}
 @media (max-width: 768px) {
 .sp-none {
   display: none !important;
@@ -568,6 +565,12 @@ section.office {
   font-weight: bold;
   padding: 0 .25rem;
 }
+.space-list .space .close {
+  text-align: center;
+  line-height: 4rem;
+  background-color: #eee;
+  font-weight: bold;
+}
 .space-list .space .reservation .period .time,
 .space-list .space .reservation .period .status {
   text-align: center;
@@ -664,7 +667,7 @@ section.office {
   padding: .5rem 0;
 }
 .admin-list table td {
-  padding: .5rem 1rem;
+  padding: 1rem;
 }
 .admin-list table td.num,
 .admin-list table td.no,
@@ -678,6 +681,10 @@ section.office {
 }
 .admin-list table td.canceled {
   text-align: center;
+}
+.admin-list table td.action .flex-container a+a,
+.admin-list table td.action .flex-container div+a {
+  margin-left: 1rem;
 }
 /* close-config */
 .close-config  {
