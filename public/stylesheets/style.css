@@ -565,6 +565,12 @@ section.office {
   font-weight: bold;
   padding: 0 .25rem;
 }
+.space-list .space .close {
+  text-align: center;
+  line-height: 4rem;
+  background-color: #eee;
+  font-weight: bold;
+}
 .space-list .space .reservation .period .time,
 .space-list .space .reservation .period .status {
   text-align: center;
