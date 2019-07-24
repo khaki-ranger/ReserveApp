@@ -25,7 +25,7 @@ var mainComponent = Vue.extend({
                      <tr v-for="(space, index) in spaces" v-bind:key="space.spaceId">
                        <td class="num">{{index + 1}}</td>
                        <td class="name">{{space.spacename}}</td>
-                       <td class="office">{{space.office.officename}}</td>
+                       <td class="office">{{space["office.officename"]}}</td>
                        <td class="action">
                          <div class="flex-container">
                            <div class="ui-component config" v-on:click="showModal(space)">お休み設定</div>
@@ -170,6 +170,23 @@ var modalComponent = Vue.extend({
                              </tr>
                            </table>
                          </form>
+                         <h2>一覧</h2>
+                         <table>
+                           <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
+                             <template v-if="close.dayofweek">
+                               <td colspan="3">{{close.dayofweek}}</td>
+                             </template>
+                             <template  v-else-if="close.permanent">
+                               <td>{{close.startdate}}</td>
+                               <td colspan="2">以降ずっと</td>
+                             </template>
+                             <template v-else>
+                               <td>{{close.startdate}}</td>
+                               <td class="or">〜</td>
+                               <td>{{close.enddate}}</td>
+                             </template>
+                           </tr>
+                         </table>
                        </div>
                      </div>
                      <div class="close" v-on:click="clearModal"></div>
