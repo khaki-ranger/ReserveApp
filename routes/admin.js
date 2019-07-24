@@ -299,6 +299,7 @@ router.get('/space', adminEnsurer, (req, res, next) => {
 
 router.get('/space/list', adminEnsurer, (req, res, next) => {
   Space.findAll({
+    raw: true,
     where: {
       deleted: false
     },
@@ -310,7 +311,27 @@ router.get('/space/list', adminEnsurer, (req, res, next) => {
     ],
     order: [['"createdAt"', 'ASC']]
   }).then((s) => {
-    res.json(s);
+    Close.findAll({
+      raw: true,
+      where: {
+        valid: true
+      }
+    }).then((c) => {
+      // 各スペース毎のお休みの情報を配列で持つオブジェクトを作成
+      // key = spaceId, value = [お休み]
+      const closeObject = {};
+      c.forEach((close) => {
+        if(!closeObject[close.spaceId]) {
+          closeObject[close.spaceId] = [];
+        }
+        closeObject[close.spaceId].push(close);
+      });
+      // スペースのデータにお休み情報を格納
+      s.forEach((space) => {
+        space.closeDataArray = closeObject[space.spaceId] ? closeObject[space.spaceId] : false;
+      });
+      res.json(s);
+    });
   });
 });
 
