@@ -171,11 +171,22 @@ var modalComponent = Vue.extend({
                            </table>
                          </form>
                          <h2>一覧</h2>
-                         <ul>
-                           <li v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
-                             <p>{{close.closeId}}</p>
-                           </li>
-                         </ul>
+                         <table>
+                           <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
+                             <template v-if="close.dayofweek">
+                               <td colspan="3">{{close.dayofweek}}</td>
+                             </template>
+                             <template  v-else-if="close.permanent">
+                               <td>{{close.startdate}}</td>
+                               <td colspan="2">以降ずっと</td>
+                             </template>
+                             <template v-else>
+                               <td>{{close.startdate}}</td>
+                               <td class="or">〜</td>
+                               <td>{{close.enddate}}</td>
+                             </template>
+                           </tr>
+                         </table>
                        </div>
                      </div>
                      <div class="close" v-on:click="clearModal"></div>
