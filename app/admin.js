@@ -171,22 +171,30 @@ var modalComponent = Vue.extend({
                            </table>
                          </form>
                          <h2>一覧</h2>
-                         <table>
-                           <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
-                             <template v-if="close.dayofweek">
-                               <td colspan="3">{{close.dayofweek}}</td>
-                             </template>
-                             <template  v-else-if="close.permanent">
-                               <td>{{close.startdate}}</td>
-                               <td colspan="2">以降ずっと</td>
-                             </template>
-                             <template v-else>
-                               <td>{{close.startdate}}</td>
-                               <td class="or">〜</td>
-                               <td>{{close.enddate}}</td>
-                             </template>
-                           </tr>
-                         </table>
+                         <form>
+                           <table>
+                             <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
+                               <template v-if="close.dayofweek">
+                                 <td>曜日</td>
+                                 <td colspan="3">{{close.dayOfWeekString}}</td>
+                               </template>
+                               <template  v-else-if="close.permanent">
+                                 <td>日付</td>
+                                 <td>{{close.formattedStartdate}}</td>
+                                 <td colspan="2">以降ずっと</td>
+                               </template>
+                               <template v-else>
+                                 <td>日付</td>
+                                 <td>{{close.formattedStartdate}}</td>
+                                 <td class="or">〜</td>
+                                 <td>{{close.formattedEnddate}}</td>
+                               </template>
+                               <td>
+                                 <button type="submit" class="ui-component">削除</button>
+                               </td>
+                             </tr>
+                           </table>
+                         </form>
                        </div>
                      </div>
                      <div class="close" v-on:click="clearModal"></div>
