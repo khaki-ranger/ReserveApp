@@ -16,7 +16,7 @@ var mainComponent = Vue.extend({
                    <thead>
                      <tr>
                        <th>No</th>
-                       <th>名前</th>
+                       <th>スペース名</th>
                        <th>所属オフィス</th>
                        <th>操作</th>
                      </tr>
@@ -95,12 +95,12 @@ var modalComponent = Vue.extend({
                  <div class="modal admin-modal" v-show="modal_visibility">
                    <div class="panel">
                      <div class="wrapper">
-                       <div class="information">
-                         <h2>新規追加</h2>
+                       <div class="information close-config">
+                         <h2>新規設定追加</h2>
                          <form action="/admin/space/config" method="post" class="ui-component">
                            <input type="hidden" name="spaceId" v-bind:value="space_data.spaceId">
                            <h3>日付で設定</h3>
-                           <table class="close-config date">
+                           <table class="add date">
                              <tr>
                                <td>
                                  <div class="pick">
@@ -144,7 +144,7 @@ var modalComponent = Vue.extend({
                          <form action="/admin/space/config" method="post" class="ui-component">
                            <input type="hidden" name="spaceId" v-bind:value="space_data.spaceId">
                            <h3>曜日で設定</h3>
-                           <table class="close-config day">
+                           <table class="add day">
                              <tr>
                                <td>
                                  <div class="checkbox-wrapper">
@@ -170,23 +170,37 @@ var modalComponent = Vue.extend({
                              </tr>
                            </table>
                          </form>
-                         <h2>一覧</h2>
-                         <table>
-                           <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
-                             <template v-if="close.dayofweek">
-                               <td colspan="3">{{close.dayofweek}}</td>
-                             </template>
-                             <template  v-else-if="close.permanent">
-                               <td>{{close.startdate}}</td>
-                               <td colspan="2">以降ずっと</td>
-                             </template>
-                             <template v-else>
-                               <td>{{close.startdate}}</td>
-                               <td class="or">〜</td>
-                               <td>{{close.enddate}}</td>
-                             </template>
-                           </tr>
-                         </table>
+                         <template v-if="space_data.closeDataArray">
+                           <h2>設定一覧</h2>
+                           <form>
+                             <table class="list">
+                               <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
+                                 <template v-if="close.dayofweek">
+                                   <th>曜日</th>
+                                   <td>{{close.dayOfWeekString}}</td>
+                                 </template>
+                                 <template  v-else-if="close.permanent">
+                                   <th>日付</th>
+                                   <td>
+                                     {{close.formattedStartdate}}
+                                     <span>以降ずっと</span>
+                                   </td>
+                                 </template>
+                                 <template v-else>
+                                   <th>日付</th>
+                                   <td>
+                                     {{close.formattedStartdate}}
+                                     <span>〜</span>
+                                     {{close.formattedEnddate}}
+                                   </td>
+                                 </template>
+                                 <td>
+                                   <button type="submit" class="ui-component">削除</button>
+                                 </td>
+                               </tr>
+                             </table>
+                           </form>
+                         </template>
                        </div>
                      </div>
                      <div class="close" v-on:click="clearModal"></div>

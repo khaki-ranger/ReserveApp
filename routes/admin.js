@@ -324,6 +324,16 @@ router.get('/space/list', adminEnsurer, (req, res, next) => {
         if(!closeObject[close.spaceId]) {
           closeObject[close.spaceId] = [];
         }
+        close.formattedStartdate = moment(close.startdate).tz('Asia/Tokyo').format('YYYY年MM月DD日');
+        close.formattedEnddate = close.enddate ? moment(close.enddate).tz('Asia/Tokyo').format('YYYY年MM月DD日') : null;
+        if(close.dayofweek){
+          const dayOfWeekStringArray = [];
+          const dayOfWeekArray = close.dayofweek.split(',');
+          dayOfWeekArray.forEach((dayOfWeek) => {
+            dayOfWeekStringArray.push(['日曜', '月曜', '火曜', '水曜', '木曜', '金曜', '土曜'][Number(dayOfWeek)]);
+          });
+          close.dayOfWeekString = dayOfWeekStringArray.join(', ');
+        }
         closeObject[close.spaceId].push(close);
       });
       // スペースのデータにお休み情報を格納
