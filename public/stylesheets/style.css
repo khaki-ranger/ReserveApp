@@ -295,7 +295,7 @@ label.ui-component.radio-label:last-of-type {
 }
 label.ui-component.single-label {
   border: solid 1px #ddd;
-  border-radius: 4px !important;
+  border-radius: 3px !important;
   box-sizing: border-box;
 }
 input[type="checkbox"]:checked.ui-component + label,
@@ -687,29 +687,52 @@ section.office {
   margin-left: 1rem;
 }
 /* close-config */
-.close-config  {
-  margin-bottom: 1rem;
+.close-config h2 {
+  text-align: center;
 }
-.close-config th {
+.close-config .add {
+  margin-bottom: 3rem;
+}
+.close-config .add th {
   text-align: left;
   width: 8rem;
 }
-.close-config td {
+.close-config .add td {
   text-align: center;
   padding-right: 1rem;
 }
-.close-config td:last-of-type {
-  width: 10%;
+.close-config .add td:last-of-type {
+  width: 5rem;
   padding-right: 0;
 }
-.close-config td.or {
+.close-config .add td.or {
   width: 1rem;
 }
-.close-config td .ui-component {
+.close-config table td .ui-component {
   margin: 0;
+  padding: .5rem;
 }
-.close-config td button {
-  padding: 5px;
+.close-config table td .datepicker-wrapper input {
+  padding: 11px;
+}
+.close-config .list {
+  border-left: solid 1px #ddd;
+  border-right: solid 1px #ddd;
+  border-top: solid 1px #ddd;
+}
+.close-config .list th,
+.close-config .list td {
+  border-bottom: solid 1px #ddd;
+  padding: .5rem 1rem;
+}
+.close-config .list th {
+  width: 2rem;
+}
+.close-config .list td:last-child {
+  width: 5rem;
+}
+.close-config table span {
+  padding: 0 .5rem;
 }
 /* date */
 section.date {

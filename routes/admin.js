@@ -325,14 +325,14 @@ router.get('/space/list', adminEnsurer, (req, res, next) => {
           closeObject[close.spaceId] = [];
         }
         close.formattedStartdate = moment(close.startdate).tz('Asia/Tokyo').format('YYYY年MM月DD日');
-        close.formattedEnd = close.enddate ? moment(close.enddate).tz('Asia/Tokyo').format('YYYY年MM月DD日') : null;
+        close.formattedEnddate = close.enddate ? moment(close.enddate).tz('Asia/Tokyo').format('YYYY年MM月DD日') : null;
         if(close.dayofweek){
           const dayOfWeekStringArray = [];
           const dayOfWeekArray = close.dayofweek.split(',');
           dayOfWeekArray.forEach((dayOfWeek) => {
-            dayOfWeekStringArray.push(['日', '月', '火', '水', '木', '金', '土'][Number(dayOfWeek)]);
+            dayOfWeekStringArray.push(['日曜', '月曜', '火曜', '水曜', '木曜', '金曜', '土曜'][Number(dayOfWeek)]);
           });
-          close.dayOfWeekString = dayOfWeekStringArray.join(',');
+          close.dayOfWeekString = dayOfWeekStringArray.join(', ');
         }
         closeObject[close.spaceId].push(close);
       });
