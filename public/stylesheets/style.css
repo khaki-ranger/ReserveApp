@@ -567,9 +567,9 @@ section.office {
 }
 .space-list .space .close {
   text-align: center;
-  line-height: 4rem;
   background-color: #eee;
   font-weight: bold;
+  line-height: 67px;
 }
 .space-list .space .reservation .period .time,
 .space-list .space .reservation .period .status {
@@ -716,19 +716,21 @@ section.office {
   padding: 11px;
 }
 .close-config .list {
+  border-top: solid 1px #ddd;
   border-left: solid 1px #ddd;
   border-right: solid 1px #ddd;
-  border-top: solid 1px #ddd;
 }
-.close-config .list th,
-.close-config .list td {
+.close-config .list>li {
   border-bottom: solid 1px #ddd;
+}
+.close-config .list table th,
+.close-config .list table td {
   padding: .5rem 1rem;
 }
-.close-config .list th {
+.close-config .list table th {
   width: 2rem;
 }
-.close-config .list td:last-child {
+.close-config .list table td:last-child {
   width: 5rem;
 }
 .close-config table span {

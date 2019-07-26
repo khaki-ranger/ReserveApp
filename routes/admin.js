@@ -461,7 +461,7 @@ router.get('/space/delete/:spaceId', adminEnsurer, (req, res, next) => {
   });
 });
 
-router.post('/space/config', adminEnsurer, (req, res, next) => {
+router.post('/space/close', adminEnsurer, (req, res, next) => {
   const datePickerStart = req.body.datePickerStart;
   const datePickerEnd = req.body.datePickerEnd;
   const resultArrayStart = datePickerStart ? datePickerStart.match(/^(\d+)年(\d+)月(\d+)日/) : null;
@@ -483,6 +483,21 @@ router.post('/space/config', adminEnsurer, (req, res, next) => {
   }).catch((error) => {
     // お休み設定データの作成に失敗
     throw new Error(error);
+  });
+});
+
+router.post('/space/close/cancel', adminEnsurer, (req, res, next) => {
+  const dataObject = {
+    valid: false
+  }
+  const filter = {
+    where: {
+      closeId: req.body.closeId
+    }
+  }
+  // DBの更新処理
+  Close.update(dataObject, filter).then(() => {
+    res.redirect('/admin/space');
   });
 });
 

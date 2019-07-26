@@ -97,7 +97,7 @@ var modalComponent = Vue.extend({
                      <div class="wrapper">
                        <div class="information close-config">
                          <h2>新規設定追加</h2>
-                         <form action="/admin/space/config" method="post" class="ui-component">
+                         <form action="/admin/space/close" method="post" class="ui-component">
                            <input type="hidden" name="spaceId" v-bind:value="space_data.spaceId">
                            <h3>日付で設定</h3>
                            <table class="add date">
@@ -141,7 +141,7 @@ var modalComponent = Vue.extend({
                              </tr>
                            </table>
                          </form>
-                         <form action="/admin/space/config" method="post" class="ui-component">
+                         <form action="/admin/space/close" method="post" class="ui-component">
                            <input type="hidden" name="spaceId" v-bind:value="space_data.spaceId">
                            <h3>曜日で設定</h3>
                            <table class="add day">
@@ -172,34 +172,39 @@ var modalComponent = Vue.extend({
                          </form>
                          <template v-if="space_data.closeDataArray">
                            <h2>設定一覧</h2>
-                           <form>
-                             <table class="list">
-                               <tr v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
-                                 <template v-if="close.dayofweek">
-                                   <th>曜日</th>
-                                   <td>{{close.dayOfWeekString}}</td>
-                                 </template>
-                                 <template  v-else-if="close.permanent">
-                                   <th>日付</th>
-                                   <td>
-                                     {{close.formattedStartdate}}
-                                     <span>以降ずっと</span>
-                                   </td>
-                                 </template>
-                                 <template v-else>
-                                   <th>日付</th>
-                                   <td>
-                                     {{close.formattedStartdate}}
-                                     <span>〜</span>
-                                     {{close.formattedEnddate}}
-                                   </td>
-                                 </template>
-                                 <td>
-                                   <button type="submit" class="ui-component">削除</button>
-                                 </td>
-                               </tr>
-                             </table>
-                           </form>
+                           <ul class="list">
+                             <li v-for="close in space_data.closeDataArray" v-bind:key="close.closeId">
+                               <form action="/admin/space/close/cancel" method="post" class="ui-component">
+                                 <input type="hidden" name="closeId" v-bind:value="close.closeId">
+                                 <table>
+                                   <tr>
+                                     <template v-if="close.dayofweek">
+                                       <th>曜日</th>
+                                       <td>{{close.dayOfWeekString}}</td>
+                                     </template>
+                                     <template  v-else-if="close.permanent">
+                                       <th>日付</th>
+                                       <td>
+                                         {{close.formattedStartdate}}
+                                         <span>以降ずっと</span>
+                                       </td>
+                                     </template>
+                                     <template v-else>
+                                       <th>日付</th>
+                                       <td>
+                                         {{close.formattedStartdate}}
+                                         <span>〜</span>
+                                         {{close.formattedEnddate}}
+                                       </td>
+                                     </template>
+                                     <td>
+                                       <button type="submit" class="ui-component">削除</button>
+                                     </td>
+                                   </tr>
+                                 </table>
+                               </form>
+                             </li>
+                           </ul>
                          </template>
                        </div>
                      </div>
