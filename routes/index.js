@@ -151,6 +151,7 @@ router.get('/dateOfCurrentDay', (req, res, next) => {
                     // 開始のコマから終了のコマまでを予約不可にするための処理
                     for (let j = reservation.startperiodnum; j <= reservation.endperiodnum; j++) {
                       periods[j].availability = false;
+                      // 予約作成者が現在閲覧中のユーザーだった場合の処理
                       if(reservation.createdBy === req.user.userId){
                         const m = moment(reservation.date);
                         periods[j].isSelf = true;
