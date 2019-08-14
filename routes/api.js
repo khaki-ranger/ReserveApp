@@ -11,6 +11,27 @@ const Space = require('../models/space');
 const Reservation = require('../models/reservation');
 const Close = require('../models/close');
 
+const getCurrentDate = ((query) => {
+  let current  = moment().tz('Asia/Tokyo');
+  let isToday = true; // 日付が本日であるかどうかを示す値を格納する変数
+  if (query.year && query.month && query.day) {
+    const currentDateObject = new Date(query.year, query.month - 1, query.day);
+    const currentDateMomentObject = moment(currentDateObject).tz('Asia/Tokyo');
+    isToday = current.isSame(currentDateMomentObject, 'day');
+    current = currentDateMomentObject;
+  }
+  const response = {
+    year: current.year(),
+    month: current.month() + 1,
+    day: current.date(),
+    dayOfWeek: current.day(),
+    dayOfWeekString: ['日', '月', '火', '水', '木', '金', '土'][current.day()],
+    startDate: new Date(current.year(), current.month(), current.date()),
+    isToday: isToday
+  }
+  return response
+});
+
 router.get('/officespacelist', function(req, res, next) {
   Office.findAll({
     raw: true,
@@ -52,6 +73,31 @@ router.get('/officespacelist', function(req, res, next) {
       });
       res.json(officeList);
     });
+  });
+});
+
+router.get('/periodDataOfCurrentDay', (req, res, next) => {
+  // 日付取得
+  const currentDate = getCurrentDate(req.query);
+  Reservation.findAll({
+    raw: true,
+    where: {
+      spaceId: req.query.spaceId,
+      date: currentDate.startDate,
+      canceled: false
+    }
+  }).then((reservations) => {
+    // 個々のスペースの予定を表現するインスタンスを作成
+    const periods = new Periods();
+    // 予約状況の情報を格納するための処理
+    reservations.forEach((reservation) => {
+      // 開始のコマから終了のコマまでを予約不可にするための処理
+      for (let j = reservation.startperiodnum; j <= reservation.endperiodnum; j++) {
+        periods[j].availability = false;
+      }
+    });
+    res.json(periods);
+    console.log(periods);
   });
 });
 
