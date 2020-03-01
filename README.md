@@ -3,7 +3,7 @@
 
 ## サンプルURL
 
-[サンプル](https://reserve-tumolink.herokuapp.com/)
+[https://reserve-tumolink.herokuapp.com/](https://reserve-tumolink.herokuapp.com/)
 
 ## サービスの特徴
 1. 空き状況の確認や予約する日付は、１日ごとに変更する他、カレンダーから直接指定することもできます
