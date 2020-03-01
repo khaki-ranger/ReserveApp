@@ -12,7 +12,7 @@
 
 #### ユーザーサイド
 
-![ユーザーサイド](https://github.com/khaki-ranger/Assets/blob/master/ReserveApp/userFace.jpg?raw=true "ユーザーサイド")
+![ユーザーサイド](https://github.com/khaki-ranger/Assets/blob/master/ReserveApp/userSide.jpg?raw=true "ユーザーサイド")
 
 #### 管理者サイド
 
